@@ -34,11 +34,13 @@ class KEMOTICONS_EXPORT KEmoticonsProvider : public QObject
 {
     Q_OBJECT
 public:
-    struct Emoticon
-    {
-        Emoticon(){}
+    struct Emoticon {
+        Emoticon() {}
         /* sort by longest to shortest matchText */
-        bool operator < (const Emoticon &e) const { return matchText.length() > e.matchText.length(); }
+        bool operator < (const Emoticon &e) const
+        {
+            return matchText.length() > e.matchText.length();
+        }
         QString matchText;
         QString matchTextEscaped;
         QString picPath;
@@ -247,4 +249,3 @@ private:
 
 #endif /* KEMOTICONS_PROVIDER_H */
 
-// kate: space-indent on; indent-width 4; replace-tabs on;

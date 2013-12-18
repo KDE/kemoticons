@@ -135,4 +135,3 @@ private:
 
 #endif /* KEMOTICONS_H */
 
-// kate: space-indent on; indent-width 4; replace-tabs on;

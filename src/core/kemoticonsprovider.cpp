@@ -41,7 +41,7 @@ KEmoticonsProviderPrivate::KEmoticonsProviderPrivate()
 }
 
 KEmoticonsProvider::KEmoticonsProvider(QObject *parent)
-        : QObject(parent), d(new KEmoticonsProviderPrivate)
+    : QObject(parent), d(new KEmoticonsProviderPrivate)
 {
 }
 
@@ -139,7 +139,7 @@ void KEmoticonsProvider::addEmoticonIndex(const QString &path, const QStringList
 
 void KEmoticonsProvider::addIndexItem(const QString &path, const QStringList &emoList)
 {
-    foreach(const QString &s, emoList) {
+    foreach (const QString &s, emoList) {
         KEmoticonsProvider::Emoticon e;
         QPixmap p;
 
@@ -152,8 +152,7 @@ void KEmoticonsProvider::addIndexItem(const QString &path, const QStringList &em
         e.matchTextEscaped = escaped;
         e.matchText = s;
 
-        if (!s.isEmpty() && !escaped.isEmpty())
-        {
+        if (!s.isEmpty() && !escaped.isEmpty()) {
             d->m_emoticonsIndex[escaped[0]].append(e);
             d->m_emoticonsIndex[s[0]].append(e);
         }
@@ -167,11 +166,10 @@ void KEmoticonsProvider::removeEmoticonIndex(const QString &path, const QStringL
 
 void KEmoticonsProvider::removeIndexItem(const QString &path, const QStringList &emoList)
 {
-    foreach(const QString &s, emoList) {
+    foreach (const QString &s, emoList) {
         QString escaped = s.toHtmlEscaped();
 
-        if (s.isEmpty() || escaped.isEmpty())
-        {
+        if (s.isEmpty() || escaped.isEmpty()) {
             continue;
         }
 
@@ -193,5 +191,3 @@ void KEmoticonsProvider::removeIndexItem(const QString &path, const QStringList 
     }
 }
 
-
-// kate: space-indent on; indent-width 4; replace-tabs on;

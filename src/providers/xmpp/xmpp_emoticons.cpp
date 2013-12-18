@@ -30,7 +30,7 @@
 K_PLUGIN_FACTORY(XmppEmoticonsFactory, registerPlugin<XmppEmoticons>();)
 
 XmppEmoticons::XmppEmoticons(QObject *parent, const QVariantList &args)
-        : KEmoticonsProvider(parent)
+    : KEmoticonsProvider(parent)
 {
     Q_UNUSED(args);
 }
@@ -40,8 +40,9 @@ bool XmppEmoticons::removeEmoticon(const QString &emo)
     QString emoticon = QFileInfo(emoticonsMap().key(emo.split(' '))).fileName();
     QDomElement fce = m_themeXml.firstChildElement("icondef");
 
-    if (fce.isNull())
+    if (fce.isNull()) {
         return false;
+    }
 
     QDomNodeList nl = fce.childNodes();
     for (int i = 0; i < nl.length(); i++) {
@@ -123,7 +124,7 @@ void XmppEmoticons::saveTheme()
     }
 
     QTextStream emoStream(&fp);
-    emoStream.setCodec( "UTF-8" );
+    emoStream.setCodec("UTF-8");
     emoStream << m_themeXml.toString(4);
     fp.close();
 }
@@ -215,11 +216,10 @@ void XmppEmoticons::newTheme()
     doc.appendChild(doc.createElement("icondef"));
 
     QTextStream emoStream(&fp);
-    emoStream.setCodec( "UTF-8" );
+    emoStream.setCodec("UTF-8");
     emoStream << doc.toString(4);
     fp.close();
 }
 
 #include "xmpp_emoticons.moc"
 
-// kate: space-indent on; indent-width 4; replace-tabs on;

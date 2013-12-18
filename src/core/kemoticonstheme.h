@@ -72,7 +72,7 @@ public:
          * Creates a Token of type @p t, text @p m, image path @p p and html code @p html
          */
         Token(TokenType t, const QString &m, const QString &p, const QString &html)
-                : type(t), text(m), picPath(p), picHTMLCode(html) {}
+            : type(t), text(m), picPath(p), picHTMLCode(html) {}
         TokenType   type; /**< type */
         QString     text; /**< text */
         QString     picPath; /**< path to the image */
@@ -230,7 +230,7 @@ public:
     /**
      * @internal
      */
-    KEmoticonsTheme& operator=(const KEmoticonsTheme &ket);
+    KEmoticonsTheme &operator=(const KEmoticonsTheme &ket);
 private:
     class KEmoticonsThemeData;
     /**
@@ -243,4 +243,3 @@ Q_DECLARE_OPERATORS_FOR_FLAGS(KEmoticonsTheme::ParseMode)
 
 #endif /* KEMOTICONS_THEME_H */
 
-// kate: space-indent on; indent-width 4; replace-tabs on;

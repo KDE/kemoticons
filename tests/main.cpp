@@ -30,19 +30,19 @@
 class KEmoTest : public QWidget
 {
     Q_OBJECT
-    public:
-        KEmoTest();
+public:
+    KEmoTest();
 
-    public Q_SLOTS:
-        void updateEmoticons();
-        void changeTheme(const QString &emoticonTheme);
+public Q_SLOTS:
+    void updateEmoticons();
+    void changeTheme(const QString &emoticonTheme);
 
-    private:
-        QLineEdit *lineEdit;
-        QLabel *label;
-        KEmoticons emoticons;
-        KEmoticonsTheme emoticonTheme;
-        QComboBox *comboBox;
+private:
+    QLineEdit *lineEdit;
+    QLabel *label;
+    KEmoticons emoticons;
+    KEmoticonsTheme emoticonTheme;
+    QComboBox *comboBox;
 };
 
 KEmoTest::KEmoTest()
@@ -95,9 +95,9 @@ int main(int argc, char **argv)
     QApplication app(argc, argv);
 
     KEmoTest kt;
-    
+
     kt.show();
-    
+
     return app.exec();
 }
 

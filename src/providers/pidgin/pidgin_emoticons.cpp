@@ -29,7 +29,7 @@
 K_PLUGIN_FACTORY(PidginEmoticonsFactory, registerPlugin<PidginEmoticons>();)
 
 PidginEmoticons::PidginEmoticons(QObject *parent, const QVariantList &args)
-        : KEmoticonsProvider(parent)
+    : KEmoticonsProvider(parent)
 {
     Q_UNUSED(args);
 }
@@ -212,7 +212,7 @@ void PidginEmoticons::newTheme()
     }
 
     QTextStream out(&fp);
-    out.setCodec( "UTF-8" );
+    out.setCodec("UTF-8");
 
     out << "Name=" + themeName() << endl;
     out << "Description=" + themeName() << endl;
@@ -223,7 +223,5 @@ void PidginEmoticons::newTheme()
     fp.close();
 }
 
-
 #include "pidgin_emoticons.moc"
 
-// kate: space-indent on; indent-width 4; replace-tabs on;

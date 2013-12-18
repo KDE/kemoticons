@@ -46,7 +46,7 @@ void KEmoticonTest::testEmoticonParser()
     QDir testCasesDir(basePath);
 
     QStringList inputFileNames = testCasesDir.entryList(QStringList(QLatin1String("*.input")));
-    Q_FOREACH (const QString& fileName, inputFileNames) {
+    Q_FOREACH (const QString &fileName, inputFileNames) {
         // qDebug() << "testcase: " << fileName;
         QString outputFileName = fileName;
         outputFileName.replace("input", "output");
@@ -67,8 +67,9 @@ void KEmoticonTest::testEmoticonParser()
             expectedFile.close();
 
             const QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "emoticons/kde4/smile.png").remove("smile.png");
-            if (path.isEmpty())
+            if (path.isEmpty()) {
                 QSKIP("Emoticons not installed, skipping. kdebase-runtime needed.");
+            }
 
             QString result = emo.parseEmoticons(inputData, KEmoticonsTheme::RelaxedParse | KEmoticonsTheme::SkipHTML).replace(path, QString());
 

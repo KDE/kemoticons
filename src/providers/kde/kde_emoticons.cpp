@@ -29,7 +29,7 @@
 K_PLUGIN_FACTORY(KdeEmoticonsFactory, registerPlugin<KdeEmoticons>();)
 
 KdeEmoticons::KdeEmoticons(QObject *parent, const QVariantList &args)
-        : KEmoticonsProvider(parent)
+    : KEmoticonsProvider(parent)
 {
     Q_UNUSED(args);
 }
@@ -39,8 +39,9 @@ bool KdeEmoticons::removeEmoticon(const QString &emo)
     QString emoticon = QFileInfo(emoticonsMap().key(emo.split(' '))).fileName();
     QDomElement fce = m_themeXml.firstChildElement("messaging-emoticon-map");
 
-    if (fce.isNull())
+    if (fce.isNull()) {
         return false;
+    }
 
     QDomNodeList nl = fce.childNodes();
     for (int i = 0; i < nl.length(); i++) {
@@ -68,8 +69,9 @@ bool KdeEmoticons::addEmoticon(const QString &emo, const QString &text, AddEmoti
     const QStringList splitted = text.split(' ');
     QDomElement fce = m_themeXml.firstChildElement("messaging-emoticon-map");
 
-    if (fce.isNull())
+    if (fce.isNull()) {
         return false;
+    }
 
     QDomElement emoticon = m_themeXml.createElement("emoticon");
     emoticon.setAttribute("file", QFileInfo(emo).fileName());
@@ -102,7 +104,7 @@ void KdeEmoticons::saveTheme()
     }
 
     QTextStream emoStream(&fp);
-    emoStream.setCodec( "UTF-8" );
+    emoStream.setCodec("UTF-8");
     emoStream << m_themeXml.toString(4);
     fp.close();
 }
@@ -135,8 +137,9 @@ bool KdeEmoticons::loadTheme(const QString &path)
 
     QDomElement fce = m_themeXml.firstChildElement("messaging-emoticon-map");
 
-    if (fce.isNull())
+    if (fce.isNull()) {
         return false;
+    }
 
     QDomNodeList nl = fce.childNodes();
 
@@ -199,11 +202,10 @@ void KdeEmoticons::newTheme()
     doc.appendChild(doc.createElement("messaging-emoticon-map"));
 
     QTextStream emoStream(&fp);
-    emoStream.setCodec( "UTF-8" );
+    emoStream.setCodec("UTF-8");
     emoStream << doc.toString(4);
     fp.close();
 }
 
 #include "kde_emoticons.moc"
 
-// kate: space-indent on; indent-width 4; replace-tabs on;

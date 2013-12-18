@@ -28,7 +28,7 @@
 K_PLUGIN_FACTORY(AdiumEmoticonsFactory, registerPlugin<AdiumEmoticons>();)
 
 AdiumEmoticons::AdiumEmoticons(QObject *parent, const QVariantList &args)
-        : KEmoticonsProvider(parent)
+    : KEmoticonsProvider(parent)
 {
     Q_UNUSED(args)
 }
@@ -128,7 +128,7 @@ void AdiumEmoticons::saveTheme()
     }
 
     QTextStream emoStream(&fp);
-    emoStream.setCodec( "UTF-8" );
+    emoStream.setCodec("UTF-8");
     emoStream << m_themeXml.toString(4);
     fp.close();
 }
@@ -235,13 +235,11 @@ void AdiumEmoticons::newTheme()
 
     dict.appendChild(doc.createElement("dict"));
 
-
     QTextStream emoStream(&fp);
-    emoStream.setCodec( "UTF-8" );
+    emoStream.setCodec("UTF-8");
     emoStream << doc.toString(4);
     fp.close();
 }
 
 #include "adium_emoticons.moc"
 
-// kate: space-indent on; indent-width 4; replace-tabs on;

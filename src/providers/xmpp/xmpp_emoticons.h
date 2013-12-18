@@ -43,4 +43,3 @@ private:
 
 #endif /* XMPP_EMOTICONS_H */
 
-// kate: space-indent on; indent-width 4; replace-tabs on;

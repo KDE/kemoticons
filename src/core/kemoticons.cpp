@@ -51,7 +51,7 @@ public:
 };
 
 KEmoticonsPrivate::KEmoticonsPrivate(KEmoticons *parent)
-        : q(parent)
+    : q(parent)
 {
 }
 
@@ -112,7 +112,7 @@ KEmoticonsTheme KEmoticonsPrivate::loadTheme(const QString &name)
 }
 
 KEmoticons::KEmoticons()
-        : d(new KEmoticonsPrivate(this))
+    : d(new KEmoticonsPrivate(this))
 {
     d->loadServiceList();
     connect(&d->m_fileWatcher, SIGNAL(fileChanged(QString)), this, SLOT(changeTheme(QString)));
@@ -184,10 +184,10 @@ QStringList KEmoticons::installTheme(const QString &archiveName)
 {
     QStringList foundThemes;
     KArchiveEntry *currentEntry = 0L;
-    KArchiveDirectory* currentDir = 0L;
+    KArchiveDirectory *currentDir = 0L;
     KArchive *archive = 0L;
 
-    QString localThemesDir( QStandardPaths::writableLocation( QStandardPaths::GenericDataLocation ) + "/emoticons" );
+    QString localThemesDir(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + "/emoticons");
 
     if (localThemesDir.isEmpty()) {
         qCritical() << "Could not find a suitable place in which to install the emoticon theme";
@@ -208,7 +208,7 @@ QStringList KEmoticons::installTheme(const QString &archiveName)
                currentBundleMimeType == "application/x-gzip" ||
                currentBundleMimeType == "application/x-bzip" ||
                currentBundleMimeType == "application/x-lzma" ||
-	       currentBundleMimeType == "application/x-xz") {
+               currentBundleMimeType == "application/x-xz") {
         archive = new KTar(archiveName);
     } else if (archiveName.endsWith(QLatin1String("jisp")) || archiveName.endsWith(QLatin1String("zip"))) {
         archive = new KZip(archiveName);
@@ -222,15 +222,15 @@ QStringList KEmoticons::installTheme(const QString &archiveName)
         return QStringList();
     }
 
-    const KArchiveDirectory* rootDir = archive->directory();
+    const KArchiveDirectory *rootDir = archive->directory();
 
     // iterate all the dirs looking for an emoticons.xml file
     const QStringList entries = rootDir->entries();
     for (QStringList::ConstIterator it = entries.begin(); it != entries.end(); ++it) {
-        currentEntry = const_cast<KArchiveEntry*>(rootDir->entry(*it));
+        currentEntry = const_cast<KArchiveEntry *>(rootDir->entry(*it));
 
         if (currentEntry->isDirectory()) {
-            currentDir = dynamic_cast<KArchiveDirectory*>(currentEntry);
+            currentDir = dynamic_cast<KArchiveDirectory *>(currentEntry);
 
             for (int i = 0; i < d->m_loaded.size(); ++i) {
                 QString fName = d->m_loaded.at(i)->property("X-KDE-EmoticonsFileName").toString();
@@ -259,7 +259,7 @@ QStringList KEmoticons::installTheme(const QString &archiveName)
         }
 
         if (currentEntry->isDirectory()) {
-            currentDir = dynamic_cast<KArchiveDirectory*>(currentEntry);
+            currentDir = dynamic_cast<KArchiveDirectory *>(currentEntry);
 
             if (currentDir == 0) {
                 // qDebug() << "couldn't cast archive entry to KArchiveDirectory";
@@ -291,4 +291,3 @@ KEmoticonsTheme::ParseMode KEmoticons::parseMode()
 
 #include "moc_kemoticons.cpp"
 
-// kate: space-indent on; indent-width 4; replace-tabs on;

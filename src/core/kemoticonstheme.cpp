@@ -32,7 +32,6 @@ public:
     KEmoticonsProvider *provider;
 };
 
-
 KEmoticonsTheme::KEmoticonsThemeData::KEmoticonsThemeData()
 {
     provider = 0;
@@ -156,12 +155,13 @@ void KEmoticonsTheme::createNew()
 QString KEmoticonsTheme::parseEmoticons(const QString &text, ParseMode mode, const QStringList &exclude) const
 {
     QList<Token> tokens = tokenize(text, mode | SkipHTML);
-    if (tokens.isEmpty() && !text.isEmpty())
+    if (tokens.isEmpty() && !text.isEmpty()) {
         return text;
+    }
 
     QString result;
 
-    foreach(const Token &token , tokens) {
+    foreach (const Token &token, tokens) {
         switch (token.type) {
         case Text:
             result += token.text;
@@ -181,15 +181,14 @@ QString KEmoticonsTheme::parseEmoticons(const QString &text, ParseMode mode, con
     return result;
 }
 
-bool EmoticonCompareEscaped( const KEmoticonsProvider::Emoticon &s1, const KEmoticonsProvider::Emoticon &s2)
+bool EmoticonCompareEscaped(const KEmoticonsProvider::Emoticon &s1, const KEmoticonsProvider::Emoticon &s2)
 {
-	return s1.matchTextEscaped.length()>s2.matchTextEscaped.length();
+    return s1.matchTextEscaped.length() > s2.matchTextEscaped.length();
 }
-bool EmoticonCompare( const KEmoticonsProvider::Emoticon &s1, const KEmoticonsProvider::Emoticon &s2)
+bool EmoticonCompare(const KEmoticonsProvider::Emoticon &s1, const KEmoticonsProvider::Emoticon &s2)
 {
-	return s1.matchText.length()>s2.matchText.length();
+    return s1.matchText.length() > s2.matchText.length();
 }
-
 
 QList<KEmoticonsTheme::Token> KEmoticonsTheme::tokenize(const QString &message, ParseMode mode) const
 {
@@ -266,10 +265,11 @@ QList<KEmoticonsTheme::Token> KEmoticonsTheme::tokenize(const QString &message, 
 
         if (d->provider->emoticonsIndex().contains(c)) {
             emoticonList = d->provider->emoticonsIndex().value(c);
-	    if (mode & SkipHTML)
-		qSort(emoticonList.begin(),emoticonList.end(),EmoticonCompareEscaped);
-	    else
-		qSort(emoticonList.begin(),emoticonList.end(),EmoticonCompare);
+            if (mode & SkipHTML) {
+                qSort(emoticonList.begin(), emoticonList.end(), EmoticonCompareEscaped);
+            } else {
+                qSort(emoticonList.begin(), emoticonList.end(), EmoticonCompare);
+            }
             bool found = false;
             for (it = emoticonList.constBegin(); it != emoticonList.constEnd(); ++it) {
                 // If this is an HTML, then search for the HTML form of the emoticon.
@@ -357,7 +357,7 @@ bool KEmoticonsTheme::isNull() const
     return d->provider ? false : true;
 }
 
-KEmoticonsTheme& KEmoticonsTheme::operator=(const KEmoticonsTheme &ket)
+KEmoticonsTheme &KEmoticonsTheme::operator=(const KEmoticonsTheme &ket)
 {
     if (d == ket.d) {
         return *this;
@@ -367,4 +367,3 @@ KEmoticonsTheme& KEmoticonsTheme::operator=(const KEmoticonsTheme &ket)
     return *this;
 }
 
-// kate: space-indent on; indent-width 4; replace-tabs on;
