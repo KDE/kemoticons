@@ -10,6 +10,8 @@ add_library(KF5Emoticons ${kemoticons_LIB_SRCS})
 generate_export_header(KF5Emoticons BASE_NAME KEmoticons)
 add_library(KF5::Emoticons ALIAS KF5Emoticons)
 
+target_include_directories(KF5Emoticons INTERFACE "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}/kemoticons>" "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}/KEmoticons>")
+
 target_link_libraries(KF5Emoticons
 PUBLIC
     Qt5::Widgets # for QPixmap
@@ -26,13 +28,22 @@ set_target_properties(KF5Emoticons PROPERTIES
 
 install(FILES kemoticonsTheme.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
 
-install(FILES
-    ${CMAKE_CURRENT_BINARY_DIR}/kemoticons_export.h
-    kemoticons.h
-    kemoticonstheme.h
-    kemoticonsprovider.h
-    DESTINATION ${INCLUDE_INSTALL_DIR}
-    COMPONENT Devel
+ecm_generate_headers(
+  KEmoticons
+  KEmoticonsTheme
+  KEmoticonsProvider
+
+  MODULE_NAME KEmoticons
+  REQUIRED_HEADERS KEmoticons_HEADERS
 )
 
+install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/KEmoticons DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel)
+
 install(TARGETS KF5Emoticons EXPORT KF5EmoticonsTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
+
+install(FILES
+  ${CMAKE_CURRENT_BINARY_DIR}/kemoticons_export.h
+  ${KEmoticons_HEADERS}
+  DESTINATION ${INCLUDE_INSTALL_DIR}
+  COMPONENT Devel
+)
