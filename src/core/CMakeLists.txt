@@ -44,6 +44,6 @@ install(TARGETS KF5Emoticons EXPORT KF5EmoticonsTargets ${INSTALL_TARGETS_DEFAUL
 install(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/kemoticons_export.h
   ${KEmoticons_HEADERS}
-  DESTINATION ${INCLUDE_INSTALL_DIR}
+  DESTINATION ${INCLUDE_INSTALL_DIR}/kemoticons
   COMPONENT Devel
 )
