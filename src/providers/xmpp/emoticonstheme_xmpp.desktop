@@ -1,8 +1,14 @@
 [Desktop Entry]
 Type=Service
 Name=XMPP Emoticons Theme
+Name[pt_BR]=Tema de emoticons XMPP
+Name[sk]=Téma emotikonov XMPP
+Name[uk]=Тема емоційок XMPP
 Name[x-test]=xxXMPP Emoticons Themexx
 Comment=Library to use XMPP emoticons theme
+Comment[pt_BR]=Biblioteca para uso do tema de emoticons XMPP
+Comment[sk]=Knižnica na použitie témy emotikonov XMPP
+Comment[uk]=Бібліотека для використання теми емоційок XMPP
 Comment[x-test]=xxLibrary to use XMPP emoticons themexx
 X-KDE-ServiceTypes=KEmoticons
 X-KDE-Library=emoticonstheme_xmpp

@@ -1,8 +1,14 @@
 [Desktop Entry]
 Type=Service
 Name=Pidgin Emoticons Theme
+Name[pt_BR]=Tema de emoticons do Pidgin
+Name[sk]=Téma emotikonov Pidgin
+Name[uk]=Тема емоційок Pidgin
 Name[x-test]=xxPidgin Emoticons Themexx
 Comment=Library to use Pidgin emoticons theme
+Comment[pt_BR]=Biblioteca para uso do tema de emoticons do Pidgin
+Comment[sk]=Knižnica na použitie témy emotikonov Pidgin
+Comment[uk]=Бібліотека для використання теми емоційок Pidgin
 Comment[x-test]=xxLibrary to use Pidgin emoticons themexx
 X-KDE-ServiceTypes=KEmoticons
 X-KDE-Library=emoticonstheme_pidgin
