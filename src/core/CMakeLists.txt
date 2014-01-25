@@ -47,3 +47,7 @@ install(FILES
   DESTINATION ${INCLUDE_INSTALL_DIR}/KEmoticons
   COMPONENT Devel
 )
+
+include(ECMGeneratePriFile)
+ecm_generate_pri_file(BASE_NAME KEmoticons LIB_NAME KF5Emoticons DEPS "widgets KService" FILENAME_VAR PRI_FILENAME)
+install(FILES ${PRI_FILENAME} DESTINATION ${ECM_MKSPECS_INSTALL_DIR})
