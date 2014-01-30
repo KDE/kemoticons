@@ -14,7 +14,7 @@ target_include_directories(KF5Emoticons INTERFACE "$<INSTALL_INTERFACE:${INCLUDE
 
 target_link_libraries(KF5Emoticons
 PUBLIC
-    Qt5::Widgets # for QPixmap
+    Qt5::Gui # for QImageReader, QPixmap
     KF5::Service     # for KService::Ptr, KServiceTypeTrader
 PRIVATE
     KF5::Archive    # for KTar, KZip
