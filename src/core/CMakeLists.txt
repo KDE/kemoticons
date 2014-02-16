@@ -28,16 +28,15 @@ set_target_properties(KF5Emoticons PROPERTIES
 
 install(FILES kemoticonsTheme.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
 
-ecm_generate_headers(
+ecm_generate_headers(KEmoticons_HEADERS
+  HEADER_NAMES
   KEmoticons
   KEmoticonsTheme
   KEmoticonsProvider
 
-  MODULE_NAME KEmoticons
   REQUIRED_HEADERS KEmoticons_HEADERS
 )
 
-install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/KEmoticons DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel)
 
 install(TARGETS KF5Emoticons EXPORT KF5EmoticonsTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
 
