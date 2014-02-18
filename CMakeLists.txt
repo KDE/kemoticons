@@ -17,7 +17,7 @@ include(FeatureSummary)
 include(GenerateExportHeader)
 include(ECMSetupVersion)
 include(ECMGenerateHeaders)
-include(CMakePackageConfigHelpers)
+include(ECMPackageConfigHelpers)
 
 set(KF5_VERSION "4.96.0")
 
@@ -46,7 +46,7 @@ set(CMAKECONFIG_INSTALL_DIR "${CMAKECONFIG_INSTALL_PREFIX}/KF5Emoticons")
 
 install(EXPORT KF5EmoticonsTargets DESTINATION "${CMAKECONFIG_INSTALL_DIR}" FILE KF5EmoticonsTargets.cmake NAMESPACE KF5:: )
 
-configure_package_config_file("${CMAKE_CURRENT_SOURCE_DIR}/KF5EmoticonsConfig.cmake.in"
+ecm_configure_package_config_file("${CMAKE_CURRENT_SOURCE_DIR}/KF5EmoticonsConfig.cmake.in"
                               "${CMAKE_CURRENT_BINARY_DIR}/KF5EmoticonsConfig.cmake"
                               INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
                              )
