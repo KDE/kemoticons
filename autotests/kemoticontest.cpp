@@ -3,6 +3,7 @@
 
     Copyright (c) 2004      by Richard Smith          <kde@metafoo.co.uk>
     Copyright (c) 2005      by Duncan Mac-Vicar       <duncan@kde.org>
+    Copyright (c) 2014      by Alex Merry             <alex.merry@kde.org>
 
     Kopete    (c) 2002-2005 by the Kopete developers  <kopete-devel@kde.org>
 
@@ -16,17 +17,16 @@
     *************************************************************************
 */
 
-#include "kemoticontest.h"
-
 #include <QTest>
 #include <QDir>
 #include <QFile>
+#include <QStandardPaths>
 #include <QTextStream>
 #include <QDebug>
 
 #include <kemoticons.h>
 
-QTEST_MAIN(KEmoticonTest)
+static const char * default_theme = "Glass";
 
 /*
   There are three sets of tests, the Kopete 0.7 baseline with tests that were
@@ -35,65 +35,112 @@ QTEST_MAIN(KEmoticonTest)
   The second set are those known to work in the current codebase.
   The last set is the set with tests that are known to fail right now.
 
-   the name convention is working|broken-number.input|output
+   the name convention is (working|broken)-number.input|output
 */
 
-void KEmoticonTest::testEmoticonParser()
+class KEmoticonTest : public QObject
 {
-    KEmoticonsTheme emo = KEmoticons().theme("Glass");
-    QString basePath = QFINDTESTDATA("emoticon-parser-testcases");
-    QVERIFY(!basePath.isEmpty());
-    QDir testCasesDir(basePath);
+    Q_OBJECT
 
-    QStringList inputFileNames = testCasesDir.entryList(QStringList(QLatin1String("*.input")));
-    Q_FOREACH (const QString &fileName, inputFileNames) {
-        // qDebug() << "testcase: " << fileName;
-        QString outputFileName = fileName;
-        outputFileName.replace("input", "output");
-        // open the input file
-        QFile inputFile(basePath + QString::fromLatin1("/") + fileName);
-        QFile expectedFile(basePath + QString::fromLatin1("/") + outputFileName);
-        // check if the expected output file exists
-        // if it doesn't, skip the testcase
+private Q_SLOTS:
+    void initTestCase()
+    {
+        QStandardPaths::setTestModeEnabled(true);
+        QString dataPath = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
+
+        QString destThemePath = dataPath + QLatin1String("/emoticons/") + QLatin1String(default_theme);
+        QDir themeDir(destThemePath);
+        if (themeDir.exists()) {
+            QVERIFY(themeDir.removeRecursively());
+        }
+        QVERIFY(themeDir.mkpath("."));
+
+        QDir sourceThemeDir(QFile::decodeName(LOCAL_THEMES_DIR) + QLatin1String("/") + default_theme);
+        QVERIFY(sourceThemeDir.exists());
+
+        foreach (QString fileName, sourceThemeDir.entryList(QDir::Files)) {
+            QVERIFY(QFile::copy(sourceThemeDir.filePath(fileName),
+                                themeDir.filePath(fileName)));
+        }
+
+        // check it can actually be found
+        themePath = QStandardPaths::locate(
+                QStandardPaths::GenericDataLocation,
+                QString::fromLatin1("emoticons/") + default_theme,
+                QStandardPaths::LocateDirectory);
+        QVERIFY2(!themePath.isEmpty(), qPrintable(themePath));
+        // testEmoticonParser() wants a trailing /
+        themePath += "/";
+    }
+
+    void cleanupTestCase()
+    {
+        QString dataPath = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
+        QString themePath = dataPath + QLatin1String("/emoticons/") + QLatin1String(default_theme);
+        QDir themeDir(themePath);
+        QVERIFY(themeDir.removeRecursively());
+    }
+
+    void testEmoticonParser_data()
+    {
+        QTest::addColumn<QString>("inputFileName");
+        QTest::addColumn<QString>("outputFileName");
+        QTest::addColumn<bool>("xfail");
+
+        QString basePath = QFINDTESTDATA("emoticon-parser-testcases");
+        QVERIFY(!basePath.isEmpty());
+        QDir testCasesDir(basePath);
+
+        QStringList inputFileNames = testCasesDir.entryList(QStringList(QLatin1String("*.input")));
+        Q_FOREACH (const QString &fileName, inputFileNames) {
+            QString outputFileName = fileName;
+            outputFileName.replace("input", "output");
+            QTest::newRow(qPrintable(fileName.left(fileName.lastIndexOf('.'))))
+                << basePath + QString::fromLatin1("/") + fileName
+                << basePath + QString::fromLatin1("/") + outputFileName
+                << (fileName.section("-", 0, 0) == QLatin1String("broken"));
+        }
+    }
+
+    void testEmoticonParser()
+    {
+        KEmoticonsTheme emo = KEmoticons().theme(default_theme);
+
+        QFETCH(QString, inputFileName);
+        QFETCH(QString, outputFileName);
+        QFETCH(bool, xfail);
+
+        QFile inputFile(inputFileName);
+        QFile expectedFile(outputFileName);
         if (! expectedFile.exists()) {
             QSKIP("Warning! expected output for testcase not found. Skiping testcase");
-            continue;
-        }
-        if (inputFile.open(QIODevice::ReadOnly) && expectedFile.open(QIODevice::ReadOnly)) {
+        } else if (inputFile.open(QIODevice::ReadOnly) && expectedFile.open(QIODevice::ReadOnly)) {
             const QString inputData = QString::fromLatin1(inputFile.readAll().constData());
             const QString expectedData = QString::fromLatin1(expectedFile.readAll().constData());
 
             inputFile.close();
             expectedFile.close();
 
-            const QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "emoticons/Glass/smile.png").remove("smile.png");
-            if (path.isEmpty()) {
-                QSKIP("Emoticons not installed, skipping. kdebase-runtime needed.");
-            }
+            QString result = emo.parseEmoticons(inputData,
+                    KEmoticonsTheme::RelaxedParse | KEmoticonsTheme::SkipHTML);
+            result.replace(themePath, QString());
 
-            QString result = emo.parseEmoticons(inputData, KEmoticonsTheme::RelaxedParse | KEmoticonsTheme::SkipHTML).replace(path, QString());
-
-            // qDebug() << "Parse result: " << result;
-
-            // HACK to know the test case we applied, concatenate testcase name to both
-            // input and expected string. WIll remove when I can add some sort of metadata
-            // to a CHECK so debug its origin testcase
-            //result = fileName + QString::fromLatin1(": ") + result;
-            //expectedData = fileName + QString::fromLatin1(": ") + expectedData;
-            // if the test case begins with broken, we expect it to fail, then use XFAIL
-            // otherwise use CHECK
-            if (fileName.section("-", 0, 0) == QString::fromLatin1("broken")) {
-                // qDebug() << "checking known-broken testcase: " << fileName;
-                QEXPECT_FAIL("", "Checking know-broken testcase", Continue);
+            if (xfail) {
+                QEXPECT_FAIL("", "Checking known-broken testcase", Continue);
                 QCOMPARE(result, expectedData);
             } else {
-                // qDebug() << "checking known-working testcase: " << fileName;
                 QCOMPARE(result, expectedData);
             }
         } else {
             QSKIP("Warning! can't open testcase files. Skiping testcase");
-            continue;
         }
     }
 
-}
+private:
+    QString themePath;
+};
+
+QTEST_MAIN(KEmoticonTest)
+
+#include <kemoticontest.moc>
+

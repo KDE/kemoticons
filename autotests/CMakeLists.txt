@@ -12,3 +12,6 @@ endmacro()
 
 kemoticons_unit_tests(kemoticontest)
 
+target_compile_definitions(kemoticontest PRIVATE
+    LOCAL_THEMES_DIR="${KEmoticons_SOURCE_DIR}/themes")
+
