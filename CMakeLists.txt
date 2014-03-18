@@ -39,6 +39,7 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kemoticons_version.h
 remove_definitions(-DQT_NO_CAST_FROM_ASCII)
 
 add_subdirectory(src)
+add_subdirectory(themes)
 add_subdirectory(autotests)
 add_subdirectory(tests)
 

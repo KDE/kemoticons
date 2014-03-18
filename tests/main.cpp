@@ -57,7 +57,7 @@ KEmoTest::KEmoTest()
     comboBox = new QComboBox;
 
     emoticonTheme = emoticons.theme();
-    // Theme list is repeating three times the same two themes: "Oxygen" and "kde4"
+    // Theme list is repeating three times the same two themes: "Oxygen" and "Glass"
     qDebug() << "Theme list: " << emoticons.themeList();
     // Theme name is empty!!
     qDebug() << "Theme name: " << emoticonTheme.themeName();

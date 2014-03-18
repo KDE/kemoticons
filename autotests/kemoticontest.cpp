@@ -40,7 +40,7 @@ QTEST_MAIN(KEmoticonTest)
 
 void KEmoticonTest::testEmoticonParser()
 {
-    KEmoticonsTheme emo = KEmoticons().theme("kde4");
+    KEmoticonsTheme emo = KEmoticons().theme("Glass");
     QString basePath = QFINDTESTDATA("emoticon-parser-testcases");
     QVERIFY(!basePath.isEmpty());
     QDir testCasesDir(basePath);
@@ -66,7 +66,7 @@ void KEmoticonTest::testEmoticonParser()
             inputFile.close();
             expectedFile.close();
 
-            const QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "emoticons/kde4/smile.png").remove("smile.png");
+            const QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "emoticons/Glass/smile.png").remove("smile.png");
             if (path.isEmpty()) {
                 QSKIP("Emoticons not installed, skipping. kdebase-runtime needed.");
             }
