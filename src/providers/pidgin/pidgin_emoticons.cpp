@@ -23,6 +23,7 @@
 #include <QtCore/QDir>
 #include <QtCore/QDebug>
 #include <QtCore/QFileInfo>
+#include <QtCore/QStandardPaths>
 
 #include <kpluginfactory.h>
 

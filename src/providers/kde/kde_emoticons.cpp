@@ -22,6 +22,7 @@
 #include <QtCore/QDir>
 #include <QtCore/QDebug>
 #include <QtCore/QFileInfo>
+#include <QtCore/QStandardPaths>
 #include <QImageReader>
 
 #include <kpluginfactory.h>

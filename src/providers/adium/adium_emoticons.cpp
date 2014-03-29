@@ -21,6 +21,7 @@
 #include <QtCore/QFile>
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
+#include <QtCore/QStandardPaths>
 #include <QDebug>
 
 #include <kpluginfactory.h>

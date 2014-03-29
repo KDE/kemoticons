@@ -29,6 +29,7 @@
 
 #include <kpluginloader.h>
 #include <kconfiggroup.h>
+#include <ksharedconfig.h>
 #include <ktar.h>
 #include <kzip.h>
 
