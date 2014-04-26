@@ -10,7 +10,7 @@ add_library(KF5Emoticons ${kemoticons_LIB_SRCS})
 generate_export_header(KF5Emoticons BASE_NAME KEmoticons)
 add_library(KF5::Emoticons ALIAS KF5Emoticons)
 
-target_include_directories(KF5Emoticons INTERFACE "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}/KEmoticons>")
+target_include_directories(KF5Emoticons INTERFACE "$<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/KEmoticons>")
 
 target_link_libraries(KF5Emoticons
 PUBLIC
@@ -38,12 +38,12 @@ ecm_generate_headers(KEmoticons_HEADERS
 )
 
 
-install(TARGETS KF5Emoticons EXPORT KF5EmoticonsTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS KF5Emoticons EXPORT KF5EmoticonsTargets ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
 
 install(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/kemoticons_export.h
   ${KEmoticons_HEADERS}
-  DESTINATION ${INCLUDE_INSTALL_DIR}/KEmoticons
+  DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/KEmoticons
   COMPONENT Devel
 )
 
