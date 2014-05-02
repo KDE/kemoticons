@@ -1,9 +1,11 @@
 [Desktop Entry]
 Type=Service
 Name=KDE Emoticons Theme
+Name[nl]=KDE-emoticons-thema
 Name[uk]=Тема емоційок KDE
 Name[x-test]=xxKDE Emoticons Themexx
 Comment=Library to use KDE emoticons theme
+Comment[nl]=Bibliotheek voor het gebruik van het KDE-emoticonsthema
 Comment[uk]=Бібліотека для використання теми емоційок KDE
 Comment[x-test]=xxLibrary to use KDE emoticons themexx
 X-KDE-ServiceTypes=KEmoticons

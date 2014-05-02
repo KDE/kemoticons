@@ -1,9 +1,11 @@
 [Desktop Entry]
 Type=Service
 Name=Adium Emoticons Theme
+Name[nl]=Adium-emoticonsthema
 Name[uk]=Тема емоційок Adium
 Name[x-test]=xxAdium Emoticons Themexx
 Comment=Library to use Adium emoticons theme
+Comment[nl]=Bibliotheek voor het gebruiken van het Adium-emoticonsthema
 Comment[uk]=Бібліотека для використання теми емоційок Adium
 Comment[x-test]=xxLibrary to use Adium emoticons themexx
 X-KDE-ServiceTypes=KEmoticons
