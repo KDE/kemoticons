@@ -161,6 +161,6 @@ Comment[x-test]=xxLibrary to use XMPP emoticons themexx
 Comment[zh_CN]=使用 XMPP 表情主题的类库
 Comment[zh_TW]=使用 XMPP 表情圖示主題的函式庫
 X-KDE-ServiceTypes=KEmoticons
-X-KDE-Library=emoticonstheme_xmpp
+X-KDE-Library=kf5/emoticonsthemes/xmpp
 X-KDE-EmoticonsFileName=icondef.xml
 X-KDE-Priority=9

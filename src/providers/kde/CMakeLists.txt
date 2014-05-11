@@ -12,5 +12,14 @@ PRIVATE
 )
 ########### install files ###############
 
-install(TARGETS emoticonstheme_kde DESTINATION ${PLUGIN_INSTALL_DIR})
-install(FILES emoticonstheme_kde.desktop DESTINATION  ${SERVICES_INSTALL_DIR})
+set_target_properties(emoticonstheme_kde PROPERTIES
+    OUTPUT_NAME "kde"
+)
+install(
+    TARGETS emoticonstheme_kde
+    DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/emoticonsthemes
+)
+install(
+    FILES emoticonstheme_kde.desktop
+    DESTINATION ${SERVICES_INSTALL_DIR}
+)

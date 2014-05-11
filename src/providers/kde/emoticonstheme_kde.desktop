@@ -147,6 +147,6 @@ Comment[x-test]=xxLibrary to use KDE emoticons themexx
 Comment[zh_CN]=使用 KDE 表情主题的类库
 Comment[zh_TW]=使用 KDE 表情圖示主題的函式庫
 X-KDE-ServiceTypes=KEmoticons
-X-KDE-Library=emoticonstheme_kde
+X-KDE-Library=kf5/emoticonsthemes/kde
 X-KDE-EmoticonsFileName=emoticons.xml
 X-KDE-Priority=10

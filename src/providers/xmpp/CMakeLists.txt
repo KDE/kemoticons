@@ -13,5 +13,14 @@ PRIVATE
 
 ########### install files ###############
 
-install(TARGETS emoticonstheme_xmpp DESTINATION ${PLUGIN_INSTALL_DIR})
-install(FILES emoticonstheme_xmpp.desktop DESTINATION  ${SERVICES_INSTALL_DIR})
+set_target_properties(emoticonstheme_xmpp PROPERTIES
+    OUTPUT_NAME "xmpp"
+)
+install(
+    TARGETS emoticonstheme_xmpp
+    DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/emoticonsthemes
+)
+install(
+    FILES emoticonstheme_xmpp.desktop
+    DESTINATION ${SERVICES_INSTALL_DIR}
+)

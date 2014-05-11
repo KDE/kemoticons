@@ -13,5 +13,14 @@ PRIVATE
 
 ########### install files ###############
 
-install(TARGETS emoticonstheme_adium DESTINATION ${PLUGIN_INSTALL_DIR})
-install(FILES emoticonstheme_adium.desktop DESTINATION  ${SERVICES_INSTALL_DIR})
+set_target_properties(emoticonstheme_adium PROPERTIES
+    OUTPUT_NAME "adium"
+)
+install(
+    TARGETS emoticonstheme_adium
+    DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/emoticonsthemes
+)
+install(
+    FILES emoticonstheme_adium.desktop
+    DESTINATION ${SERVICES_INSTALL_DIR}
+)

@@ -162,6 +162,6 @@ Comment[x-test]=xxLibrary to use Pidgin emoticons themexx
 Comment[zh_CN]=使用 Pidgin 表情主题的类库
 Comment[zh_TW]=使用 Pidgin 表情圖示主題的函式庫
 X-KDE-ServiceTypes=KEmoticons
-X-KDE-Library=emoticonstheme_pidgin
+X-KDE-Library=kf5/emoticonsthemes/pidgin
 X-KDE-EmoticonsFileName=theme
 X-KDE-Priority=7

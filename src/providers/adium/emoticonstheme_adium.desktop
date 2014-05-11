@@ -159,6 +159,6 @@ Comment[x-test]=xxLibrary to use Adium emoticons themexx
 Comment[zh_CN]=使用 Adium 表情主题的类库
 Comment[zh_TW]=使用 Adium 表情圖示主題的函式庫
 X-KDE-ServiceTypes=KEmoticons
-X-KDE-Library=emoticonstheme_adium
+X-KDE-Library=kf5/emoticonsthemes/adium
 X-KDE-EmoticonsFileName=Emoticons.plist
 X-KDE-Priority=8
