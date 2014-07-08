@@ -139,7 +139,7 @@ public:
      *
      * @deprecated since 5.0, subclass KEmoticonsProvider instead
      */
-#ifndef KDE_NO_DEPRECATED
+#ifndef KEMOTICONS_NO_DEPRECATED
     KEMOTICONS_DEPRECATED bool loadTheme(const QString &path);
 #endif
 
@@ -154,7 +154,7 @@ public:
      *
      * @deprecated since 5.0, subclass KEmoticonsProvider instead
      */
-#ifndef KDE_NO_DEPRECATED
+#ifndef KEMOTICONS_NO_DEPRECATED
     KEMOTICONS_DEPRECATED bool removeEmoticon(const QString &emo);
 #endif
 
@@ -172,7 +172,7 @@ public:
      *
      * @deprecated since 5.0, subclass KEmoticonsProvider instead
      */
-#ifndef KDE_NO_DEPRECATED
+#ifndef KEMOTICONS_NO_DEPRECATED
     KEMOTICONS_DEPRECATED bool addEmoticon(const QString &emo,
                                            const QString &text,
                                            KEmoticonsProvider::AddEmoticonOption option = KEmoticonsProvider::DoNotCopy);
@@ -182,7 +182,7 @@ public:
      *
      * @deprecated since 5.0, subclass KEmoticonsProvider instead
      */
-#ifndef KDE_NO_DEPRECATED
+#ifndef KEMOTICONS_NO_DEPRECATED
     KEMOTICONS_DEPRECATED void save();
 #endif
 
@@ -217,7 +217,7 @@ public:
      *
      * @deprecated since 5.0, subclass KEmoticonsProvider instead
      */
-#ifndef KDE_NO_DEPRECATED
+#ifndef KEMOTICONS_NO_DEPRECATED
     KEMOTICONS_DEPRECATED void createNew();
 #endif
 

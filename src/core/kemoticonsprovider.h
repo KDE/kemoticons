@@ -94,7 +94,7 @@ public:
      *
      * @deprecated since 5.0, use saveTheme() instead
      */
-#ifndef KDE_NO_DEPRECATED
+#ifndef KEMOTICONS_NO_DEPRECATED
     KEMOTICONS_DEPRECATED void save();
 #endif
 
@@ -140,7 +140,7 @@ public:
      *
      * @deprecated since 5.0, use newTheme() instead
      */
-#ifndef KDE_NO_DEPRECATED
+#ifndef KEMOTICONS_NO_DEPRECATED
     KEMOTICONS_DEPRECATED void createNew();
 #endif
 
@@ -176,7 +176,7 @@ protected:
      *
      * @deprecated since 5.0, use addMapItem() instead
      */
-#ifndef KDE_NO_DEPRECATED
+#ifndef KEMOTICONS_NO_DEPRECATED
     KEMOTICONS_DEPRECATED void addEmoticonsMap(QString key, QStringList value);
 #endif
 
@@ -192,7 +192,7 @@ protected:
      *
      * @deprecated since 5.0, use removeMapItem() instead
      */
-#ifndef KDE_NO_DEPRECATED
+#ifndef KEMOTICONS_NO_DEPRECATED
     KEMOTICONS_DEPRECATED void removeEmoticonsMap(QString key);
 #endif
     /**
@@ -209,7 +209,7 @@ protected:
      *
      * @deprecated since 5.0, use addIndexItem() instead
      */
-#ifndef KDE_NO_DEPRECATED
+#ifndef KEMOTICONS_NO_DEPRECATED
     KEMOTICONS_DEPRECATED void addEmoticonIndex(const QString &path, const QStringList &emoList);
 #endif
     /**
@@ -228,7 +228,7 @@ protected:
      *
      * @deprecated since 5.0, use removeIndexItem() instead
      */
-#ifndef KDE_NO_DEPRECATED
+#ifndef KEMOTICONS_NO_DEPRECATED
     KEMOTICONS_DEPRECATED void removeEmoticonIndex(const QString &path, const QStringList &emoList);
 #endif
     /**
