@@ -30,6 +30,7 @@ ecm_setup_version(${KF5_VERSION} VARIABLE_PREFIX KEMOTICONS
 find_package(KF5Archive ${KF5_DEP_VERSION} REQUIRED)
 find_package(KF5Config ${KF5_DEP_VERSION} REQUIRED)
 find_package(KF5Service ${KF5_DEP_VERSION} REQUIRED)
+find_package(KF5CoreAddons ${KF5_DEP_VERSION} REQUIRED)
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kemoticons_version.h
         DESTINATION ${KF5_INCLUDE_INSTALL_DIR} COMPONENT Devel )
