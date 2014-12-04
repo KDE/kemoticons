@@ -20,8 +20,8 @@
 
 #include "ktexttohtml.h"
 
-#include <KEmoticons/KEmoticons>
-#include <KEmoticons/KEmoticonsTheme>
+#include <kemoticons.h>
+#include <kemoticonstheme.h>
 
 KTextToHTMLEmoticons::KTextToHTMLEmoticons()
 {
