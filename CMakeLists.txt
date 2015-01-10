@@ -33,7 +33,7 @@ find_package(KF5Service ${KF5_DEP_VERSION} REQUIRED)
 find_package(KF5CoreAddons ${KF5_DEP_VERSION} REQUIRED)
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kemoticons_version.h
-        DESTINATION ${KF5_INCLUDE_INSTALL_DIR} COMPONENT Devel )
+        DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5} COMPONENT Devel )
 
 
 # the strings throughout this library are used to search ressources
@@ -46,7 +46,7 @@ add_subdirectory(autotests)
 add_subdirectory(tests)
 
 # create a Config.cmake and a ConfigVersion.cmake file and install them
-set(CMAKECONFIG_INSTALL_DIR "${CMAKECONFIG_INSTALL_PREFIX}/KF5Emoticons")
+set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF5Emoticons")
 
 install(EXPORT KF5EmoticonsTargets DESTINATION "${CMAKECONFIG_INSTALL_DIR}" FILE KF5EmoticonsTargets.cmake NAMESPACE KF5:: )
 

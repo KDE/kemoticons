@@ -2,7 +2,7 @@ install(
     DIRECTORY
         Glass
     DESTINATION
-        ${SHARE_INSTALL_PREFIX}/emoticons/
+        ${KDE_INSTALL_DATAROOTDIR}/emoticons/
     FILES_MATCHING
         PATTERN "*.png"
         PATTERN "emoticons.xml"

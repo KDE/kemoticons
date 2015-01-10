@@ -12,4 +12,4 @@ target_link_libraries(KEmoticonsIntegrationPlugin
 )
 
 install(TARGETS KEmoticonsIntegrationPlugin
-        DESTINATION ${PLUGIN_INSTALL_DIR}/kf5)
+        DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5)

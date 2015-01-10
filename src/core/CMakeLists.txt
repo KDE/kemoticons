@@ -10,7 +10,7 @@ add_library(KF5Emoticons ${kemoticons_LIB_SRCS})
 generate_export_header(KF5Emoticons BASE_NAME KEmoticons)
 add_library(KF5::Emoticons ALIAS KF5Emoticons)
 
-target_include_directories(KF5Emoticons INTERFACE "$<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/KEmoticons>")
+target_include_directories(KF5Emoticons INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF5}/KEmoticons>")
 
 target_link_libraries(KF5Emoticons
 PUBLIC
@@ -26,7 +26,7 @@ set_target_properties(KF5Emoticons PROPERTIES
                       EXPORT_NAME Emoticons
 )
 
-install(FILES kemoticonsTheme.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
+install(FILES kemoticonsTheme.desktop DESTINATION ${KDE_INSTALL_KSERVICETYPES5DIR})
 
 ecm_generate_headers(KEmoticons_HEADERS
   HEADER_NAMES
@@ -43,10 +43,10 @@ install(TARGETS KF5Emoticons EXPORT KF5EmoticonsTargets ${KF5_INSTALL_TARGETS_DE
 install(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/kemoticons_export.h
   ${KEmoticons_HEADERS}
-  DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/KEmoticons
+  DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/KEmoticons
   COMPONENT Devel
 )
 
 include(ECMGeneratePriFile)
-ecm_generate_pri_file(BASE_NAME KEmoticons LIB_NAME KF5Emoticons DEPS "widgets KService" FILENAME_VAR PRI_FILENAME INCLUDE_INSTALL_DIR ${KF5_INCLUDE_INSTALL_DIR}/KEmoticons)
+ecm_generate_pri_file(BASE_NAME KEmoticons LIB_NAME KF5Emoticons DEPS "widgets KService" FILENAME_VAR PRI_FILENAME INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF5}/KEmoticons)
 install(FILES ${PRI_FILENAME} DESTINATION ${ECM_MKSPECS_INSTALL_DIR})

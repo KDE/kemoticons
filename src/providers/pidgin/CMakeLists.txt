@@ -13,9 +13,9 @@ set_target_properties(emoticonstheme_pidgin PROPERTIES
 )
 install(
     TARGETS emoticonstheme_pidgin
-    DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/emoticonsthemes
+    DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/emoticonsthemes
 )
 install(
     FILES emoticonstheme_pidgin.desktop
-    DESTINATION ${SERVICES_INSTALL_DIR}
+    DESTINATION ${KDE_INSTALL_KSERVICES5DIR}
 )
