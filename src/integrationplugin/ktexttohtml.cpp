@@ -23,6 +23,11 @@
 #include <kemoticons.h>
 #include <kemoticonstheme.h>
 
+#include <QGlobalStatic>
+
+Q_GLOBAL_STATIC(KEmoticonsTheme, sTheme);
+
+
 KTextToHTMLEmoticons::KTextToHTMLEmoticons()
 {
 }
@@ -31,10 +36,14 @@ QString KTextToHTMLEmoticons::parseEmoticons(const QString &text,
                                              bool strictParse,
                                              const QStringList &exclude)
 {
-    KEmoticonsTheme theme = KEmoticons().theme();
+    KEmoticons emoticons;
+    if (sTheme->themeName() != emoticons.currentThemeName()) {
+        *sTheme = emoticons.theme();
+    }
+
     KEmoticonsTheme::ParseMode mode = KEmoticonsTheme::DefaultParse;
     if (strictParse) {
         mode = KEmoticonsTheme::StrictParse;
     }
-    return theme.parseEmoticons(text, mode, exclude);
+    return sTheme->parseEmoticons(text, mode, exclude);
 }
