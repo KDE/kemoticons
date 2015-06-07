@@ -42,41 +42,57 @@ class KEmoticonTest : public QObject
 {
     Q_OBJECT
 
+private:
+    bool copyTheme(const QString &dir, const QDir &baseThemeDir, const QString &themeName)
+    {
+        QDir sourceThemeDir(dir);
+        if (!sourceThemeDir.exists()) {
+            return false;
+        }
+        QDir themeDir(baseThemeDir.absolutePath() + '/' + themeName);
+        themeDir.removeRecursively();
+        themeDir.mkpath(".");
+
+        foreach (const QString &fileName, sourceThemeDir.entryList(QDir::Files)) {
+            if (!QFile::copy(sourceThemeDir.filePath(fileName),
+                                themeDir.filePath(fileName))) {
+                qWarning() << "couldn't copy" << dir << "/" << fileName;
+                return false;
+            }
+        }
+        return true;
+    }
+
 private Q_SLOTS:
     void initTestCase()
     {
         QStandardPaths::setTestModeEnabled(true);
         QString dataPath = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
 
-        QString destThemePath = dataPath + QLatin1String("/emoticons/") + QLatin1String(default_theme);
+        QString destThemePath = dataPath + QLatin1String("/emoticons/");
         QDir themeDir(destThemePath);
         if (themeDir.exists()) {
             QVERIFY(themeDir.removeRecursively());
         }
         QVERIFY(themeDir.mkpath("."));
 
-        QDir sourceThemeDir(QFile::decodeName(LOCAL_THEMES_DIR) + QLatin1String("/") + default_theme);
-        QVERIFY(sourceThemeDir.exists());
-
-        foreach (QString fileName, sourceThemeDir.entryList(QDir::Files)) {
-            QVERIFY(QFile::copy(sourceThemeDir.filePath(fileName),
-                                themeDir.filePath(fileName)));
-        }
+        QVERIFY(copyTheme(QFile::decodeName(LOCAL_THEMES_DIR) + QLatin1String("/") + default_theme, themeDir, default_theme));
 
         // check it can actually be found
         themePath = QStandardPaths::locate(
                 QStandardPaths::GenericDataLocation,
-                QString::fromLatin1("emoticons/") + default_theme,
+                QString::fromLatin1("emoticons/"),
                 QStandardPaths::LocateDirectory);
         QVERIFY2(!themePath.isEmpty(), qPrintable(themePath));
-        // testEmoticonParser() wants a trailing /
-        themePath += "/";
+
+        // also copy the xmpp theme
+        QVERIFY(copyTheme(QFINDTESTDATA("xmpp-testtheme"), themeDir, "xmpp-testtheme"));
     }
 
     void cleanupTestCase()
     {
         QString dataPath = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
-        QString themePath = dataPath + QLatin1String("/emoticons/") + QLatin1String(default_theme);
+        const QString themePath = dataPath + QLatin1String("/emoticons/");
         QDir themeDir(themePath);
         QVERIFY(themeDir.removeRecursively());
     }
@@ -85,6 +101,7 @@ private Q_SLOTS:
     {
         QTest::addColumn<QString>("inputFileName");
         QTest::addColumn<QString>("outputFileName");
+        QTest::addColumn<QString>("themeName");
         QTest::addColumn<bool>("xfail");
 
         QString basePath = QFINDTESTDATA("emoticon-parser-testcases");
@@ -95,20 +112,23 @@ private Q_SLOTS:
         Q_FOREACH (const QString &fileName, inputFileNames) {
             QString outputFileName = fileName;
             outputFileName.replace("input", "output");
+            const QString baseName = fileName.section("-", 0, 0);
             QTest::newRow(qPrintable(fileName.left(fileName.lastIndexOf('.'))))
                 << basePath + QString::fromLatin1("/") + fileName
                 << basePath + QString::fromLatin1("/") + outputFileName
-                << (fileName.section("-", 0, 0) == QLatin1String("broken"));
+                << (baseName == QLatin1String("xmpp") ? "xmpp-testtheme" : default_theme)
+                << (baseName == QLatin1String("broken"));
         }
     }
 
     void testEmoticonParser()
     {
-        KEmoticonsTheme emo = KEmoticons().theme(default_theme);
-
         QFETCH(QString, inputFileName);
         QFETCH(QString, outputFileName);
+        QFETCH(QString, themeName);
         QFETCH(bool, xfail);
+
+        KEmoticonsTheme emo = KEmoticons().theme(themeName);
 
         QFile inputFile(inputFileName);
         QFile expectedFile(outputFileName);
@@ -123,7 +143,7 @@ private Q_SLOTS:
 
             QString result = emo.parseEmoticons(inputData,
                     KEmoticonsTheme::RelaxedParse | KEmoticonsTheme::SkipHTML);
-            result.replace(themePath, QString());
+            result.replace(themePath + themeName + '/', QString());
 
             if (xfail) {
                 QEXPECT_FAIL("", "Checking known-broken testcase", Continue);
