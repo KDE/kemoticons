@@ -140,7 +140,7 @@ KEmoticonsTheme KEmoticons::theme(const QString &name) const
 QString KEmoticons::currentThemeName()
 {
     KConfigGroup config(KSharedConfig::openConfig("kdeglobals"), "Emoticons");
-    QString name = config.readEntry("emoticonsTheme", "Glass");
+    QString name = config.readEntry("emoticonsTheme", "Breeze");
     return name;
 }
 
