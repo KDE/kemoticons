@@ -26,7 +26,7 @@
 
 #include <kemoticons.h>
 
-static const char * default_theme = "Breeze";
+static const char * default_theme = "Glass";
 
 /*
   There are three sets of tests, the Kopete 0.7 baseline with tests that were
