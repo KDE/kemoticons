@@ -44,7 +44,8 @@ QTEST_MAIN(KTextToHTMLPluginTest)
 
 void KTextToHTMLPluginTest::initTestCase()
 {
-    mEmoticonsThemePath = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "emoticons/Breeze",  QStandardPaths::LocateDirectory);
+    KEmoticons::setTheme("Glass");
+    mEmoticonsThemePath = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "emoticons/Glass",  QStandardPaths::LocateDirectory);
     QVERIFY(!mEmoticonsThemePath.isEmpty());
 }
 
