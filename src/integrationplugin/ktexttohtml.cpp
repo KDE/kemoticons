@@ -25,7 +25,7 @@
 
 #include <QGlobalStatic>
 
-Q_GLOBAL_STATIC(KEmoticonsTheme, sTheme);
+Q_GLOBAL_STATIC(KEmoticons, sEmoticons)
 
 
 KTextToHTMLEmoticons::KTextToHTMLEmoticons()
@@ -36,14 +36,9 @@ QString KTextToHTMLEmoticons::parseEmoticons(const QString &text,
                                              bool strictParse,
                                              const QStringList &exclude)
 {
-    KEmoticons emoticons;
-    if (sTheme->themeName() != emoticons.currentThemeName()) {
-        *sTheme = emoticons.theme();
-    }
-
     KEmoticonsTheme::ParseMode mode = KEmoticonsTheme::DefaultParse;
     if (strictParse) {
         mode = KEmoticonsTheme::StrictParse;
     }
-    return sTheme->parseEmoticons(text, mode, exclude);
+    return sEmoticons->theme().parseEmoticons(text, mode, exclude);
 }
