@@ -39,7 +39,7 @@ XmppEmoticons::XmppEmoticons(QObject *parent, const QVariantList &args)
 bool XmppEmoticons::removeEmoticon(const QString &emo)
 {
     QString emoticon = QFileInfo(emoticonsMap().key(emo.split(' '))).fileName();
-    QDomElement fce = m_themeXml.firstChildElement("icondef");
+    QDomElement fce = m_themeXml.firstChildElement(QStringLiteral("icondef"));
 
     if (fce.isNull()) {
         return false;
@@ -48,7 +48,7 @@ bool XmppEmoticons::removeEmoticon(const QString &emo)
     QDomNodeList nl = fce.childNodes();
     for (int i = 0; i < nl.length(); i++) {
         QDomElement de = nl.item(i).toElement();
-        if (!de.isNull() && de.tagName() == "icon") {
+        if (!de.isNull() && de.tagName() == QLatin1String("icon")) {
             QDomNodeList snl = de.childNodes();
             QStringList sl;
             QStringList mime;
@@ -56,7 +56,7 @@ bool XmppEmoticons::removeEmoticon(const QString &emo)
             for (int k = 0; k < snl.length(); k++) {
                 QDomElement sde = snl.item(k).toElement();
 
-                if (!sde.isNull() && sde.tagName() == "object" && sde.text() == emoticon) {
+                if (!sde.isNull() && sde.tagName() == QLatin1String("object") && sde.text() == emoticon) {
                     fce.removeChild(de);
                     removeMapItem(emoticonsMap().key(emo.split(' ')));
                     removeIndexItem(emoticon, emo.split(' '));
@@ -79,27 +79,27 @@ bool XmppEmoticons::addEmoticon(const QString &emo, const QString &text, AddEmot
     }
 
     const QStringList splitted = text.split(' ');
-    QDomElement fce = m_themeXml.firstChildElement("icondef");
+    QDomElement fce = m_themeXml.firstChildElement(QStringLiteral("icondef"));
 
     if (fce.isNull()) {
         return false;
     }
 
-    QDomElement emoticon = m_themeXml.createElement("icon");
+    QDomElement emoticon = m_themeXml.createElement(QStringLiteral("icon"));
     fce.appendChild(emoticon);
     QStringList::const_iterator constIterator;
 
     for (constIterator = splitted.begin(); constIterator != splitted.end(); ++constIterator) {
-        QDomElement emotext = m_themeXml.createElement("text");
+        QDomElement emotext = m_themeXml.createElement(QStringLiteral("text"));
         QDomText txt = m_themeXml.createTextNode((*constIterator).trimmed());
         emotext.appendChild(txt);
         emoticon.appendChild(emotext);
     }
 
-    QDomElement emoElement = m_themeXml.createElement("object");
+    QDomElement emoElement = m_themeXml.createElement(QStringLiteral("object"));
     QMimeDatabase db;
     QMimeType mime = db.mimeTypeForFile(emo, QMimeDatabase::MatchExtension);
-    emoElement.setAttribute("mime", mime.name());
+    emoElement.setAttribute(QStringLiteral("mime"), mime.name());
     QDomText txt = m_themeXml.createTextNode(QFileInfo(emo).fileName());
 
     emoElement.appendChild(txt);
@@ -156,7 +156,7 @@ bool XmppEmoticons::loadTheme(const QString &path)
 
     file.close();
 
-    QDomElement fce = m_themeXml.firstChildElement("icondef");
+    QDomElement fce = m_themeXml.firstChildElement(QStringLiteral("icondef"));
 
     if (fce.isNull()) {
         return false;
@@ -169,19 +169,19 @@ bool XmppEmoticons::loadTheme(const QString &path)
     for (int i = 0; i < nl.length(); i++) {
         QDomElement de = nl.item(i).toElement();
 
-        if (!de.isNull() && de.tagName() == "icon") {
+        if (!de.isNull() && de.tagName() == QLatin1String("icon")) {
             QDomNodeList snl = de.childNodes();
             QStringList sl;
             QString emo;
             QStringList mime;
-            mime << "image/png" << "image/gif" << "image/bmp" << "image/jpeg";
+            mime << QStringLiteral("image/png") << QStringLiteral("image/gif") << QStringLiteral("image/bmp") << QStringLiteral("image/jpeg");
 
             for (int k = 0; k < snl.length(); k++) {
                 QDomElement sde = snl.item(k).toElement();
 
-                if (!sde.isNull() && sde.tagName() == "text") {
+                if (!sde.isNull() && sde.tagName() == QLatin1String("text")) {
                     sl << sde.text();
-                } else if (!sde.isNull() && sde.tagName() == "object" && mime.contains(sde.attribute("mime"))) {
+                } else if (!sde.isNull() && sde.tagName() == QLatin1String("object") && mime.contains(sde.attribute(QStringLiteral("mime")))) {
                     emo = sde.text();
                 }
             }
@@ -213,8 +213,8 @@ void XmppEmoticons::newTheme()
     }
 
     QDomDocument doc;
-    doc.appendChild(doc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"UTF-8\""));
-    doc.appendChild(doc.createElement("icondef"));
+    doc.appendChild(doc.createProcessingInstruction(QStringLiteral("xml"), QStringLiteral("version=\"1.0\" encoding=\"UTF-8\"")));
+    doc.appendChild(doc.createElement(QStringLiteral("icondef")));
 
     QTextStream emoStream(&fp);
     emoStream.setCodec("UTF-8");

@@ -79,7 +79,7 @@ KEmoTest::KEmoTest()
 void KEmoTest::updateEmoticons()
 {
     QStringList excludedEmoticons;
-    excludedEmoticons << ":)" << ":-)";
+    excludedEmoticons << QStringLiteral(":)") << QStringLiteral(":-)");
     label->setText(emoticonTheme.parseEmoticons(lineEdit->text().toHtmlEscaped(), KEmoticonsTheme::DefaultParse, excludedEmoticons));
 }
 
@@ -91,7 +91,7 @@ void KEmoTest::changeTheme(const QString &theme)
 
 int main(int argc, char **argv)
 {
-    QApplication::setApplicationName("kemoticonstest");
+    QApplication::setApplicationName(QStringLiteral("kemoticonstest"));
     QApplication app(argc, argv);
 
     KEmoTest kt;

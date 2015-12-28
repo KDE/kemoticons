@@ -37,7 +37,7 @@ AdiumEmoticons::AdiumEmoticons(QObject *parent, const QVariantList &args)
 bool AdiumEmoticons::removeEmoticon(const QString &emo)
 {
     QString emoticon = QFileInfo(emoticonsMap().key(emo.split(' '))).fileName();
-    QDomElement fce = m_themeXml.firstChildElement("plist").firstChildElement("dict").firstChildElement("dict");
+    QDomElement fce = m_themeXml.firstChildElement(QStringLiteral("plist")).firstChildElement(QStringLiteral("dict")).firstChildElement(QStringLiteral("dict"));
 
     if (fce.isNull()) {
         return false;
@@ -46,9 +46,9 @@ bool AdiumEmoticons::removeEmoticon(const QString &emo)
     QDomNodeList nl = fce.childNodes();
     for (int i = 0; i < nl.length(); i++) {
         QDomElement de = nl.item(i).toElement();
-        if (!de.isNull() && de.tagName() == "key" && (de.text() == emoticon)) {
+        if (!de.isNull() && de.tagName() == QLatin1String("key") && (de.text() == emoticon)) {
             QDomElement dict = de.nextSiblingElement();
-            if (!dict.isNull() && dict.tagName() == "dict") {
+            if (!dict.isNull() && dict.tagName() == QLatin1String("dict")) {
                 fce.removeChild(dict);
             }
 
@@ -72,26 +72,26 @@ bool AdiumEmoticons::addEmoticon(const QString &emo, const QString &text, AddEmo
     }
 
     const QStringList splitted = text.split(' ');
-    QDomElement fce = m_themeXml.firstChildElement("plist").firstChildElement("dict").firstChildElement("dict");
+    QDomElement fce = m_themeXml.firstChildElement(QStringLiteral("plist")).firstChildElement(QStringLiteral("dict")).firstChildElement(QStringLiteral("dict"));
 
     if (fce.isNull()) {
         return false;
     }
 
-    QDomElement emoticon = m_themeXml.createElement("key");
+    QDomElement emoticon = m_themeXml.createElement(QStringLiteral("key"));
     emoticon.appendChild(m_themeXml.createTextNode(QFileInfo(emo).fileName()));
     fce.appendChild(emoticon);
 
-    QDomElement dict = m_themeXml.createElement("dict");
-    QDomElement el = m_themeXml.createElement("key");
-    el.appendChild(m_themeXml.createTextNode("Equivalents"));
+    QDomElement dict = m_themeXml.createElement(QStringLiteral("dict"));
+    QDomElement el = m_themeXml.createElement(QStringLiteral("key"));
+    el.appendChild(m_themeXml.createTextNode(QStringLiteral("Equivalents")));
     dict.appendChild(el);
 
-    QDomElement arr = m_themeXml.createElement("array");
+    QDomElement arr = m_themeXml.createElement(QStringLiteral("array"));
 
     QStringList::const_iterator constIterator;
     for (constIterator = splitted.begin(); constIterator != splitted.end(); ++constIterator) {
-        QDomElement emoText = m_themeXml.createElement("string");
+        QDomElement emoText = m_themeXml.createElement(QStringLiteral("string"));
         QDomText txt = m_themeXml.createTextNode((*constIterator).trimmed());
         emoText.appendChild(txt);
         arr.appendChild(emoText);
@@ -99,11 +99,11 @@ bool AdiumEmoticons::addEmoticon(const QString &emo, const QString &text, AddEmo
 
     dict.appendChild(arr);
 
-    el = m_themeXml.createElement("key");
-    el.appendChild(m_themeXml.createTextNode("Name"));
+    el = m_themeXml.createElement(QStringLiteral("key"));
+    el.appendChild(m_themeXml.createTextNode(QStringLiteral("Name")));
     dict.appendChild(el);
 
-    el = m_themeXml.createElement("string");
+    el = m_themeXml.createElement(QStringLiteral("string"));
     el.appendChild(m_themeXml.createTextNode(QFileInfo(emo).baseName()));
     dict.appendChild(el);
 
@@ -160,7 +160,7 @@ bool AdiumEmoticons::loadTheme(const QString &path)
 
     file.close();
 
-    QDomElement fce = m_themeXml.firstChildElement("plist").firstChildElement("dict").firstChildElement("dict");
+    QDomElement fce = m_themeXml.firstChildElement(QStringLiteral("plist")).firstChildElement(QStringLiteral("dict")).firstChildElement(QStringLiteral("dict"));
 
     if (fce.isNull()) {
         return false;
@@ -173,18 +173,18 @@ bool AdiumEmoticons::loadTheme(const QString &path)
     for (int i = 0; i < nl.length(); i++) {
         QDomElement de = nl.item(i).toElement();
 
-        if (!de.isNull() && de.tagName() == "key") {
+        if (!de.isNull() && de.tagName() == QLatin1String("key")) {
             name = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "emoticons/" + themeName() + '/' + de.text());
             continue;
-        } else if (!de.isNull() && de.tagName() == "dict") {
-            QDomElement arr = de.firstChildElement("array");
+        } else if (!de.isNull() && de.tagName() == QLatin1String("dict")) {
+            QDomElement arr = de.firstChildElement(QStringLiteral("array"));
             QDomNodeList snl = arr.childNodes();
             QStringList sl;
 
             for (int k = 0; k < snl.length(); k++) {
                 QDomElement sde = snl.item(k).toElement();
 
-                if (!sde.isNull() && sde.tagName() == "string") {
+                if (!sde.isNull() && sde.tagName() == QLatin1String("string")) {
                     sl << sde.text();
                 }
             }
@@ -211,30 +211,30 @@ void AdiumEmoticons::newTheme()
         return;
     }
 
-    QDomDocumentType ty = QDomImplementation().createDocumentType("plist", "-//Apple Computer//DTD PLIST 1.0//EN", "http://www.apple.com/DTDs/PropertyList-1.0.dtd");
+    QDomDocumentType ty = QDomImplementation().createDocumentType(QStringLiteral("plist"), QStringLiteral("-//Apple Computer//DTD PLIST 1.0//EN"), QStringLiteral("http://www.apple.com/DTDs/PropertyList-1.0.dtd"));
     QDomDocument doc(ty);
-    doc.appendChild(doc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"UTF-8\""));
+    doc.appendChild(doc.createProcessingInstruction(QStringLiteral("xml"), QStringLiteral("version=\"1.0\" encoding=\"UTF-8\"")));
 
-    QDomElement plist = doc.createElement("plist");
-    plist.setAttribute("version", "1.0");
+    QDomElement plist = doc.createElement(QStringLiteral("plist"));
+    plist.setAttribute(QStringLiteral("version"), QStringLiteral("1.0"));
     doc.appendChild(plist);
 
-    QDomElement dict = doc.createElement("dict");
+    QDomElement dict = doc.createElement(QStringLiteral("dict"));
     plist.appendChild(dict);
 
-    QDomElement el = doc.createElement("key");
-    el.appendChild(doc.createTextNode("AdiumSetVersion"));
+    QDomElement el = doc.createElement(QStringLiteral("key"));
+    el.appendChild(doc.createTextNode(QStringLiteral("AdiumSetVersion")));
     dict.appendChild(el);
 
-    el = doc.createElement("integer");
-    el.appendChild(doc.createTextNode("1"));
+    el = doc.createElement(QStringLiteral("integer"));
+    el.appendChild(doc.createTextNode(QStringLiteral("1")));
     dict.appendChild(el);
 
-    el = doc.createElement("key");
-    el.appendChild(doc.createTextNode("Emoticons"));
+    el = doc.createElement(QStringLiteral("key"));
+    el.appendChild(doc.createTextNode(QStringLiteral("Emoticons")));
     dict.appendChild(el);
 
-    dict.appendChild(doc.createElement("dict"));
+    dict.appendChild(doc.createElement(QStringLiteral("dict")));
 
     QTextStream emoStream(&fp);
     emoStream.setCodec("UTF-8");

@@ -51,7 +51,7 @@ private:
         }
         QDir themeDir(baseThemeDir.absolutePath() + '/' + themeName);
         themeDir.removeRecursively();
-        themeDir.mkpath(".");
+        themeDir.mkpath(QStringLiteral("."));
 
         foreach (const QString &fileName, sourceThemeDir.entryList(QDir::Files)) {
             if (!QFile::copy(sourceThemeDir.filePath(fileName),
@@ -74,19 +74,19 @@ private Q_SLOTS:
         if (themeDir.exists()) {
             QVERIFY(themeDir.removeRecursively());
         }
-        QVERIFY(themeDir.mkpath("."));
+        QVERIFY(themeDir.mkpath(QStringLiteral(".")));
 
         QVERIFY(copyTheme(QFile::decodeName(LOCAL_THEMES_DIR) + QLatin1String("/") + default_theme, themeDir, default_theme));
 
         // check it can actually be found
         themePath = QStandardPaths::locate(
                 QStandardPaths::GenericDataLocation,
-                QString::fromLatin1("emoticons/"),
+                QStringLiteral("emoticons/"),
                 QStandardPaths::LocateDirectory);
         QVERIFY2(!themePath.isEmpty(), qPrintable(themePath));
 
         // also copy the xmpp theme
-        QVERIFY(copyTheme(QFINDTESTDATA("xmpp-testtheme"), themeDir, "xmpp-testtheme"));
+        QVERIFY(copyTheme(QFINDTESTDATA("xmpp-testtheme"), themeDir, QStringLiteral("xmpp-testtheme")));
     }
 
     void cleanupTestCase()
@@ -108,14 +108,14 @@ private Q_SLOTS:
         QVERIFY(!basePath.isEmpty());
         QDir testCasesDir(basePath);
 
-        QStringList inputFileNames = testCasesDir.entryList(QStringList(QLatin1String("*.input")));
+        QStringList inputFileNames = testCasesDir.entryList(QStringList(QStringLiteral("*.input")));
         Q_FOREACH (const QString &fileName, inputFileNames) {
             QString outputFileName = fileName;
-            outputFileName.replace("input", "output");
-            const QString baseName = fileName.section("-", 0, 0);
+            outputFileName.replace(QStringLiteral("input"), QStringLiteral("output"));
+            const QString baseName = fileName.section(QLatin1Char("-"), 0, 0);
             QTest::newRow(qPrintable(fileName.left(fileName.lastIndexOf('.'))))
-                << basePath + QString::fromLatin1("/") + fileName
-                << basePath + QString::fromLatin1("/") + outputFileName
+                << basePath + QLatin1Char("/") + fileName
+                << basePath + QLatin1Char("/") + outputFileName
                 << (baseName == QLatin1String("xmpp") ? "xmpp-testtheme" : default_theme)
                 << (baseName == QLatin1String("broken"));
         }

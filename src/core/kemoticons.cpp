@@ -62,13 +62,13 @@ KEmoticonsPrivate::~KEmoticonsPrivate()
 
 bool priorityLessThan(const KService::Ptr &s1, const KService::Ptr &s2)
 {
-    return (s1->property("X-KDE-Priority").toInt() > s2->property("X-KDE-Priority").toInt());
+    return (s1->property(QStringLiteral("X-KDE-Priority")).toInt() > s2->property(QStringLiteral("X-KDE-Priority")).toInt());
 }
 
 void KEmoticonsPrivate::loadServiceList()
 {
     QString constraint("(exist Library)");
-    m_loaded = KServiceTypeTrader::self()->query("KEmoticons", constraint);
+    m_loaded = KServiceTypeTrader::self()->query(QStringLiteral("KEmoticons"), constraint);
     qSort(m_loaded.begin(), m_loaded.end(), priorityLessThan);
 }
 
@@ -97,7 +97,7 @@ KEmoticonsTheme KEmoticonsPrivate::loadTheme(const QString &name)
 {
     const int numberOfTheme = m_loaded.size();
     for (int i = 0; i < numberOfTheme; ++i) {
-        const QString fName = m_loaded.at(i)->property("X-KDE-EmoticonsFileName").toString();
+        const QString fName = m_loaded.at(i)->property(QStringLiteral("X-KDE-EmoticonsFileName")).toString();
         const QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "emoticons/" + name + '/' + fName);
 
         if (QFile::exists(path)) {
@@ -139,7 +139,7 @@ KEmoticonsTheme KEmoticons::theme(const QString &name) const
 
 QString KEmoticons::currentThemeName()
 {
-    KConfigGroup config(KSharedConfig::openConfig("kdeglobals"), "Emoticons");
+    KConfigGroup config(KSharedConfig::openConfig(QStringLiteral("kdeglobals")), "Emoticons");
     QString name = config.readEntry("emoticonsTheme", "Breeze");
     return name;
 }
@@ -147,7 +147,7 @@ QString KEmoticons::currentThemeName()
 QStringList KEmoticons::themeList()
 {
     QStringList ls;
-    const QStringList themeDirs = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "emoticons", QStandardPaths::LocateDirectory);
+    const QStringList themeDirs = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, QStringLiteral("emoticons"), QStandardPaths::LocateDirectory);
 
     for (int i = 0; i < themeDirs.count(); ++i) {
         QDir themeQDir(themeDirs[i]);
@@ -165,7 +165,7 @@ void KEmoticons::setTheme(const KEmoticonsTheme &theme)
 
 void KEmoticons::setTheme(const QString &theme)
 {
-    KConfigGroup config(KSharedConfig::openConfig("kdeglobals"), "Emoticons");
+    KConfigGroup config(KSharedConfig::openConfig(QStringLiteral("kdeglobals")), "Emoticons");
     config.writeEntry("emoticonsTheme", theme);
     config.sync();
 }
@@ -198,18 +198,18 @@ QStringList KEmoticons::installTheme(const QString &archiveName)
     QMimeDatabase db;
     const QString currentBundleMimeType = db.mimeTypeForFile(archiveName).name();
 
-    if (currentBundleMimeType == "application/zip" ||
-            currentBundleMimeType == "application/x-zip" ||
-            currentBundleMimeType == "application/x-zip-compressed") {
+    if (currentBundleMimeType == QLatin1String("application/zip") ||
+            currentBundleMimeType == QLatin1String("application/x-zip") ||
+            currentBundleMimeType == QLatin1String("application/x-zip-compressed")) {
         archive = new KZip(archiveName);
-    } else if (currentBundleMimeType == "application/x-compressed-tar" ||
-               currentBundleMimeType == "application/x-bzip-compressed-tar" ||
-               currentBundleMimeType == "application/x-lzma-compressed-tar" ||
-               currentBundleMimeType == "application/x-xz-compressed-tar" ||
-               currentBundleMimeType == "application/x-gzip" ||
-               currentBundleMimeType == "application/x-bzip" ||
-               currentBundleMimeType == "application/x-lzma" ||
-               currentBundleMimeType == "application/x-xz") {
+    } else if (currentBundleMimeType == QLatin1String("application/x-compressed-tar") ||
+               currentBundleMimeType == QLatin1String("application/x-bzip-compressed-tar") ||
+               currentBundleMimeType == QLatin1String("application/x-lzma-compressed-tar") ||
+               currentBundleMimeType == QLatin1String("application/x-xz-compressed-tar") ||
+               currentBundleMimeType == QLatin1String("application/x-gzip") ||
+               currentBundleMimeType == QLatin1String("application/x-bzip") ||
+               currentBundleMimeType == QLatin1String("application/x-lzma") ||
+               currentBundleMimeType == QLatin1String("application/x-xz")) {
         archive = new KTar(archiveName);
     } else if (archiveName.endsWith(QLatin1String("jisp")) || archiveName.endsWith(QLatin1String("zip"))) {
         archive = new KZip(archiveName);
@@ -234,7 +234,7 @@ QStringList KEmoticons::installTheme(const QString &archiveName)
             currentDir = dynamic_cast<KArchiveDirectory *>(currentEntry);
 
             for (int i = 0; i < d->m_loaded.size(); ++i) {
-                QString fName = d->m_loaded.at(i)->property("X-KDE-EmoticonsFileName").toString();
+                QString fName = d->m_loaded.at(i)->property(QStringLiteral("X-KDE-EmoticonsFileName")).toString();
 
                 if (currentDir && currentDir->entry(fName) != NULL) {
                     foundThemes.append(currentDir->name());
@@ -279,14 +279,14 @@ QStringList KEmoticons::installTheme(const QString &archiveName)
 
 void KEmoticons::setParseMode(KEmoticonsTheme::ParseMode mode)
 {
-    KConfigGroup config(KSharedConfig::openConfig("kdeglobals"), "Emoticons");
+    KConfigGroup config(KSharedConfig::openConfig(QStringLiteral("kdeglobals")), "Emoticons");
     config.writeEntry("parseMode", int(mode));
     config.sync();
 }
 
 KEmoticonsTheme::ParseMode KEmoticons::parseMode()
 {
-    KConfigGroup config(KSharedConfig::openConfig("kdeglobals"), "Emoticons");
+    KConfigGroup config(KSharedConfig::openConfig(QStringLiteral("kdeglobals")), "Emoticons");
     return (KEmoticonsTheme::ParseMode) config.readEntry("parseMode", int(KEmoticonsTheme::RelaxedParse));
 }
 

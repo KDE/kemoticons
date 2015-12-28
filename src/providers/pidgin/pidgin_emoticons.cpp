@@ -50,7 +50,7 @@ bool PidginEmoticons::removeEmoticon(const QString &emo)
         QRegExp re("^\\[(.*)\\]$");
         int pos = re.indexIn(line.trimmed());
         if (pos > -1) {
-            if (!re.cap(1).compare("default", Qt::CaseInsensitive)) {
+            if (!re.cap(1).compare(QStringLiteral("default"), Qt::CaseInsensitive)) {
                 start = true;
             } else {
                 start = false;
@@ -65,7 +65,7 @@ bool PidginEmoticons::removeEmoticon(const QString &emo)
         QStringList splitted = line.split(' ');
         QString emoName;
 
-        if (splitted.at(0) == "!") {
+        if (splitted.at(0) == QLatin1String("!")) {
             emoName = splitted.at(1);
         } else {
             emoName = splitted.at(0);
@@ -98,7 +98,8 @@ bool PidginEmoticons::addEmoticon(const QString &emo, const QString &text, AddEm
         return false;
     }
 
-    QString emoticon = QString("%1 %2").arg(QFileInfo(emo).fileName()).arg(text);
+    QString emoticon = QString("%1 %2").arg(QFileInfo(emo).fileName(),
+                                            text);
     m_text.insert(i + 1, emoticon);
 
     addIndexItem(emo, splitted);
@@ -128,7 +129,7 @@ void PidginEmoticons::saveTheme()
         m_text.insert(i + 1, "Icon=" + file);
     }
 
-    emoStream << m_text.join("\n");
+    emoStream << m_text.join(QStringLiteral("\n"));
     fp.close();
 }
 
@@ -161,7 +162,7 @@ bool PidginEmoticons::loadTheme(const QString &path)
         QRegExp re("^\\[(.*)\\]$");
         int pos = re.indexIn(line.trimmed());
         if (pos > -1) {
-            if (!re.cap(1).compare("default", Qt::CaseInsensitive)) {
+            if (!re.cap(1).compare(QStringLiteral("default"), Qt::CaseInsensitive)) {
                 start = true;
             } else {
                 start = false;
@@ -176,7 +177,7 @@ bool PidginEmoticons::loadTheme(const QString &path)
         QStringList splitted = line.split(QRegExp("\\s+"));
         QString emo;
         int i = 1;
-        if (splitted.at(0) == "!") {
+        if (splitted.at(0) == QLatin1String("!")) {
             i = 2;
             emo = splitted.at(1);
         } else {
@@ -186,7 +187,7 @@ bool PidginEmoticons::loadTheme(const QString &path)
 
         QStringList sl;
         for (; i < splitted.size(); ++i) {
-            if (!splitted.at(i).isEmpty() && splitted.at(i) != " ") {
+            if (!splitted.at(i).isEmpty() && splitted.at(i) != QLatin1String(" ")) {
                 sl << splitted.at(i);
             }
         }
