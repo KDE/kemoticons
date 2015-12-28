@@ -112,10 +112,10 @@ private Q_SLOTS:
         Q_FOREACH (const QString &fileName, inputFileNames) {
             QString outputFileName = fileName;
             outputFileName.replace(QStringLiteral("input"), QStringLiteral("output"));
-            const QString baseName = fileName.section(QLatin1Char("-"), 0, 0);
+            const QString baseName = fileName.section(QLatin1Char('-'), 0, 0);
             QTest::newRow(qPrintable(fileName.left(fileName.lastIndexOf('.'))))
-                << basePath + QLatin1Char("/") + fileName
-                << basePath + QLatin1Char("/") + outputFileName
+                << basePath + QLatin1Char('/') + fileName
+                << basePath + QLatin1Char('/') + outputFileName
                 << (baseName == QLatin1String("xmpp") ? "xmpp-testtheme" : default_theme)
                 << (baseName == QLatin1String("broken"));
         }
