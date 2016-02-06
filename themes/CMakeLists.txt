@@ -1,6 +1,6 @@
 install(
     DIRECTORY
-        Glass Breeze
+        Glass Breeze Konqi
     DESTINATION
         ${KDE_INSTALL_DATAROOTDIR}/emoticons/
     FILES_MATCHING
