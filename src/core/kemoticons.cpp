@@ -102,11 +102,13 @@ KEmoticonsTheme KEmoticonsPrivate::loadTheme(const QString &name)
 
         if (QFile::exists(path)) {
             KEmoticonsProvider *provider = loadProvider(m_loaded.at(i));
-            KEmoticonsTheme theme(provider);
-            provider->loadTheme(path);
-            m_themes.insert(name, theme);
-            m_fileWatcher.addPath(path);
-            return theme;
+            if (provider) {
+                KEmoticonsTheme theme(provider);
+                provider->loadTheme(path);
+                m_themes.insert(name, theme);
+                m_fileWatcher.addPath(path);
+                return theme;
+            }
         }
     }
     return KEmoticonsTheme();
@@ -173,12 +175,15 @@ void KEmoticons::setTheme(const QString &theme)
 KEmoticonsTheme KEmoticons::newTheme(const QString &name, const KService::Ptr &service)
 {
     KEmoticonsProvider *provider = d->loadProvider(service);
-    KEmoticonsTheme theme(provider);
-    theme.setThemeName(name);
+    if (provider) {
+        KEmoticonsTheme theme(provider);
+        theme.setThemeName(name);
 
-    provider->newTheme();
+        provider->newTheme();
 
-    return theme;
+        return theme;
+    }
+    return KEmoticonsTheme();
 }
 
 QStringList KEmoticons::installTheme(const QString &archiveName)
