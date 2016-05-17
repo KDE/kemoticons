@@ -46,6 +46,7 @@ public:
     QHash<QString, KEmoticonsTheme> m_themes;
     QFileSystemWatcher m_fileWatcher;
     KEmoticons *q;
+    QSize m_preferredSize;
 
     //private slots
     void changeTheme(const QString &path);
@@ -103,6 +104,9 @@ KEmoticonsTheme KEmoticonsPrivate::loadTheme(const QString &name)
         if (QFile::exists(path)) {
             KEmoticonsProvider *provider = loadProvider(m_loaded.at(i));
             if (provider) {
+                if (m_preferredSize.isValid()) {
+                    provider->setPreferredEmoticonSize(m_preferredSize);
+                }
                 KEmoticonsTheme theme(provider);
                 provider->loadTheme(path);
                 m_themes.insert(name, theme);
@@ -293,6 +297,16 @@ KEmoticonsTheme::ParseMode KEmoticons::parseMode()
 {
     KConfigGroup config(KSharedConfig::openConfig(QStringLiteral("kdeglobals")), "Emoticons");
     return (KEmoticonsTheme::ParseMode) config.readEntry("parseMode", int(KEmoticonsTheme::RelaxedParse));
+}
+
+void KEmoticons::setPreferredEmoticonSize(const QSize &size)
+{
+    d->m_preferredSize = size;
+}
+
+QSize KEmoticons::preferredEmoticonSize() const
+{
+    return d->m_preferredSize;
 }
 
 #include "moc_kemoticons.cpp"

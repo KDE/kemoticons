@@ -34,6 +34,7 @@ public:
     QString m_themePath;
     QHash<QString, QStringList> m_emoticonsMap;
     QHash<QChar, QList<KEmoticonsProvider::Emoticon> > m_emoticonsIndex;
+    QSize m_preferredSize;
 };
 
 KEmoticonsProviderPrivate::KEmoticonsProviderPrivate()
@@ -147,7 +148,11 @@ void KEmoticonsProvider::addIndexItem(const QString &path, const QStringList &em
         e.picPath = path;
         p.load(path);
 
-        e.picHTMLCode = QString("<img align=\"center\" title=\"%1\" alt=\"%1\" src=\"%2\" width=\"%3\" height=\"%4\" />").arg(escaped).arg(path).arg(p.width()).arg(p.height());
+        const bool hasPreferredSize = d->m_preferredSize.isValid();
+        const int preferredHeight = hasPreferredSize ? d->m_preferredSize.height() : p.height();
+        const int preferredWidth = hasPreferredSize ? d->m_preferredSize.width() : p.width();
+
+        e.picHTMLCode = QString("<img align=\"center\" title=\"%1\" alt=\"%1\" src=\"%2\" width=\"%3\" height=\"%4\" />").arg(escaped, path).arg(preferredWidth).arg(preferredHeight);
 
         e.matchTextEscaped = escaped;
         e.matchText = s;
@@ -191,3 +196,12 @@ void KEmoticonsProvider::removeIndexItem(const QString &path, const QStringList 
     }
 }
 
+void KEmoticonsProvider::setPreferredEmoticonSize(const QSize &size)
+{
+    d->m_preferredSize = size;
+}
+
+QSize KEmoticonsProvider::preferredEmoticonSize() const
+{
+    return d->m_preferredSize;
+}

@@ -156,6 +156,38 @@ private Q_SLOTS:
         }
     }
 
+    void testPreferredSizes_data()
+    {
+        QTest::addColumn<QString>("themeName");
+
+        QString basePath = QFINDTESTDATA("emoticon-parser-testcases");
+        QVERIFY(!basePath.isEmpty());
+        QDir testCasesDir(basePath);
+
+        QStringList inputFileNames = testCasesDir.entryList(QStringList(QStringLiteral("*.input")));
+        Q_FOREACH (const QString &fileName, inputFileNames) {
+            QString outputFileName = fileName;
+            outputFileName.replace(QStringLiteral("input"), QStringLiteral("output"));
+            const QString baseName = fileName.section(QLatin1Char('-'), 0, 0);
+            QTest::newRow(qPrintable(fileName.left(fileName.lastIndexOf('.'))))
+            << (baseName == QLatin1String("xmpp") ? "xmpp-testtheme" : default_theme);
+        }
+    }
+
+    void testPreferredSizes()
+    {
+        QFETCH(QString, themeName);
+        KEmoticons kemoticons;
+        kemoticons.setPreferredEmoticonSize(QSize(99, 77));
+
+        KEmoticonsTheme theme = kemoticons.theme(themeName);
+
+        const QString parsed = theme.parseEmoticons(":)");
+
+        QVERIFY(parsed.contains(QStringLiteral("width=\"99\"")));
+        QVERIFY(parsed.contains(QStringLiteral("height=\"77\"")));
+    }
+
 private:
     QString themePath;
 };

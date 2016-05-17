@@ -150,6 +150,25 @@ public:
      */
     virtual void newTheme() = 0;
 
+    /**
+     * If a preferred size is set, all parsed emoticons will be
+     * returned with the @p size
+     *
+     * @param size The desired QSize of parsed emoticons
+     * @since 5.23
+     */
+    void setPreferredEmoticonSize(const QSize &size);
+
+    /**
+     * Returns size in which parsed emoticons will be returned.
+     *
+     * If the QSize returned is not valid (isValid() == false),
+     * then the default will be used, that is the actual file size.
+     *
+     * @since 5.23
+     */
+    QSize preferredEmoticonSize() const;
+
 protected:
     /**
      * Sets the theme inside the directory @p path
