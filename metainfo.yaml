@@ -11,3 +11,7 @@ libraries:
  - qmake: KEmoticons
    cmake: "KF5::Emoticons"
 cmakename: KF5Emoticons
+
+public_lib: true
+group: Frameworks
+subgroup: Tier 3
