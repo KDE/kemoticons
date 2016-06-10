@@ -1,6 +1,6 @@
 install(
     DIRECTORY
-        Glass Breeze Konqi EmojiOne
+        Breeze Konqi EmojiOne
     DESTINATION
         ${KDE_INSTALL_DATAROOTDIR}/emoticons/
     FILES_MATCHING
