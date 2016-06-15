@@ -3,7 +3,9 @@ description: Support for emoticons and emoticons themes
 tier: 3
 type: functional
 platforms:
-    - name: All
+    - name: Linux
+    - name: Windows
+    - name: MacOSX
 portingAid: false
 deprecated: false
 release: true
