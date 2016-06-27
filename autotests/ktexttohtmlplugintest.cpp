@@ -17,6 +17,8 @@
  *
  */
 
+#include "autotestbase.h"
+
 #include <QObject>
 #include <QTest>
 #include <QStandardPaths>
@@ -44,8 +46,18 @@ QTEST_MAIN(KTextToHTMLPluginTest)
 
 void KTextToHTMLPluginTest::initTestCase()
 {
-    KEmoticons::setTheme(QStringLiteral("Glass"));
-    mEmoticonsThemePath = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("emoticons/Glass"),  QStandardPaths::LocateDirectory);
+    QStandardPaths::setTestModeEnabled(true);
+    QString dataPath = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
+    QString destThemePath = dataPath + QLatin1String("/emoticons/");
+    QDir themeDir(destThemePath);
+    if (themeDir.exists()) {
+        QVERIFY(themeDir.removeRecursively());
+    }
+    QVERIFY(themeDir.mkpath(QStringLiteral(".")));
+    QVERIFY(copyTheme(QFINDTESTDATA("default-testtheme"), themeDir, "default-testtheme"));
+
+    KEmoticons::setTheme(QStringLiteral("default-testtheme"));
+    mEmoticonsThemePath = destThemePath + "default-testtheme";
     QVERIFY(!mEmoticonsThemePath.isEmpty());
 }
 

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<messaging-emoticon-map>
+	<emoticon file="smile">
+		<string>:)</string>
+		<string>:-)</string>
+	</emoticon>
+	<emoticon file="tongue">
+		<string>:p</string>
+		<string>:P</string>
+	</emoticon>
+	<emoticon file="sad">
+		<string>:-(</string>
+		<string>:(</string>
+	</emoticon>
+	<emoticon file="confused">
+		<string>:s</string>
+	</emoticon>
+	<emoticon file="dog">
+		<string>(&amp;)</string>
+	</emoticon>
+	<emoticon file="angry">
+		<string>&gt;:(</string>
+	</emoticon>
+</messaging-emoticon-map>

@@ -9,6 +9,3 @@ endmacro()
 kemoticons_unit_test(kemoticontest)
 kemoticons_unit_test(ktexttohtmlplugintest ../src/integrationplugin/ktexttohtml.cpp)
 
-target_compile_definitions(kemoticons-kemoticontest PRIVATE
-    LOCAL_THEMES_DIR="${KEmoticons_SOURCE_DIR}/themes")
-

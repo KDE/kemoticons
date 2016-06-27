@@ -17,6 +17,8 @@
     *************************************************************************
 */
 
+#include "autotestbase.h"
+
 #include <QTest>
 #include <QDir>
 #include <QFile>
@@ -26,7 +28,7 @@
 
 #include <kemoticons.h>
 
-static const char * default_theme = "Glass";
+static const char * default_theme = "__woopwoop__";
 
 /*
   There are three sets of tests, the Kopete 0.7 baseline with tests that were
@@ -42,27 +44,6 @@ class KEmoticonTest : public QObject
 {
     Q_OBJECT
 
-private:
-    bool copyTheme(const QString &dir, const QDir &baseThemeDir, const QString &themeName)
-    {
-        QDir sourceThemeDir(dir);
-        if (!sourceThemeDir.exists()) {
-            return false;
-        }
-        QDir themeDir(baseThemeDir.absolutePath() + '/' + themeName);
-        themeDir.removeRecursively();
-        themeDir.mkpath(QStringLiteral("."));
-
-        foreach (const QString &fileName, sourceThemeDir.entryList(QDir::Files)) {
-            if (!QFile::copy(sourceThemeDir.filePath(fileName),
-                                themeDir.filePath(fileName))) {
-                qWarning() << "couldn't copy" << dir << "/" << fileName;
-                return false;
-            }
-        }
-        return true;
-    }
-
 private Q_SLOTS:
     void initTestCase()
     {
@@ -76,7 +57,7 @@ private Q_SLOTS:
         }
         QVERIFY(themeDir.mkpath(QStringLiteral(".")));
 
-        QVERIFY(copyTheme(QFile::decodeName(LOCAL_THEMES_DIR) + QLatin1String("/") + default_theme, themeDir, default_theme));
+        QVERIFY(copyTheme(QFINDTESTDATA("default-testtheme"), themeDir, default_theme));
 
         // check it can actually be found
         themePath = QStandardPaths::locate(
