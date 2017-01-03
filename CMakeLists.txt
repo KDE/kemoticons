@@ -23,7 +23,7 @@ include(KDECMakeSettings)
 include(GenerateExportHeader)
 include(ECMSetupVersion)
 include(ECMGenerateHeaders)
-include(ECMPackageConfigHelpers)
+include(CMakePackageConfigHelpers)
 
 
 ecm_setup_version(PROJECT VARIABLE_PREFIX KEMOTICONS
@@ -54,7 +54,7 @@ set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF5Emoticons")
 
 install(EXPORT KF5EmoticonsTargets DESTINATION "${CMAKECONFIG_INSTALL_DIR}" FILE KF5EmoticonsTargets.cmake NAMESPACE KF5:: )
 
-ecm_configure_package_config_file("${CMAKE_CURRENT_SOURCE_DIR}/KF5EmoticonsConfig.cmake.in"
+configure_package_config_file("${CMAKE_CURRENT_SOURCE_DIR}/KF5EmoticonsConfig.cmake.in"
                               "${CMAKE_CURRENT_BINARY_DIR}/KF5EmoticonsConfig.cmake"
                               INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
                              )
