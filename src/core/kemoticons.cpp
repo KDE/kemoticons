@@ -78,9 +78,9 @@ KEmoticonsProvider *KEmoticonsPrivate::loadProvider(const KService::Ptr &service
     KPluginFactory *factory = KPluginLoader(service->library()).factory();
     if (!factory) {
         qWarning() << "Invalid plugin factory for" << service->library();
-        return 0;
+        return nullptr;
     }
-    KEmoticonsProvider *provider = factory->create<KEmoticonsProvider>(0);
+    KEmoticonsProvider *provider = factory->create<KEmoticonsProvider>(nullptr);
     return provider;
 }
 
@@ -193,9 +193,9 @@ KEmoticonsTheme KEmoticons::newTheme(const QString &name, const KService::Ptr &s
 QStringList KEmoticons::installTheme(const QString &archiveName)
 {
     QStringList foundThemes;
-    KArchiveEntry *currentEntry = 0L;
-    KArchiveDirectory *currentDir = 0L;
-    KArchive *archive = 0L;
+    KArchiveEntry *currentEntry = nullptr;
+    KArchiveDirectory *currentDir = nullptr;
+    KArchive *archive = nullptr;
 
     QString localThemesDir(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + "/emoticons");
 
@@ -245,7 +245,7 @@ QStringList KEmoticons::installTheme(const QString &archiveName)
             for (int i = 0; i < d->m_loaded.size(); ++i) {
                 QString fName = d->m_loaded.at(i)->property(QStringLiteral("X-KDE-EmoticonsFileName")).toString();
 
-                if (currentDir && currentDir->entry(fName) != NULL) {
+                if (currentDir && currentDir->entry(fName) != nullptr) {
                     foundThemes.append(currentDir->name());
                 }
             }
@@ -263,7 +263,7 @@ QStringList KEmoticons::installTheme(const QString &archiveName)
         const QString &theme = foundThemes[themeIndex];
 
         currentEntry = const_cast<KArchiveEntry *>(rootDir->entry(theme));
-        if (currentEntry == 0) {
+        if (currentEntry == nullptr) {
             // qDebug() << "couldn't get next archive entry";
             continue;
         }
@@ -271,7 +271,7 @@ QStringList KEmoticons::installTheme(const QString &archiveName)
         if (currentEntry->isDirectory()) {
             currentDir = dynamic_cast<KArchiveDirectory *>(currentEntry);
 
-            if (currentDir == 0) {
+            if (currentDir == nullptr) {
                 // qDebug() << "couldn't cast archive entry to KArchiveDirectory";
                 continue;
             }

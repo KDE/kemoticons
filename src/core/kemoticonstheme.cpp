@@ -34,7 +34,7 @@ public:
 
 KEmoticonsTheme::KEmoticonsThemeData::KEmoticonsThemeData()
 {
-    provider = 0;
+    provider = nullptr;
 }
 
 KEmoticonsTheme::KEmoticonsThemeData::~KEmoticonsThemeData()

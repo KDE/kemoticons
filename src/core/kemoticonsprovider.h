@@ -58,7 +58,7 @@ public:
     /**
      * Default constructor
      */
-    explicit KEmoticonsProvider(QObject *parent = 0);
+    explicit KEmoticonsProvider(QObject *parent = nullptr);
 
     /**
      * Destructor
