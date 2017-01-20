@@ -145,7 +145,7 @@ KEmoticonsTheme KEmoticons::theme(const QString &name) const
 
 QString KEmoticons::currentThemeName()
 {
-    KConfigGroup config(KSharedConfig::openConfig(QStringLiteral("kdeglobals")), "Emoticons");
+    KConfigGroup config(KSharedConfig::openConfig(), "Emoticons");
     QString name = config.readEntry("emoticonsTheme", "Breeze");
     return name;
 }
@@ -174,6 +174,7 @@ void KEmoticons::setTheme(const QString &theme)
     KConfigGroup config(KSharedConfig::openConfig(QStringLiteral("kdeglobals")), "Emoticons");
     config.writeEntry("emoticonsTheme", theme);
     config.sync();
+    KSharedConfig::openConfig()->reparseConfiguration();
 }
 
 KEmoticonsTheme KEmoticons::newTheme(const QString &name, const KService::Ptr &service)
