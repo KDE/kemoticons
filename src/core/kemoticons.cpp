@@ -18,6 +18,7 @@
  **********************************************************************************/
 
 #include "kemoticons.h"
+#include "kemoticonsglobal_p.h"
 #include "kemoticonsprovider.h"
 
 #include <QFile>
@@ -32,6 +33,8 @@
 #include <ksharedconfig.h>
 #include <ktar.h>
 #include <kzip.h>
+
+Q_GLOBAL_STATIC(KEmoticonsGlobal, s_global)
 
 class KEmoticonsPrivate
 {
@@ -145,9 +148,7 @@ KEmoticonsTheme KEmoticons::theme(const QString &name) const
 
 QString KEmoticons::currentThemeName()
 {
-    KConfigGroup config(KSharedConfig::openConfig(), "Emoticons");
-    QString name = config.readEntry("emoticonsTheme", "Breeze");
-    return name;
+    return s_global()->m_themeName;
 }
 
 QStringList KEmoticons::themeList()
@@ -171,10 +172,17 @@ void KEmoticons::setTheme(const KEmoticonsTheme &theme)
 
 void KEmoticons::setTheme(const QString &theme)
 {
-    KConfigGroup config(KSharedConfig::openConfig(QStringLiteral("kdeglobals")), "Emoticons");
-    config.writeEntry("emoticonsTheme", theme);
-    config.sync();
-    KSharedConfig::openConfig()->reparseConfiguration();
+    s_global()->setThemeName(theme);
+}
+
+KEmoticonsTheme::ParseMode KEmoticons::parseMode()
+{
+    return s_global()->m_parseMode;
+}
+
+void KEmoticons::setParseMode(KEmoticonsTheme::ParseMode mode)
+{
+    s_global()->setParseMode(mode);
 }
 
 KEmoticonsTheme KEmoticons::newTheme(const QString &name, const KService::Ptr &service)
@@ -287,19 +295,6 @@ QStringList KEmoticons::installTheme(const QString &archiveName)
     return foundThemes;
 }
 
-void KEmoticons::setParseMode(KEmoticonsTheme::ParseMode mode)
-{
-    KConfigGroup config(KSharedConfig::openConfig(QStringLiteral("kdeglobals")), "Emoticons");
-    config.writeEntry("parseMode", int(mode));
-    config.sync();
-}
-
-KEmoticonsTheme::ParseMode KEmoticons::parseMode()
-{
-    KConfigGroup config(KSharedConfig::openConfig(QStringLiteral("kdeglobals")), "Emoticons");
-    return (KEmoticonsTheme::ParseMode) config.readEntry("parseMode", int(KEmoticonsTheme::RelaxedParse));
-}
-
 void KEmoticons::setPreferredEmoticonSize(const QSize &size)
 {
     d->m_preferredSize = size;
@@ -311,4 +306,4 @@ QSize KEmoticons::preferredEmoticonSize() const
 }
 
 #include "moc_kemoticons.cpp"
-
+#include "kemoticons.moc"

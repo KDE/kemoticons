@@ -4,6 +4,7 @@ set(kemoticons_LIB_SRCS
     kemoticons.cpp
     kemoticonstheme.cpp
     kemoticonsprovider.cpp
+    kemoticonsglobal.cpp
 )
 
 add_library(KF5Emoticons ${kemoticons_LIB_SRCS})
@@ -15,6 +16,7 @@ target_include_directories(KF5Emoticons INTERFACE "$<INSTALL_INTERFACE:${KDE_INS
 target_link_libraries(KF5Emoticons
 PUBLIC
     Qt5::Gui # for QImageReader, QPixmap
+    Qt5::DBus
     KF5::Service     # for KService::Ptr, KServiceTypeTrader
 PRIVATE
     KF5::Archive    # for KTar, KZip
