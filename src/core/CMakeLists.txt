@@ -16,10 +16,10 @@ target_include_directories(KF5Emoticons INTERFACE "$<INSTALL_INTERFACE:${KDE_INS
 target_link_libraries(KF5Emoticons
 PUBLIC
     Qt5::Gui # for QImageReader, QPixmap
-    Qt5::DBus
     KF5::Service     # for KService::Ptr, KServiceTypeTrader
 PRIVATE
     KF5::Archive    # for KTar, KZip
+    Qt5::DBus
 )
 
 set_target_properties(KF5Emoticons PROPERTIES
