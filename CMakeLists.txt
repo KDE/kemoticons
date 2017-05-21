@@ -23,8 +23,12 @@ include(KDECMakeSettings)
 include(GenerateExportHeader)
 include(ECMSetupVersion)
 include(ECMGenerateHeaders)
+include(ECMAddQch)
 include(CMakePackageConfigHelpers)
 
+
+option(BUILD_QCH "Build API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)" OFF)
+add_feature_info(QCH ${BUILD_QCH} "API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)")
 
 ecm_setup_version(PROJECT VARIABLE_PREFIX KEMOTICONS
                         VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kemoticons_version.h"
@@ -51,6 +55,16 @@ add_subdirectory(tests)
 
 # create a Config.cmake and a ConfigVersion.cmake file and install them
 set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF5Emoticons")
+
+if (BUILD_QCH)
+    ecm_install_qch_export(
+        TARGETS KF5Emoticons_QCH
+        FILE KF5EmoticonsQchTargets.cmake
+        DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+        COMPONENT Devel
+    )
+    set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KF5EmoticonsQchTargets.cmake\")")
+endif()
 
 install(EXPORT KF5EmoticonsTargets DESTINATION "${CMAKECONFIG_INSTALL_DIR}" FILE KF5EmoticonsTargets.cmake NAMESPACE KF5:: )
 
