@@ -16,6 +16,7 @@ PRIVATE
 set_target_properties(emoticonstheme_xmpp PROPERTIES
     OUTPUT_NAME "xmpp"
 )
+set_target_properties(emoticonstheme_xmpp PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/emoticonsthemes")
 install(
     TARGETS emoticonstheme_xmpp
     DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/emoticonsthemes

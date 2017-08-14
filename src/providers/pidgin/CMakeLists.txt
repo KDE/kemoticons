@@ -11,6 +11,7 @@ target_link_libraries(emoticonstheme_pidgin PRIVATE KF5::Emoticons)
 set_target_properties(emoticonstheme_pidgin PROPERTIES
     OUTPUT_NAME "pidgin"
 )
+set_target_properties(emoticonstheme_pidgin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/emoticonsthemes")
 install(
     TARGETS emoticonstheme_pidgin
     DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/emoticonsthemes

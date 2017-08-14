@@ -15,6 +15,8 @@ PRIVATE
 set_target_properties(emoticonstheme_kde PROPERTIES
     OUTPUT_NAME "kde"
 )
+set_target_properties(emoticonstheme_kde PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/emoticonsthemes")
+
 install(
     TARGETS emoticonstheme_kde
     DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/emoticonsthemes

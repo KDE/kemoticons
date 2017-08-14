@@ -16,6 +16,7 @@ PRIVATE
 set_target_properties(emoticonstheme_adium PROPERTIES
     OUTPUT_NAME "adium"
 )
+set_target_properties(emoticonstheme_adium PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/emoticonsthemes")
 install(
     TARGETS emoticonstheme_adium
     DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/emoticonsthemes
