@@ -48,15 +48,13 @@ private Q_SLOTS:
     void initTestCase()
     {
         QStandardPaths::setTestModeEnabled(true);
+        cleanupTestCase();
+
         QString dataPath = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
-
         QString destThemePath = dataPath + QLatin1String("/emoticons/");
+        QVERIFY(QDir().mkpath(destThemePath));
+        const QString destPath = destThemePath + default_theme;
         QDir themeDir(destThemePath);
-        if (themeDir.exists()) {
-            QVERIFY(themeDir.removeRecursively());
-        }
-        QVERIFY(themeDir.mkpath(QStringLiteral(".")));
-
         QVERIFY(copyTheme(QFINDTESTDATA("default-testtheme"), themeDir, default_theme));
 
         // check it can actually be found
@@ -65,6 +63,7 @@ private Q_SLOTS:
                 QStringLiteral("emoticons/"),
                 QStandardPaths::LocateDirectory);
         QVERIFY2(!themePath.isEmpty(), qPrintable(themePath));
+        QCOMPARE(themePath, destThemePath);
 
         // also copy the xmpp theme
         QVERIFY(copyTheme(QFINDTESTDATA("xmpp-testtheme"), themeDir, QStringLiteral("xmpp-testtheme")));
@@ -74,8 +73,8 @@ private Q_SLOTS:
     {
         QString dataPath = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
         const QString themePath = dataPath + QLatin1String("/emoticons/");
-        QDir themeDir(themePath);
-        QVERIFY(themeDir.removeRecursively());
+        QVERIFY(QDir(themePath + default_theme).removeRecursively());
+        QVERIFY(QDir(themePath + QStringLiteral("xmpp-testtheme")).removeRecursively());
     }
 
     void testEmoticonParser_data()

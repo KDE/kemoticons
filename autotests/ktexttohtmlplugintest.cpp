@@ -49,15 +49,15 @@ void KTextToHTMLPluginTest::initTestCase()
     QStandardPaths::setTestModeEnabled(true);
     QString dataPath = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
     QString destThemePath = dataPath + QLatin1String("/emoticons/");
-    QDir themeDir(destThemePath);
-    if (themeDir.exists()) {
-        QVERIFY(themeDir.removeRecursively());
+    QVERIFY(QDir().mkpath(destThemePath));
+    mEmoticonsThemePath = destThemePath + "default-testtheme";
+    if (QFileInfo::exists(mEmoticonsThemePath)) {
+        QVERIFY(QDir(mEmoticonsThemePath).removeRecursively());
     }
-    QVERIFY(themeDir.mkpath(QStringLiteral(".")));
+    QDir themeDir(destThemePath);
     QVERIFY(copyTheme(QFINDTESTDATA("default-testtheme"), themeDir, "default-testtheme"));
 
     KEmoticons::setTheme(QStringLiteral("default-testtheme"));
-    mEmoticonsThemePath = destThemePath + "default-testtheme";
     QVERIFY(!mEmoticonsThemePath.isEmpty());
 }
 
