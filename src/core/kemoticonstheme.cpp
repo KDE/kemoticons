@@ -24,7 +24,7 @@
 
 #include <QDebug>
 
-class KEmoticonsTheme::KEmoticonsThemeData : public QSharedData
+class Q_DECL_HIDDEN KEmoticonsTheme::KEmoticonsThemeData : public QSharedData
 {
 public:
     KEmoticonsThemeData();
