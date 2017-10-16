@@ -204,6 +204,7 @@ protected:
      * @since 5.0
      * @see emoticonsMap()
      */
+    //FIXME kf6: use const'ref here
     void addMapItem(QString key, QStringList value);
 
     /**
