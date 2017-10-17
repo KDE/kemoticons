@@ -271,7 +271,8 @@ QList<KEmoticonsTheme::Token> KEmoticonsTheme::tokenize(const QString &message, 
                 qSort(emoticonList.begin(), emoticonList.end(), EmoticonCompare);
             }
             bool found = false;
-            for (it = emoticonList.constBegin(); it != emoticonList.constEnd(); ++it) {
+            QList<KEmoticonsProvider::Emoticon>::const_iterator end = emoticonList.constEnd();
+            for (it = emoticonList.constBegin(); it != end; ++it) {
                 // If this is an HTML, then search for the HTML form of the emoticon.
                 // For instance <o) => &gt;o)
                 needle = (mode & SkipHTML) ? (*it).matchTextEscaped : (*it).matchText;
