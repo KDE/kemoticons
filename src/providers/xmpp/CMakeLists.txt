@@ -2,7 +2,7 @@
 ########### next target ###############
 set(xmppemoticons_SRCS xmpp_emoticons.cpp)
 
-add_library(emoticonstheme_xmpp MODULE ${xmppemoticons_SRCS})
+kcoreaddons_add_plugin(emoticonstheme_xmpp INSTALL_NAMESPACE kf5/emoticonsthemes JSON emoticonstheme_xmpp.json SOURCES ${xmppemoticons_SRCS})
 
 find_package(Qt5Xml REQUIRED)
 target_link_libraries(emoticonstheme_xmpp
@@ -16,11 +16,8 @@ PRIVATE
 set_target_properties(emoticonstheme_xmpp PROPERTIES
     OUTPUT_NAME "xmpp"
 )
-set_target_properties(emoticonstheme_xmpp PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/emoticonsthemes")
-install(
-    TARGETS emoticonstheme_xmpp
-    DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/emoticonsthemes
-)
+
+# KF6: remove
 install(
     FILES emoticonstheme_xmpp.desktop
     DESTINATION ${KDE_INSTALL_KSERVICES5DIR}

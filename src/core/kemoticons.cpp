@@ -29,6 +29,7 @@
 #include <QFileSystemWatcher>
 
 #include <kpluginloader.h>
+#include <kpluginmetadata.h>
 #include <kconfiggroup.h>
 #include <ksharedconfig.h>
 #include <ktar.h>
@@ -42,10 +43,12 @@ public:
     KEmoticonsPrivate(KEmoticons *parent);
     ~KEmoticonsPrivate();
     void loadServiceList();
+    KEmoticonsProvider *loadProvider(const KPluginMetaData &plugin);
     KEmoticonsProvider *loadProvider(const KService::Ptr &service);
     KEmoticonsTheme loadTheme(const QString &name);
 
-    QList<KService::Ptr> m_loaded;
+    QList<KService::Ptr> m_oldStylePlugins;
+    QVector<KPluginMetaData> m_plugins;
     QHash<QString, KEmoticonsTheme> m_themes;
     QFileSystemWatcher m_fileWatcher;
     KEmoticons *q;
@@ -72,8 +75,24 @@ static bool priorityLessThan(const KService::Ptr &s1, const KService::Ptr &s2)
 void KEmoticonsPrivate::loadServiceList()
 {
     const QString constraint("(exist Library)");
-    m_loaded = KServiceTypeTrader::self()->query(QStringLiteral("KEmoticons"), constraint);
-    qSort(m_loaded.begin(), m_loaded.end(), priorityLessThan);
+    m_oldStylePlugins = KServiceTypeTrader::self()->query(QStringLiteral("KEmoticons"), constraint);
+    qSort(m_oldStylePlugins.begin(), m_oldStylePlugins.end(), priorityLessThan);
+
+    m_plugins = KPluginLoader::findPlugins("kf5/emoticonsthemes");
+    std::sort(m_plugins.begin(), m_plugins.end(), [](const KPluginMetaData &s1, const KPluginMetaData &s2) {
+            return s1.rawData().value(QStringLiteral("X-KDE-Priority")).toInt() > s2.rawData().value(QStringLiteral("X-KDE-Priority")).toInt();
+    });
+}
+
+KEmoticonsProvider *KEmoticonsPrivate::loadProvider(const KPluginMetaData &plugin)
+{
+    KPluginFactory *factory = qobject_cast<KPluginFactory *>(plugin.instantiate());
+    if (!factory) {
+        qWarning() << "Invalid plugin factory for" << plugin.fileName();
+        return nullptr;
+    }
+    KEmoticonsProvider *provider = factory->create<KEmoticonsProvider>(nullptr);
+    return provider;
 }
 
 KEmoticonsProvider *KEmoticonsPrivate::loadProvider(const KService::Ptr &service)
@@ -99,21 +118,37 @@ void KEmoticonsPrivate::changeTheme(const QString &path)
 
 KEmoticonsTheme KEmoticonsPrivate::loadTheme(const QString &name)
 {
-    for (const KService::Ptr &service : qAsConst(m_loaded)) {
+    const auto registerProvider = [this](const QString &name, const QString &path, KEmoticonsProvider *provider) {
+        if (m_preferredSize.isValid()) {
+            provider->setPreferredEmoticonSize(m_preferredSize);
+        }
+        KEmoticonsTheme theme(provider);
+        provider->loadTheme(path);
+        m_themes.insert(name, theme);
+        m_fileWatcher.addPath(path);
+        return theme;
+    };
+
+    for (const KPluginMetaData &plugin : qAsConst(m_plugins)) {
+        const QString fName = plugin.rawData().value(QStringLiteral("X-KDE-EmoticonsFileName")).toString();
+        const QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "emoticons/" + name + '/' + fName);
+
+        if (QFile::exists(path)) {
+            KEmoticonsProvider *provider = loadProvider(plugin);
+            if (provider) {
+                return registerProvider(name, path, provider);
+            }
+        }
+    }
+    // KF6: remove support for old plugins
+    for (const KService::Ptr &service : qAsConst(m_oldStylePlugins)) {
         const QString fName = service->property(QStringLiteral("X-KDE-EmoticonsFileName")).toString();
         const QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "emoticons/" + name + '/' + fName);
 
         if (QFile::exists(path)) {
             KEmoticonsProvider *provider = loadProvider(service);
             if (provider) {
-                if (m_preferredSize.isValid()) {
-                    provider->setPreferredEmoticonSize(m_preferredSize);
-                }
-                KEmoticonsTheme theme(provider);
-                provider->loadTheme(path);
-                m_themes.insert(name, theme);
-                m_fileWatcher.addPath(path);
-                return theme;
+                return registerProvider(name, path, provider);
             }
         }
     }
@@ -251,9 +286,14 @@ QStringList KEmoticons::installTheme(const QString &archiveName)
         if (currentEntry->isDirectory()) {
             currentDir = dynamic_cast<KArchiveDirectory *>(currentEntry);
 
-            for (int i = 0; i < d->m_loaded.size(); ++i) {
-                QString fName = d->m_loaded.at(i)->property(QStringLiteral("X-KDE-EmoticonsFileName")).toString();
-
+            for (const KPluginMetaData &plugin : qAsConst(d->m_plugins)) {
+                const QString fName = plugin.rawData().value(QStringLiteral("X-KDE-EmoticonsFileName")).toString();
+                if (currentDir && currentDir->entry(fName) != nullptr) {
+                    foundThemes.append(currentDir->name());
+                }
+            }
+            for (const KService::Ptr &service : qAsConst(d->m_oldStylePlugins)) {
+                const QString fName = service->property(QStringLiteral("X-KDE-EmoticonsFileName")).toString();
                 if (currentDir && currentDir->entry(fName) != nullptr) {
                     foundThemes.append(currentDir->name());
                 }

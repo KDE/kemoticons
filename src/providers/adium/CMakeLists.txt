@@ -2,7 +2,7 @@
 ########### next target ###############
 set(adiumemoticons_SRCS adium_emoticons.cpp)
 
-add_library(emoticonstheme_adium MODULE ${adiumemoticons_SRCS})
+kcoreaddons_add_plugin(emoticonstheme_adium INSTALL_NAMESPACE kf5/emoticonsthemes JSON emoticonstheme_adium.json SOURCES ${adiumemoticons_SRCS})
 
 find_package(Qt5Xml REQUIRED)
 target_link_libraries(emoticonstheme_adium
@@ -16,11 +16,7 @@ PRIVATE
 set_target_properties(emoticonstheme_adium PROPERTIES
     OUTPUT_NAME "adium"
 )
-set_target_properties(emoticonstheme_adium PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/emoticonsthemes")
-install(
-    TARGETS emoticonstheme_adium
-    DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/emoticonsthemes
-)
+# KF6: remove
 install(
     FILES emoticonstheme_adium.desktop
     DESTINATION ${KDE_INSTALL_KSERVICES5DIR}

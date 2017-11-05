@@ -28,7 +28,7 @@
 
 #include <kpluginfactory.h>
 
-K_PLUGIN_FACTORY(XmppEmoticonsFactory, registerPlugin<XmppEmoticons>();)
+K_PLUGIN_FACTORY_WITH_JSON(XmppEmoticonsFactory, "emoticonstheme_xmpp.json", registerPlugin<XmppEmoticons>();)
 
 XmppEmoticons::XmppEmoticons(QObject *parent, const QVariantList &args)
     : KEmoticonsProvider(parent)

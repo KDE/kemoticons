@@ -2,7 +2,7 @@
 ########### next target ###############
 set(pidginemoticons_SRCS pidgin_emoticons.cpp)
 
-add_library(emoticonstheme_pidgin MODULE ${pidginemoticons_SRCS})
+kcoreaddons_add_plugin(emoticonstheme_pidgin INSTALL_NAMESPACE kf5/emoticonsthemes JSON emoticonstheme_pidgin.json SOURCES ${pidginemoticons_SRCS})
 
 target_link_libraries(emoticonstheme_pidgin PRIVATE KF5::Emoticons)
 
@@ -11,11 +11,7 @@ target_link_libraries(emoticonstheme_pidgin PRIVATE KF5::Emoticons)
 set_target_properties(emoticonstheme_pidgin PROPERTIES
     OUTPUT_NAME "pidgin"
 )
-set_target_properties(emoticonstheme_pidgin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/emoticonsthemes")
-install(
-    TARGETS emoticonstheme_pidgin
-    DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/emoticonsthemes
-)
+# KF6: remove
 install(
     FILES emoticonstheme_pidgin.desktop
     DESTINATION ${KDE_INSTALL_KSERVICES5DIR}

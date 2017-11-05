@@ -2,7 +2,7 @@
 ########### next target ###############
 set(kdeemoticons_SRCS kde_emoticons.cpp)
 
-add_library(emoticonstheme_kde MODULE ${kdeemoticons_SRCS})
+kcoreaddons_add_plugin(emoticonstheme_kde INSTALL_NAMESPACE kf5/emoticonsthemes JSON emoticonstheme_kde.json SOURCES ${kdeemoticons_SRCS})
 
 find_package(Qt5Xml REQUIRED)
 target_link_libraries(emoticonstheme_kde
@@ -15,12 +15,8 @@ PRIVATE
 set_target_properties(emoticonstheme_kde PROPERTIES
     OUTPUT_NAME "kde"
 )
-set_target_properties(emoticonstheme_kde PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/emoticonsthemes")
 
-install(
-    TARGETS emoticonstheme_kde
-    DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/emoticonsthemes
-)
+# KF6: remove
 install(
     FILES emoticonstheme_kde.desktop
     DESTINATION ${KDE_INSTALL_KSERVICES5DIR}
