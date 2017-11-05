@@ -64,14 +64,14 @@ KEmoticonsPrivate::~KEmoticonsPrivate()
 {
 }
 
-bool priorityLessThan(const KService::Ptr &s1, const KService::Ptr &s2)
+static bool priorityLessThan(const KService::Ptr &s1, const KService::Ptr &s2)
 {
     return (s1->property(QStringLiteral("X-KDE-Priority")).toInt() > s2->property(QStringLiteral("X-KDE-Priority")).toInt());
 }
 
 void KEmoticonsPrivate::loadServiceList()
 {
-    QString constraint("(exist Library)");
+    const QString constraint("(exist Library)");
     m_loaded = KServiceTypeTrader::self()->query(QStringLiteral("KEmoticons"), constraint);
     qSort(m_loaded.begin(), m_loaded.end(), priorityLessThan);
 }
@@ -89,8 +89,8 @@ KEmoticonsProvider *KEmoticonsPrivate::loadProvider(const KService::Ptr &service
 
 void KEmoticonsPrivate::changeTheme(const QString &path)
 {
-    QFileInfo info(path);
-    QString name = info.dir().dirName();
+    const QFileInfo info(path);
+    const QString name = info.dir().dirName();
 
     if (m_themes.contains(name)) {
         loadTheme(name);
@@ -99,13 +99,12 @@ void KEmoticonsPrivate::changeTheme(const QString &path)
 
 KEmoticonsTheme KEmoticonsPrivate::loadTheme(const QString &name)
 {
-    const int numberOfTheme = m_loaded.size();
-    for (int i = 0; i < numberOfTheme; ++i) {
-        const QString fName = m_loaded.at(i)->property(QStringLiteral("X-KDE-EmoticonsFileName")).toString();
+    for (const KService::Ptr &service : qAsConst(m_loaded)) {
+        const QString fName = service->property(QStringLiteral("X-KDE-EmoticonsFileName")).toString();
         const QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "emoticons/" + name + '/' + fName);
 
         if (QFile::exists(path)) {
-            KEmoticonsProvider *provider = loadProvider(m_loaded.at(i));
+            KEmoticonsProvider *provider = loadProvider(service);
             if (provider) {
                 if (m_preferredSize.isValid()) {
                     provider->setPreferredEmoticonSize(m_preferredSize);
@@ -153,8 +152,9 @@ QString KEmoticons::currentThemeName()
 
 QStringList KEmoticons::themeList()
 {
-    QStringList ls;
     const QStringList themeDirs = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, QStringLiteral("emoticons"), QStandardPaths::LocateDirectory);
+    QStringList ls;
+    ls.reserve(themeDirs.count());
 
     for (int i = 0; i < themeDirs.count(); ++i) {
         QDir themeQDir(themeDirs[i]);
