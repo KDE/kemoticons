@@ -53,9 +53,9 @@ private Q_SLOTS:
         QString dataPath = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
         QString destThemePath = dataPath + QLatin1String("/emoticons/");
         QVERIFY(QDir().mkpath(destThemePath));
-        const QString destPath = destThemePath + default_theme;
+        const QString destPath = destThemePath + QString::fromLatin1(default_theme);
         QDir themeDir(destThemePath);
-        QVERIFY(copyTheme(QFINDTESTDATA("default-testtheme"), themeDir, default_theme));
+        QVERIFY(copyTheme(QFINDTESTDATA("default-testtheme"), themeDir, QString::fromLatin1(default_theme)));
 
         // check it can actually be found
         themePath = QStandardPaths::locate(
@@ -73,7 +73,7 @@ private Q_SLOTS:
     {
         QString dataPath = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
         const QString themePath = dataPath + QLatin1String("/emoticons/");
-        QVERIFY(QDir(themePath + default_theme).removeRecursively());
+        QVERIFY(QDir(themePath + QString::fromLatin1(default_theme)).removeRecursively());
         QVERIFY(QDir(themePath + QStringLiteral("xmpp-testtheme")).removeRecursively());
     }
 
@@ -93,10 +93,10 @@ private Q_SLOTS:
             QString outputFileName = fileName;
             outputFileName.replace(QStringLiteral("input"), QStringLiteral("output"));
             const QString baseName = fileName.section(QLatin1Char('-'), 0, 0);
-            QTest::newRow(qPrintable(fileName.left(fileName.lastIndexOf('.'))))
+            QTest::newRow(qPrintable(fileName.left(fileName.lastIndexOf(QLatin1Char('.')))))
                 << basePath + QLatin1Char('/') + fileName
                 << basePath + QLatin1Char('/') + outputFileName
-                << (baseName == QLatin1String("xmpp") ? "xmpp-testtheme" : default_theme)
+                << (baseName == QLatin1String("xmpp") ? QStringLiteral("xmpp-testtheme") : QString::fromLatin1(default_theme))
                 << (baseName == QLatin1String("broken"));
         }
     }
@@ -123,7 +123,7 @@ private Q_SLOTS:
 
             QString result = emo.parseEmoticons(inputData,
                     KEmoticonsTheme::RelaxedParse | KEmoticonsTheme::SkipHTML);
-            result.replace(themePath + themeName + '/', QString());
+            result.replace(themePath + themeName + QLatin1Char('/'), QString());
 
             if (xfail) {
                 QEXPECT_FAIL("", "Checking known-broken testcase", Continue);
@@ -149,8 +149,8 @@ private Q_SLOTS:
             QString outputFileName = fileName;
             outputFileName.replace(QStringLiteral("input"), QStringLiteral("output"));
             const QString baseName = fileName.section(QLatin1Char('-'), 0, 0);
-            QTest::newRow(qPrintable(fileName.left(fileName.lastIndexOf('.'))))
-            << (baseName == QLatin1String("xmpp") ? "xmpp-testtheme" : default_theme);
+            QTest::newRow(qPrintable(fileName.left(fileName.lastIndexOf(QLatin1Char('.')))))
+            << (baseName == QLatin1String("xmpp") ? QStringLiteral("xmpp-testtheme") : QString::fromLatin1(default_theme));
         }
     }
 
@@ -162,7 +162,7 @@ private Q_SLOTS:
 
         KEmoticonsTheme theme = kemoticons.theme(themeName);
 
-        const QString parsed = theme.parseEmoticons(":)");
+        const QString parsed = theme.parseEmoticons(QStringLiteral(":)"));
 
         QVERIFY(parsed.contains(QStringLiteral("width=\"99\"")));
         QVERIFY(parsed.contains(QStringLiteral("height=\"77\"")));

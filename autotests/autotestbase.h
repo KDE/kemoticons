@@ -30,7 +30,7 @@ static bool copyTheme(const QString &dir, const QDir &baseThemeDir, const QStrin
     if (!sourceThemeDir.exists()) {
         return false;
     }
-    QDir themeDir(baseThemeDir.absolutePath() + '/' + themeName);
+    QDir themeDir(baseThemeDir.absolutePath() + QLatin1Char('/') + themeName);
     themeDir.removeRecursively();
     themeDir.mkpath(QStringLiteral("."));
 

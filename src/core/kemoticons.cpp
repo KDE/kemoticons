@@ -74,11 +74,11 @@ static bool priorityLessThan(const KService::Ptr &s1, const KService::Ptr &s2)
 
 void KEmoticonsPrivate::loadServiceList()
 {
-    const QString constraint("(exist Library)");
+    const QString constraint(QStringLiteral("(exist Library)"));
     m_oldStylePlugins = KServiceTypeTrader::self()->query(QStringLiteral("KEmoticons"), constraint);
     qSort(m_oldStylePlugins.begin(), m_oldStylePlugins.end(), priorityLessThan);
 
-    m_plugins = KPluginLoader::findPlugins("kf5/emoticonsthemes");
+    m_plugins = KPluginLoader::findPlugins(QStringLiteral("kf5/emoticonsthemes"));
     std::sort(m_plugins.begin(), m_plugins.end(), [](const KPluginMetaData &s1, const KPluginMetaData &s2) {
             return s1.rawData().value(QStringLiteral("X-KDE-Priority")).toInt() > s2.rawData().value(QStringLiteral("X-KDE-Priority")).toInt();
     });
@@ -131,7 +131,7 @@ KEmoticonsTheme KEmoticonsPrivate::loadTheme(const QString &name)
 
     for (const KPluginMetaData &plugin : qAsConst(m_plugins)) {
         const QString fName = plugin.rawData().value(QStringLiteral("X-KDE-EmoticonsFileName")).toString();
-        const QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "emoticons/" + name + '/' + fName);
+        const QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("emoticons/") + name + QLatin1Char('/') + fName);
 
         if (QFile::exists(path)) {
             KEmoticonsProvider *provider = loadProvider(plugin);
@@ -143,7 +143,7 @@ KEmoticonsTheme KEmoticonsPrivate::loadTheme(const QString &name)
     // KF6: remove support for old plugins
     for (const KService::Ptr &service : qAsConst(m_oldStylePlugins)) {
         const QString fName = service->property(QStringLiteral("X-KDE-EmoticonsFileName")).toString();
-        const QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "emoticons/" + name + '/' + fName);
+        const QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("emoticons/") + name + QLatin1Char('/') + fName);
 
         if (QFile::exists(path)) {
             KEmoticonsProvider *provider = loadProvider(service);
@@ -241,7 +241,7 @@ QStringList KEmoticons::installTheme(const QString &archiveName)
     KArchiveDirectory *currentDir = nullptr;
     KArchive *archive = nullptr;
 
-    QString localThemesDir(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + "/emoticons");
+    QString localThemesDir(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/emoticons"));
 
     if (localThemesDir.isEmpty()) {
         qCritical() << "Could not find a suitable place in which to install the emoticon theme";

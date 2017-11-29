@@ -35,8 +35,8 @@ KEmoticonsGlobal::KEmoticonsGlobal()
     m_parseMode = static_cast<KEmoticonsTheme::ParseMode>(config.readEntry("parseMode", int(KEmoticonsTheme::RelaxedParse)));
 
     QDBusConnection dbus = QDBusConnection::sessionBus();
-    dbus.connect(QString(), s_dbusPath, s_dbusInterface, s_themeChangedSignal, this, SLOT(slotEmoticonsThemeChanged(QString)));
-    dbus.connect(QString(), s_dbusPath, s_dbusInterface, s_parseModeChangedSignal, this, SLOT(slotEmoticonsParseModeChanged(int)));
+    dbus.connect(QString(), QString::fromLatin1(s_dbusPath), QString::fromLatin1(s_dbusInterface), QString::fromLatin1(s_themeChangedSignal), this, SLOT(slotEmoticonsThemeChanged(QString)));
+    dbus.connect(QString(), QString::fromLatin1(s_dbusPath), QString::fromLatin1(s_dbusInterface), QString::fromLatin1(s_parseModeChangedSignal), this, SLOT(slotEmoticonsParseModeChanged(int)));
 }
 
 void KEmoticonsGlobal::setThemeName(const QString &name)
@@ -48,7 +48,7 @@ void KEmoticonsGlobal::setThemeName(const QString &name)
     config.sync();
 
     // Inform running apps
-    QDBusMessage message = QDBusMessage::createSignal(s_dbusPath, s_dbusInterface, s_themeChangedSignal);
+    QDBusMessage message = QDBusMessage::createSignal(QString::fromLatin1(s_dbusPath), QString::fromLatin1(s_dbusInterface), QString::fromLatin1(s_themeChangedSignal));
     message << name;
     if (!QDBusConnection::sessionBus().send(message)) {
         qWarning() << "Error sending dbus signal" << s_themeChangedSignal;
@@ -64,7 +64,7 @@ void KEmoticonsGlobal::setParseMode(KEmoticonsTheme::ParseMode mode)
     config.sync();
 
     // Inform running apps
-    QDBusMessage message = QDBusMessage::createSignal(s_dbusPath, s_dbusInterface, s_parseModeChangedSignal);
+    QDBusMessage message = QDBusMessage::createSignal(QString::fromLatin1(s_dbusPath), QString::fromLatin1(s_dbusInterface), QString::fromLatin1(s_parseModeChangedSignal));
     message << static_cast<int>(mode);
     if (!QDBusConnection::sessionBus().send(message)) {
         qWarning() << "Error sending dbus signal" << s_parseModeChangedSignal;

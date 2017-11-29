@@ -50,9 +50,9 @@ KEmoTest::KEmoTest()
     lineEdit = new QLineEdit;
     label = new QLabel;
     QLabel *explanation = new QLabel;
-    explanation->setText("Please enter text with emoticons. They will be parsed, "
+    explanation->setText(QStringLiteral("Please enter text with emoticons. They will be parsed, "
                          "except <b>:-)</b> and <b>:)</b> which are excluded. "
-                         "Emoticon theme can be chosen from the combo box.");
+                         "Emoticon theme can be chosen from the combo box."));
     explanation->setWordWrap(true);
     comboBox = new QComboBox;
 

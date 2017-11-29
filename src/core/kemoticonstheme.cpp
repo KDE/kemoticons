@@ -205,7 +205,7 @@ QList<KEmoticonsTheme::Token> KEmoticonsTheme::tokenize(const QString &message, 
 
     /* previous char, in the firs iteration assume that it is space since we want
      * to let emoticons at the beginning, the very first previous QChar must be a space. */
-    QChar p = ' ';
+    QChar p = QLatin1Char(' ');
     QChar c; /* current char */
     QChar n;
 
@@ -227,19 +227,19 @@ QList<KEmoticonsTheme::Token> KEmoticonsTheme::tokenize(const QString &message, 
 
         if (mode & SkipHTML) { // Shall we skip HTML ?
             if (!inHTMLTag) { // Are we already in an HTML tag ?
-                if (c == '<') { // If not check if are going into one
+                if (c == QLatin1Char('<')) { // If not check if are going into one
                     inHTMLTag = true; // If we are, change the state to inHTML
                     p = c;
                     continue;
                 }
             } else { // We are already in a HTML tag
-                if (c == '>') { // Check if it ends
+                if (c == QLatin1Char('>')) { // Check if it ends
                     inHTMLTag = false;   // If so, change the state
 
-                    if (p == 'a') {
+                    if (p == QLatin1Char('a')) {
                         inHTMLLink = false;
                     }
-                } else if (c == 'a' && p == '<') { // check if we just entered an achor tag
+                } else if (c == QLatin1Char('a') && p == QLatin1Char('<')) { // check if we just entered an achor tag
                     inHTMLLink = true; // don't put smileys in urls
                 }
                 p = c;
@@ -247,7 +247,7 @@ QList<KEmoticonsTheme::Token> KEmoticonsTheme::tokenize(const QString &message, 
             }
 
             if (!inHTMLEntity) { // are we
-                if (c == '&') {
+                if (c == QLatin1Char('&')) {
                     inHTMLEntity = true;
                 }
             }
@@ -258,7 +258,7 @@ QList<KEmoticonsTheme::Token> KEmoticonsTheme::tokenize(const QString &message, 
             continue;
         }
 
-        if ((mode & StrictParse)  &&  !p.isSpace() && p != '>') {  // '>' may mark the end of an html tag
+        if ((mode & StrictParse)  &&  !p.isSpace() && p != QLatin1Char('>')) {  // '>' may mark the end of an html tag
             p = c;
             continue;
         } /* strict requires space before the emoticon */
@@ -282,7 +282,7 @@ QList<KEmoticonsTheme::Token> KEmoticonsTheme::tokenize(const QString &message, 
                         if (message.length() > pos + needle.length()) {
                             n = message[pos + needle.length()];
                             //<br/> marks the end of a line
-                            if (n != '<' && !n.isSpace() &&  !n.isNull() && n != '&') {
+                            if (n != QLatin1Char('<') && !n.isSpace() &&  !n.isNull() && n != QLatin1Char('&')) {
                                 break;
                             }
                         }
@@ -303,7 +303,7 @@ QList<KEmoticonsTheme::Token> KEmoticonsTheme::tokenize(const QString &message, 
             if (!found) {
                 if (inHTMLEntity) {
                     // If we are in an HTML entitiy such as &gt;
-                    int htmlEnd = message.indexOf(';', pos);
+                    int htmlEnd = message.indexOf(QLatin1Char(';'), pos);
                     // Search for where it ends
                     if (htmlEnd == -1) {
                         // Apparently this HTML entity isn't ended, something is wrong, try skip the '&'

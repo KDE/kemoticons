@@ -36,7 +36,7 @@ AdiumEmoticons::AdiumEmoticons(QObject *parent, const QVariantList &args)
 
 bool AdiumEmoticons::removeEmoticon(const QString &emo)
 {
-    QString emoticon = QFileInfo(emoticonsMap().key(emo.split(' '))).fileName();
+    QString emoticon = QFileInfo(emoticonsMap().key(emo.split(QLatin1Char(' ')))).fileName();
     QDomElement fce = m_themeXml.firstChildElement(QStringLiteral("plist")).firstChildElement(QStringLiteral("dict")).firstChildElement(QStringLiteral("dict"));
 
     if (fce.isNull()) {
@@ -53,8 +53,8 @@ bool AdiumEmoticons::removeEmoticon(const QString &emo)
             }
 
             fce.removeChild(de);
-            removeMapItem(emoticonsMap().key(emo.split(' ')));
-            removeIndexItem(emoticon, emo.split(' '));
+            removeMapItem(emoticonsMap().key(emo.split(QLatin1Char(' '))));
+            removeIndexItem(emoticon, emo.split(QLatin1Char(' ')));
             return true;
         }
     }
@@ -71,7 +71,7 @@ bool AdiumEmoticons::addEmoticon(const QString &emo, const QString &text, AddEmo
         }
     }
 
-    const QStringList splitted = text.split(' ');
+    const QStringList splitted = text.split(QLatin1Char(' '));
     QDomElement fce = m_themeXml.firstChildElement(QStringLiteral("plist")).firstChildElement(QStringLiteral("dict")).firstChildElement(QStringLiteral("dict"));
 
     if (fce.isNull()) {
@@ -116,7 +116,7 @@ bool AdiumEmoticons::addEmoticon(const QString &emo, const QString &text, AddEmo
 
 void AdiumEmoticons::saveTheme()
 {
-    QFile fp(themePath() + '/' + fileName());
+    QFile fp(themePath() + QLatin1Char('/') + fileName());
 
     if (!fp.exists()) {
         qWarning() << fp.fileName() << "doesn't exist!";
@@ -174,7 +174,7 @@ bool AdiumEmoticons::loadTheme(const QString &path)
         QDomElement de = nl.item(i).toElement();
 
         if (!de.isNull() && de.tagName() == QLatin1String("key")) {
-            name = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "emoticons/" + themeName() + '/' + de.text());
+            name = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("emoticons/") + themeName() + QLatin1Char('/') + de.text());
             continue;
         } else if (!de.isNull() && de.tagName() == QLatin1String("dict")) {
             QDomElement arr = de.firstChildElement(QStringLiteral("array"));
@@ -201,10 +201,10 @@ bool AdiumEmoticons::loadTheme(const QString &path)
 
 void AdiumEmoticons::newTheme()
 {
-    QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + "/emoticons/" + themeName();
+    QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/emoticons/") + themeName();
     QDir().mkpath(path);
 
-    QFile fp(path + '/' + "Emoticons.plist");
+    QFile fp(path + QLatin1Char('/') + QStringLiteral("Emoticons.plist"));
 
     if (!fp.open(QIODevice::WriteOnly)) {
         qWarning() << fp.fileName() << "can't open WriteOnly!";

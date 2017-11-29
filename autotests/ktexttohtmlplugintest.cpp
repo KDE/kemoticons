@@ -50,12 +50,12 @@ void KTextToHTMLPluginTest::initTestCase()
     QString dataPath = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
     QString destThemePath = dataPath + QLatin1String("/emoticons/");
     QVERIFY(QDir().mkpath(destThemePath));
-    mEmoticonsThemePath = destThemePath + "default-testtheme";
+    mEmoticonsThemePath = destThemePath + QStringLiteral("default-testtheme");
     if (QFileInfo::exists(mEmoticonsThemePath)) {
         QVERIFY(QDir(mEmoticonsThemePath).removeRecursively());
     }
     QDir themeDir(destThemePath);
-    QVERIFY(copyTheme(QFINDTESTDATA("default-testtheme"), themeDir, "default-testtheme"));
+    QVERIFY(copyTheme(QFINDTESTDATA("default-testtheme"), themeDir, QStringLiteral("default-testtheme")));
 
     KEmoticons::setTheme(QStringLiteral("default-testtheme"));
     QVERIFY(!mEmoticonsThemePath.isEmpty());
@@ -63,7 +63,7 @@ void KTextToHTMLPluginTest::initTestCase()
 
 QString KTextToHTMLPluginTest::htmlForSmiley(const QString &emoticon, const QString &name) const
 {
-    return QString("<img align=\"center\" title=\"%1\" alt=\"%1\" src=\"%2/%3.png\" width=\"22\" height=\"22\" />")
+    return QStringLiteral("<img align=\"center\" title=\"%1\" alt=\"%1\" src=\"%2/%3.png\" width=\"22\" height=\"22\" />")
                 .arg(emoticon,
                      mEmoticonsThemePath,
                      name);
@@ -81,12 +81,12 @@ void KTextToHTMLPluginTest::parseEmoticonsTest_data()
     QTest::newRow("simple")
         << "Hello :-)"
         << false << QStringList()
-        << QString("Hello %1").arg(htmlForSmiley(QStringLiteral(":-)"), QStringLiteral("smile")));
+        << QStringLiteral("Hello %1").arg(htmlForSmiley(QStringLiteral(":-)"), QStringLiteral("smile")));
 
     QTest::newRow("between strings")
         << "Hello :-) How are you?"
         << false << QStringList()
-        << QString("Hello %1 How are you?").arg(htmlForSmiley(QStringLiteral(":-)"), QStringLiteral("smile")));
+        << QStringLiteral("Hello %1 How are you?").arg(htmlForSmiley(QStringLiteral(":-)"), QStringLiteral("smile")));
 
     QTest::newRow("excluded")
         << "Bye :-("
@@ -96,7 +96,7 @@ void KTextToHTMLPluginTest::parseEmoticonsTest_data()
     QTest::newRow("don't mix in HTML")
         << "<b>:(</b>"
         << false << QStringList()
-        << QString("<b>%1</b>").arg(htmlForSmiley(QStringLiteral(":("), QStringLiteral("sad")));
+        << QStringLiteral("<b>%1</b>").arg(htmlForSmiley(QStringLiteral(":("), QStringLiteral("sad")));
 
     QTest::newRow("strict parsing of smileys without space")
         << "Very happy! :-):-)"
@@ -106,7 +106,7 @@ void KTextToHTMLPluginTest::parseEmoticonsTest_data()
     QTest::newRow("nonstrict parsing of smileys without space")
         << "Very happy! :-):-)"
         << false << QStringList()
-        << QString("Very happy! %1%1").arg(htmlForSmiley(QStringLiteral(":-)"), QStringLiteral("smile")));
+        << QStringLiteral("Very happy! %1%1").arg(htmlForSmiley(QStringLiteral(":-)"), QStringLiteral("smile")));
 
     QTest::newRow("smiley in HTML")
         << "<img src=\"...\" title=\":-)\" />"

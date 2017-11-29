@@ -46,7 +46,6 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kemoticons_version.h
 
 # the strings throughout this library are used to search ressources
 # so they don't need translations
-remove_definitions(-DQT_NO_CAST_FROM_ASCII)
 
 add_subdirectory(src)
 add_subdirectory(themes)

@@ -37,7 +37,7 @@ KdeEmoticons::KdeEmoticons(QObject *parent, const QVariantList &args)
 
 bool KdeEmoticons::removeEmoticon(const QString &emo)
 {
-    QString emoticon = QFileInfo(emoticonsMap().key(emo.split(' '))).fileName();
+    QString emoticon = QFileInfo(emoticonsMap().key(emo.split(QLatin1Char(' ')))).fileName();
     QDomElement fce = m_themeXml.firstChildElement(QStringLiteral("messaging-emoticon-map"));
 
     if (fce.isNull()) {
@@ -49,8 +49,8 @@ bool KdeEmoticons::removeEmoticon(const QString &emo)
         QDomElement de = nl.item(i).toElement();
         if (!de.isNull() && de.tagName() == QLatin1String("emoticon") && (de.attribute(QStringLiteral("file")) == emoticon || de.attribute(QStringLiteral("file")) == QFileInfo(emoticon).baseName())) {
             fce.removeChild(de);
-            removeMapItem(emoticonsMap().key(emo.split(' ')));
-            removeIndexItem(emoticon, emo.split(' '));
+            removeMapItem(emoticonsMap().key(emo.split(QLatin1Char(' '))));
+            removeIndexItem(emoticon, emo.split(QLatin1Char(' ')));
             return true;
         }
     }
@@ -67,7 +67,7 @@ bool KdeEmoticons::addEmoticon(const QString &emo, const QString &text, AddEmoti
         }
     }
 
-    const QStringList splitted = text.split(' ');
+    const QStringList splitted = text.split(QLatin1Char(' '));
     QDomElement fce = m_themeXml.firstChildElement(QStringLiteral("messaging-emoticon-map"));
 
     if (fce.isNull()) {
@@ -92,7 +92,7 @@ bool KdeEmoticons::addEmoticon(const QString &emo, const QString &text, AddEmoti
 
 void KdeEmoticons::saveTheme()
 {
-    QFile fp(themePath() + '/' + fileName());
+    QFile fp(themePath() + QLatin1Char('/') + fileName());
 
     if (!fp.exists()) {
         qWarning() << fp.fileName() << "doesn't exist!";
@@ -161,13 +161,15 @@ bool KdeEmoticons::loadTheme(const QString &path)
                 }
             }
 
-            QString emo = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "emoticons/" + themeName() + '/' + de.attribute(QStringLiteral("file")));
+            QString emo = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("emoticons/") + themeName() + QLatin1Char('/') + de.attribute(QStringLiteral("file")));
 
             if (emo.isEmpty()) {
                 QList<QByteArray> ext = QImageReader::supportedImageFormats();
 
                 for (int j = 0; j < ext.size(); ++j) {
-                    emo = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "emoticons/" + themeName() + '/' + de.attribute(QStringLiteral("file")) + '.' + ext.at(j));
+                    emo = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("emoticons/") +
+                                                 themeName() + QLatin1Char('/') + de.attribute(QStringLiteral("file"))
+                                                 + QLatin1Char('.') + QString::fromLatin1(ext.at(j)));
                     if (!emo.isEmpty()) {
                         break;
                     }
@@ -188,10 +190,10 @@ bool KdeEmoticons::loadTheme(const QString &path)
 
 void KdeEmoticons::newTheme()
 {
-    QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + "/emoticons/" + themeName();
+    QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/emoticons/") + themeName();
     QDir().mkpath(path);
 
-    QFile fp(path + '/' + "emoticons.xml");
+    QFile fp(path + QLatin1Char('/') + QStringLiteral("emoticons.xml"));
 
     if (!fp.open(QIODevice::WriteOnly)) {
         qWarning() << fp.fileName() << "can't open WriteOnly!";

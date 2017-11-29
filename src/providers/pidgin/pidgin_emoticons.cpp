@@ -37,17 +37,17 @@ PidginEmoticons::PidginEmoticons(QObject *parent, const QVariantList &args)
 
 bool PidginEmoticons::removeEmoticon(const QString &emo)
 {
-    QString emoticon = QFileInfo(emoticonsMap().key(emo.split(' '))).fileName();
+    QString emoticon = QFileInfo(emoticonsMap().key(emo.split(QLatin1Char(' ')))).fileName();
 
     bool start = false;
     for (int i = 0; i < m_text.size(); ++i) {
         QString line = m_text.at(i);
 
-        if (line.startsWith('#') || line.isEmpty()) {
+        if (line.startsWith(QLatin1Char('#')) || line.isEmpty()) {
             continue;
         }
 
-        QRegExp re("^\\[(.*)\\]$");
+        QRegExp re(QStringLiteral("^\\[(.*)\\]$"));
         int pos = re.indexIn(line.trimmed());
         if (pos > -1) {
             if (!re.cap(1).compare(QStringLiteral("default"), Qt::CaseInsensitive)) {
@@ -62,7 +62,7 @@ bool PidginEmoticons::removeEmoticon(const QString &emo)
             continue;
         }
 
-        QStringList splitted = line.split(' ');
+        QStringList splitted = line.split(QLatin1Char(' '));
         QString emoName;
 
         if (splitted.at(0) == QLatin1String("!")) {
@@ -73,7 +73,7 @@ bool PidginEmoticons::removeEmoticon(const QString &emo)
 
         if (emoName == emoticon) {
             m_text.removeAt(i);
-            removeIndexItem(emoticon, emo.split(' '));
+            removeIndexItem(emoticon, emo.split(QLatin1Char(' ')));
             return true;
         }
     }
@@ -91,14 +91,14 @@ bool PidginEmoticons::addEmoticon(const QString &emo, const QString &text, AddEm
         }
     }
 
-    const QStringList splitted = text.split(' ');
-    int i = m_text.indexOf(QRegExp("^\\[default\\]$", Qt::CaseInsensitive));
+    const QStringList splitted = text.split(QLatin1Char(' '));
+    int i = m_text.indexOf(QRegExp(QStringLiteral("^\\[default\\]$"), Qt::CaseInsensitive));
 
     if (i == -1) {
         return false;
     }
 
-    QString emoticon = QString("%1 %2").arg(QFileInfo(emo).fileName(),
+    QString emoticon = QStringLiteral("%1 %2").arg(QFileInfo(emo).fileName(),
                                             text);
     m_text.insert(i + 1, emoticon);
 
@@ -109,7 +109,7 @@ bool PidginEmoticons::addEmoticon(const QString &emo, const QString &text, AddEm
 
 void PidginEmoticons::saveTheme()
 {
-    QFile fp(themePath() + '/' + fileName());
+    QFile fp(themePath() + QLatin1Char('/') + fileName());
 
     if (!fp.exists()) {
         qWarning() << fp.fileName() << "doesn't exist!";
@@ -123,10 +123,10 @@ void PidginEmoticons::saveTheme()
 
     QTextStream emoStream(&fp);
 
-    if (m_text.indexOf(QRegExp("^Icon=.*", Qt::CaseInsensitive)) == -1) {
-        int i = m_text.indexOf(QRegExp("^Description=.*", Qt::CaseInsensitive));
+    if (m_text.indexOf(QRegExp(QStringLiteral("^Icon=.*"), Qt::CaseInsensitive)) == -1) {
+        int i = m_text.indexOf(QRegExp(QStringLiteral("^Description=.*"), Qt::CaseInsensitive));
         QString file = QFileInfo(emoticonsMap().keys().value(0)).fileName();
-        m_text.insert(i + 1, "Icon=" + file);
+        m_text.insert(i + 1, QStringLiteral("Icon=") + file);
     }
 
     emoStream << m_text.join(QStringLiteral("\n"));
@@ -155,11 +155,11 @@ bool PidginEmoticons::loadTheme(const QString &path)
         QString line = str.readLine();
         m_text << line;
 
-        if (line.startsWith('#') || line.isEmpty()) {
+        if (line.startsWith(QLatin1Char('#')) || line.isEmpty()) {
             continue;
         }
 
-        QRegExp re("^\\[(.*)\\]$");
+        QRegExp re(QStringLiteral("^\\[(.*)\\]$"));
         int pos = re.indexIn(line.trimmed());
         if (pos > -1) {
             if (!re.cap(1).compare(QStringLiteral("default"), Qt::CaseInsensitive)) {
@@ -174,7 +174,7 @@ bool PidginEmoticons::loadTheme(const QString &path)
             continue;
         }
 
-        QStringList splitted = line.split(QRegExp("\\s+"));
+        QStringList splitted = line.split(QRegExp(QStringLiteral("\\s+")));
         QString emo;
         int i = 1;
         if (splitted.at(0) == QLatin1String("!")) {
@@ -183,7 +183,7 @@ bool PidginEmoticons::loadTheme(const QString &path)
         } else {
             emo = splitted.at(0);
         }
-        emo = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "emoticons/" + themeName() + '/' + emo);
+        emo = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("emoticons/") + themeName() + QLatin1Char('/') + emo);
 
         QStringList sl;
         for (; i < splitted.size(); ++i) {
@@ -203,10 +203,10 @@ bool PidginEmoticons::loadTheme(const QString &path)
 
 void PidginEmoticons::newTheme()
 {
-    QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + "/emoticons/" + themeName();
+    QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/emoticons/") + themeName();
     QDir().mkpath(path);
 
-    QFile fp(path + '/' + "theme");
+    QFile fp(path + QLatin1Char('/') + QStringLiteral("theme"));
 
     if (!fp.open(QIODevice::WriteOnly)) {
         qWarning() << fp.fileName() << "can't open WriteOnly!";
@@ -216,8 +216,8 @@ void PidginEmoticons::newTheme()
     QTextStream out(&fp);
     out.setCodec("UTF-8");
 
-    out << "Name=" + themeName() << endl;
-    out << "Description=" + themeName() << endl;
+    out << QStringLiteral("Name=") + themeName() << endl;
+    out << QStringLiteral("Description=") + themeName() << endl;
     out << "Author=" << endl;
     out << endl;
     out << "[default]" << endl;

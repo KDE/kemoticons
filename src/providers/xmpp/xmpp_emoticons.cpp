@@ -38,7 +38,7 @@ XmppEmoticons::XmppEmoticons(QObject *parent, const QVariantList &args)
 
 bool XmppEmoticons::removeEmoticon(const QString &emo)
 {
-    QString emoticon = QFileInfo(emoticonsMap().key(emo.split(' '))).fileName();
+    QString emoticon = QFileInfo(emoticonsMap().key(emo.split(QLatin1Char(' ')))).fileName();
     QDomElement fce = m_themeXml.firstChildElement(QStringLiteral("icondef"));
 
     if (fce.isNull()) {
@@ -58,8 +58,8 @@ bool XmppEmoticons::removeEmoticon(const QString &emo)
 
                 if (!sde.isNull() && sde.tagName() == QLatin1String("object") && sde.text() == emoticon) {
                     fce.removeChild(de);
-                    removeMapItem(emoticonsMap().key(emo.split(' ')));
-                    removeIndexItem(emoticon, emo.split(' '));
+                    removeMapItem(emoticonsMap().key(emo.split(QLatin1Char(' '))));
+                    removeIndexItem(emoticon, emo.split(QLatin1Char(' ')));
                     return true;
                 }
             }
@@ -78,7 +78,7 @@ bool XmppEmoticons::addEmoticon(const QString &emo, const QString &text, AddEmot
         }
     }
 
-    const QStringList splitted = text.split(' ');
+    const QStringList splitted = text.split(QLatin1Char(' '));
     QDomElement fce = m_themeXml.firstChildElement(QStringLiteral("icondef"));
 
     if (fce.isNull()) {
@@ -112,7 +112,7 @@ bool XmppEmoticons::addEmoticon(const QString &emo, const QString &text, AddEmot
 
 void XmppEmoticons::saveTheme()
 {
-    QFile fp(themePath() + '/' + fileName());
+    QFile fp(themePath() + QLatin1Char('/') + fileName());
 
     if (!fp.exists()) {
         qWarning() << fp.fileName() << "doesn't exist!";
@@ -186,7 +186,7 @@ bool XmppEmoticons::loadTheme(const QString &path)
                 }
             }
 
-            emo = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "emoticons/" + themeName() + '/' + emo);
+            emo = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("emoticons/") + themeName() + QLatin1Char('/') + emo);
 
             if (emo.isEmpty()) {
                 continue;
@@ -202,10 +202,10 @@ bool XmppEmoticons::loadTheme(const QString &path)
 
 void XmppEmoticons::newTheme()
 {
-    QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + "/emoticons/" + themeName();
+    QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/emoticons/") + themeName();
     QDir().mkpath(path);
 
-    QFile fp(path + '/' + "icondef.xml");
+    QFile fp(path + QLatin1Char('/') + QStringLiteral("icondef.xml"));
 
     if (!fp.open(QIODevice::WriteOnly)) {
         qWarning() << fp.fileName() << "can't open WriteOnly!";
