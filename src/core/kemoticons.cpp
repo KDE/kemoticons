@@ -173,8 +173,9 @@ KEmoticonsTheme KEmoticons::theme() const
 
 KEmoticonsTheme KEmoticons::theme(const QString &name) const
 {
-    if (d->m_themes.contains(name)) {
-        return d->m_themes.value(name);
+    KEmoticonsTheme theme = d->m_themes.value(name);
+    if (!theme.isNull()) {
+        return theme;
     }
 
     return d->loadTheme(name);
