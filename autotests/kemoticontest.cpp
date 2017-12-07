@@ -123,7 +123,7 @@ private Q_SLOTS:
 
             QString result = emo.parseEmoticons(inputData,
                     KEmoticonsTheme::RelaxedParse | KEmoticonsTheme::SkipHTML);
-            result.replace(themePath + themeName + QLatin1Char('/'), QString());
+            result.replace(QStringLiteral("file://") + themePath + themeName + QLatin1Char('/'), QString());
 
             if (xfail) {
                 QEXPECT_FAIL("", "Checking known-broken testcase", Continue);

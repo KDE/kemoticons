@@ -63,7 +63,7 @@ void KTextToHTMLPluginTest::initTestCase()
 
 QString KTextToHTMLPluginTest::htmlForSmiley(const QString &emoticon, const QString &name) const
 {
-    return QStringLiteral("<img align=\"center\" title=\"%1\" alt=\"%1\" src=\"%2/%3.png\" width=\"22\" height=\"22\" />")
+    return QStringLiteral("<img align=\"center\" title=\"%1\" alt=\"%1\" src=\"file://%2/%3.png\" width=\"22\" height=\"22\" />")
                 .arg(emoticon,
                      mEmoticonsThemePath,
                      name);
