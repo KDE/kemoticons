@@ -19,11 +19,11 @@
 #include "pidgin_emoticons.h"
 #include "kemoticonsprovider.h"
 
-#include <QtCore/QFile>
-#include <QtCore/QDir>
-#include <QtCore/QDebug>
-#include <QtCore/QFileInfo>
-#include <QtCore/QStandardPaths>
+#include <QFile>
+#include <QDir>
+#include <QDebug>
+#include <QFileInfo>
+#include <QStandardPaths>
 
 #include <kpluginfactory.h>
 
@@ -62,7 +62,7 @@ bool PidginEmoticons::removeEmoticon(const QString &emo)
             continue;
         }
 
-        QStringList splitted = line.split(QLatin1Char(' '));
+        const QStringList splitted = line.split(QLatin1Char(' '));
         QString emoName;
 
         if (splitted.at(0) == QLatin1String("!")) {
@@ -98,7 +98,7 @@ bool PidginEmoticons::addEmoticon(const QString &emo, const QString &text, AddEm
         return false;
     }
 
-    QString emoticon = QStringLiteral("%1 %2").arg(QFileInfo(emo).fileName(),
+    const QString emoticon = QStringLiteral("%1 %2").arg(QFileInfo(emo).fileName(),
                                             text);
     m_text.insert(i + 1, emoticon);
 

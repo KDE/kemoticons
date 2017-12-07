@@ -19,8 +19,8 @@
 #include "kemoticonsprovider.h"
 #include "kemoticons.h"
 
-#include <QtCore/QFileInfo>
-#include <QtCore/QDir>
+#include <QFileInfo>
+#include <QDir>
 #include <QUrl>
 #include <QPixmap>
 #include <QDebug>
@@ -140,7 +140,7 @@ void KEmoticonsProvider::addEmoticonIndex(const QString &path, const QStringList
 
 void KEmoticonsProvider::addIndexItem(const QString &path, const QStringList &emoList)
 {
-    foreach (const QString &s, emoList) {
+    for (const QString &s : emoList) {
         KEmoticonsProvider::Emoticon e;
         QPixmap p;
 

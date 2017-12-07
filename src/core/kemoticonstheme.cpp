@@ -29,12 +29,11 @@ class Q_DECL_HIDDEN KEmoticonsTheme::KEmoticonsThemeData : public QSharedData
 public:
     KEmoticonsThemeData();
     ~KEmoticonsThemeData();
-    KEmoticonsProvider *provider;
+    KEmoticonsProvider *provider = nullptr;
 };
 
 KEmoticonsTheme::KEmoticonsThemeData::KEmoticonsThemeData()
 {
-    provider = nullptr;
 }
 
 KEmoticonsTheme::KEmoticonsThemeData::~KEmoticonsThemeData()

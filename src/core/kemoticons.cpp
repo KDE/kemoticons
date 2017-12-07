@@ -242,7 +242,7 @@ QStringList KEmoticons::installTheme(const QString &archiveName)
     KArchiveDirectory *currentDir = nullptr;
     KArchive *archive = nullptr;
 
-    QString localThemesDir(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/emoticons"));
+    const QString localThemesDir(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/emoticons"));
 
     if (localThemesDir.isEmpty()) {
         qCritical() << "Could not find a suitable place in which to install the emoticon theme";

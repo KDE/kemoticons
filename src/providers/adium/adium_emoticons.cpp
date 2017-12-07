@@ -18,10 +18,10 @@
 
 #include "adium_emoticons.h"
 
-#include <QtCore/QFile>
-#include <QtCore/QDir>
-#include <QtCore/QFileInfo>
-#include <QtCore/QStandardPaths>
+#include <QFile>
+#include <QDir>
+#include <QFileInfo>
+#include <QStandardPaths>
 #include <QDebug>
 
 #include <kpluginfactory.h>
@@ -36,14 +36,14 @@ AdiumEmoticons::AdiumEmoticons(QObject *parent, const QVariantList &args)
 
 bool AdiumEmoticons::removeEmoticon(const QString &emo)
 {
-    QString emoticon = QFileInfo(emoticonsMap().key(emo.split(QLatin1Char(' ')))).fileName();
+    const QString emoticon = QFileInfo(emoticonsMap().key(emo.split(QLatin1Char(' ')))).fileName();
     QDomElement fce = m_themeXml.firstChildElement(QStringLiteral("plist")).firstChildElement(QStringLiteral("dict")).firstChildElement(QStringLiteral("dict"));
 
     if (fce.isNull()) {
         return false;
     }
 
-    QDomNodeList nl = fce.childNodes();
+    const QDomNodeList nl = fce.childNodes();
     for (int i = 0; i < nl.length(); i++) {
         QDomElement de = nl.item(i).toElement();
         if (!de.isNull() && de.tagName() == QLatin1String("key") && (de.text() == emoticon)) {
@@ -178,7 +178,7 @@ bool AdiumEmoticons::loadTheme(const QString &path)
             continue;
         } else if (!de.isNull() && de.tagName() == QLatin1String("dict")) {
             QDomElement arr = de.firstChildElement(QStringLiteral("array"));
-            QDomNodeList snl = arr.childNodes();
+            const QDomNodeList snl = arr.childNodes();
             QStringList sl;
 
             for (int k = 0; k < snl.length(); k++) {

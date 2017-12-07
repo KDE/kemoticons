@@ -18,11 +18,11 @@
 
 #include "kde_emoticons.h"
 
-#include <QtCore/QFile>
-#include <QtCore/QDir>
-#include <QtCore/QDebug>
-#include <QtCore/QFileInfo>
-#include <QtCore/QStandardPaths>
+#include <QFile>
+#include <QDir>
+#include <QDebug>
+#include <QFileInfo>
+#include <QStandardPaths>
 #include <QImageReader>
 
 #include <kpluginfactory.h>
@@ -37,7 +37,7 @@ KdeEmoticons::KdeEmoticons(QObject *parent, const QVariantList &args)
 
 bool KdeEmoticons::removeEmoticon(const QString &emo)
 {
-    QString emoticon = QFileInfo(emoticonsMap().key(emo.split(QLatin1Char(' ')))).fileName();
+    const QString emoticon = QFileInfo(emoticonsMap().key(emo.split(QLatin1Char(' ')))).fileName();
     QDomElement fce = m_themeXml.firstChildElement(QStringLiteral("messaging-emoticon-map"));
 
     if (fce.isNull()) {
@@ -190,7 +190,7 @@ bool KdeEmoticons::loadTheme(const QString &path)
 
 void KdeEmoticons::newTheme()
 {
-    QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/emoticons/") + themeName();
+    const QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/emoticons/") + themeName();
     QDir().mkpath(path);
 
     QFile fp(path + QLatin1Char('/') + QStringLiteral("emoticons.xml"));
