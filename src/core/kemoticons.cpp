@@ -347,4 +347,3 @@ QSize KEmoticons::preferredEmoticonSize() const
 }
 
 #include "moc_kemoticons.cpp"
-#include "kemoticons.moc"
