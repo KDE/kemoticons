@@ -142,7 +142,7 @@ bool KdeEmoticons::loadTheme(const QString &path)
         return false;
     }
 
-    QDomNodeList nl = fce.childNodes();
+    const QDomNodeList nl = fce.childNodes();
 
     clearEmoticonsMap();
 

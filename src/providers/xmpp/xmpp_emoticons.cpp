@@ -89,7 +89,7 @@ bool XmppEmoticons::addEmoticon(const QString &emo, const QString &text, AddEmot
 
     for (constIterator = splitted.begin(); constIterator != splitted.end(); ++constIterator) {
         QDomElement emotext = m_themeXml.createElement(QStringLiteral("text"));
-        QDomText txt = m_themeXml.createTextNode((*constIterator).trimmed());
+        const QDomText txt = m_themeXml.createTextNode((*constIterator).trimmed());
         emotext.appendChild(txt);
         emoticon.appendChild(emotext);
     }
