@@ -152,7 +152,7 @@ void KEmoticonsProvider::addIndexItem(const QString &path, const QStringList &em
         const int preferredHeight = hasPreferredSize ? d->m_preferredSize.height() : p.height();
         const int preferredWidth = hasPreferredSize ? d->m_preferredSize.width() : p.width();
 
-        e.picHTMLCode = QStringLiteral("<img align=\"center\" title=\"%1\" alt=\"%1\" src=\"file://%2\" width=\"%3\" height=\"%4\" />").arg(escaped, path).arg(preferredWidth).arg(preferredHeight);
+        e.picHTMLCode = QStringLiteral("<img align=\"center\" title=\"%1\" alt=\"%1\" src=\"file://%2\" width=\"%3\" height=\"%4\" />").arg(escaped, path, QString::number(preferredWidth), QString::number(preferredHeight));
 
         e.matchTextEscaped = escaped;
         e.matchText = s;
