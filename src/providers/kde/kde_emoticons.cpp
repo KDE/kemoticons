@@ -27,7 +27,7 @@
 
 #include <kpluginfactory.h>
 
-K_PLUGIN_FACTORY_WITH_JSON(KdeEmoticonsFactory, "emoticonstheme_kde.json", registerPlugin<KdeEmoticons>();)
+K_PLUGIN_CLASS_WITH_JSON(KdeEmoticons, "emoticonstheme_kde.json")
 
 KdeEmoticons::KdeEmoticons(QObject *parent, const QVariantList &args)
     : KEmoticonsProvider(parent)
