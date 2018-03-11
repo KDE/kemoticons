@@ -22,7 +22,7 @@
 #include "kemoticons_export.h"
 #include "kemoticonstheme.h"
 
-#include <QtCore/QObject>
+#include <QObject>
 
 #include <kservicetypetrader.h>
 

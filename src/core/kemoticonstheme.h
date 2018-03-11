@@ -24,7 +24,7 @@
 
 #include "kemoticonsprovider.h"
 
-#include <QtCore/QSharedDataPointer>
+#include <QSharedDataPointer>
 
 class QString;
 

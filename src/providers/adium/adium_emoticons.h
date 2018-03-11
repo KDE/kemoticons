@@ -21,7 +21,7 @@
 
 #include <kemoticonsprovider.h>
 
-#include <QtXml/QDomDocument>
+#include <QDomDocument>
 
 class AdiumEmoticons : public KEmoticonsProvider
 {

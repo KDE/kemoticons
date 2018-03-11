@@ -21,8 +21,8 @@
 
 #include <kemoticons_export.h>
 
-#include <QtCore/QObject>
-#include <QtCore/QStringList>
+#include <QObject>
+#include <QStringList>
 
 class KEmoticonsProviderPrivate;
 struct Emoticon;
