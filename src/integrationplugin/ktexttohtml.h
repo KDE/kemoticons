@@ -28,7 +28,7 @@ class KTextToHTMLEmoticons : public KTextToHTMLEmoticonsInterface
 {
 public:
     KTextToHTMLEmoticons();
-    ~KTextToHTMLEmoticons() {}
+    ~KTextToHTMLEmoticons() Q_DECL_OVERRIDE {}
 
     virtual QString parseEmoticons(const QString &text,
                                    bool strictParse = false,
