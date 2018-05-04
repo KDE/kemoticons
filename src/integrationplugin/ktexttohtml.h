@@ -28,11 +28,11 @@ class KTextToHTMLEmoticons : public KTextToHTMLEmoticonsInterface
 {
 public:
     KTextToHTMLEmoticons();
-    ~KTextToHTMLEmoticons() Q_DECL_OVERRIDE {}
+    ~KTextToHTMLEmoticons() override {}
 
     virtual QString parseEmoticons(const QString &text,
                                    bool strictParse = false,
-                                   const QStringList &exclude = QStringList()) Q_DECL_OVERRIDE;
+                                   const QStringList &exclude = QStringList()) override;
 };
 
 #endif

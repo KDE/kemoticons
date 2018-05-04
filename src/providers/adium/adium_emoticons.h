@@ -29,13 +29,13 @@ class AdiumEmoticons : public KEmoticonsProvider
 public:
     AdiumEmoticons(QObject *parent, const QVariantList &args);
 
-    bool loadTheme(const QString &path) Q_DECL_OVERRIDE;
+    bool loadTheme(const QString &path) override;
 
-    bool removeEmoticon(const QString &emo) Q_DECL_OVERRIDE;
-    bool addEmoticon(const QString &emo, const QString &text, AddEmoticonOption option = DoNotCopy) Q_DECL_OVERRIDE;
-    void saveTheme() Q_DECL_OVERRIDE;
+    bool removeEmoticon(const QString &emo) override;
+    bool addEmoticon(const QString &emo, const QString &text, AddEmoticonOption option = DoNotCopy) override;
+    void saveTheme() override;
 
-    void newTheme() Q_DECL_OVERRIDE;
+    void newTheme() override;
 
 private:
     QDomDocument m_themeXml;
