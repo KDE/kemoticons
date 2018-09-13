@@ -76,7 +76,7 @@ void KEmoticonsPrivate::loadServiceList()
 {
     const QString constraint(QStringLiteral("(exist Library)"));
     m_oldStylePlugins = KServiceTypeTrader::self()->query(QStringLiteral("KEmoticons"), constraint);
-    qSort(m_oldStylePlugins.begin(), m_oldStylePlugins.end(), priorityLessThan);
+    std::sort(m_oldStylePlugins.begin(), m_oldStylePlugins.end(), priorityLessThan);
 
     m_plugins = KPluginLoader::findPlugins(QStringLiteral("kf5/emoticonsthemes"));
     std::sort(m_plugins.begin(), m_plugins.end(), [](const KPluginMetaData &s1, const KPluginMetaData &s2) {

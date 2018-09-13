@@ -265,9 +265,9 @@ QList<KEmoticonsTheme::Token> KEmoticonsTheme::tokenize(const QString &message, 
         if (d->provider->emoticonsIndex().contains(c)) {
             emoticonList = d->provider->emoticonsIndex().value(c);
             if (mode & SkipHTML) {
-                qSort(emoticonList.begin(), emoticonList.end(), EmoticonCompareEscaped);
+                std::sort(emoticonList.begin(), emoticonList.end(), EmoticonCompareEscaped);
             } else {
-                qSort(emoticonList.begin(), emoticonList.end(), EmoticonCompare);
+                std::sort(emoticonList.begin(), emoticonList.end(), EmoticonCompare);
             }
             bool found = false;
             QList<KEmoticonsProvider::Emoticon>::const_iterator end = emoticonList.constEnd();
