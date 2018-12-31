@@ -25,7 +25,7 @@
 #include <QDir>
 #include <QMimeDatabase>
 #include <QStandardPaths>
-#include <QDebug>
+#include "kemoticons_core_debug.h"
 #include <QFileSystemWatcher>
 
 #include <kpluginloader.h>
@@ -88,7 +88,7 @@ KEmoticonsProvider *KEmoticonsPrivate::loadProvider(const KPluginMetaData &plugi
 {
     KPluginFactory *factory = qobject_cast<KPluginFactory *>(plugin.instantiate());
     if (!factory) {
-        qWarning() << "Invalid plugin factory for" << plugin.fileName();
+        qCWarning(KEMOTICONS_CORE) << "Invalid plugin factory for" << plugin.fileName();
         return nullptr;
     }
     KEmoticonsProvider *provider = factory->create<KEmoticonsProvider>(nullptr);
@@ -99,7 +99,7 @@ KEmoticonsProvider *KEmoticonsPrivate::loadProvider(const KService::Ptr &service
 {
     KPluginFactory *factory = KPluginLoader(service->library()).factory();
     if (!factory) {
-        qWarning() << "Invalid plugin factory for" << service->library();
+        qCWarning(KEMOTICONS_CORE) << "Invalid plugin factory for" << service->library();
         return nullptr;
     }
     KEmoticonsProvider *provider = factory->create<KEmoticonsProvider>(nullptr);
@@ -245,7 +245,7 @@ QStringList KEmoticons::installTheme(const QString &archiveName)
     const QString localThemesDir(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/emoticons"));
 
     if (localThemesDir.isEmpty()) {
-        qCritical() << "Could not find a suitable place in which to install the emoticon theme";
+        qCCritical(KEMOTICONS_CORE) << "Could not find a suitable place in which to install the emoticon theme";
         return QStringList();
     }
 
@@ -272,7 +272,7 @@ QStringList KEmoticons::installTheme(const QString &archiveName)
     }
 
     if (!archive || !archive->open(QIODevice::ReadOnly)) {
-        qCritical() << "Could not open" << archiveName << "for unpacking";
+        qCCritical(KEMOTICONS_CORE) << "Could not open" << archiveName << "for unpacking";
         delete archive;
         return QStringList();
     }
@@ -303,7 +303,7 @@ QStringList KEmoticons::installTheme(const QString &archiveName)
     }
 
     if (foundThemes.isEmpty()) {
-        qCritical() << "The file" << archiveName << "is not a valid emoticon theme archive";
+        qCCritical(KEMOTICONS_CORE) << "The file" << archiveName << "is not a valid emoticon theme archive";
         archive->close();
         delete archive;
         return QStringList();
@@ -314,7 +314,7 @@ QStringList KEmoticons::installTheme(const QString &archiveName)
 
         currentEntry = const_cast<KArchiveEntry *>(rootDir->entry(theme));
         if (currentEntry == nullptr) {
-            // qDebug() << "couldn't get next archive entry";
+            // qCDebug(KEMOTICONS_CORE) << "couldn't get next archive entry";
             continue;
         }
 
@@ -322,7 +322,7 @@ QStringList KEmoticons::installTheme(const QString &archiveName)
             currentDir = dynamic_cast<KArchiveDirectory *>(currentEntry);
 
             if (currentDir == nullptr) {
-                // qDebug() << "couldn't cast archive entry to KArchiveDirectory";
+                // qCDebug(KEMOTICONS_CORE) << "couldn't cast archive entry to KArchiveDirectory";
                 continue;
             }
 

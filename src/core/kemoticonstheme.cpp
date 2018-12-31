@@ -22,7 +22,7 @@
 #include "kemoticonstheme.h"
 #include "kemoticons.h"
 
-#include <QDebug>
+#include "kemoticons_core_debug.h"
 
 class Q_DECL_HIDDEN KEmoticonsTheme::KEmoticonsThemeData : public QSharedData
 {
@@ -173,7 +173,7 @@ QString KEmoticonsTheme::parseEmoticons(const QString &text, ParseMode mode, con
             }
             break;
         default:
-            qWarning() << "Unknown token type. Something's broken.";
+            qCWarning(KEMOTICONS_CORE) << "Unknown token type. Something's broken.";
             break;
         }
     }
@@ -307,7 +307,7 @@ QList<KEmoticonsTheme::Token> KEmoticonsTheme::tokenize(const QString &message, 
                     if (htmlEnd == -1) {
                         // Apparently this HTML entity isn't ended, something is wrong, try skip the '&'
                         // and continue
-                        // qDebug() << "Broken HTML entity, trying to recover.";
+                        // qCDebug(KEMOTICONS_CORE) << "Broken HTML entity, trying to recover.";
                         inHTMLEntity = false;
                         pos++;
                     } else {

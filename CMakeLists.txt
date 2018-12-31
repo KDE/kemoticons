@@ -25,7 +25,7 @@ include(ECMSetupVersion)
 include(ECMGenerateHeaders)
 include(ECMAddQch)
 include(CMakePackageConfigHelpers)
-
+include(ECMQtDeclareLoggingCategory)
 
 option(BUILD_QCH "Build API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)" OFF)
 add_feature_info(QCH ${BUILD_QCH} "API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)")
@@ -46,7 +46,7 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kemoticons_version.h
 
 # the strings throughout this library are used to search ressources
 # so they don't need translations
-
+add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x060000)
 add_subdirectory(src)
 add_subdirectory(themes)
 if (BUILD_TESTING)
@@ -79,6 +79,8 @@ install(FILES "${CMAKE_CURRENT_BINARY_DIR}/KF5EmoticonsConfig.cmake"
         DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
         COMPONENT Devel
        )
+
+install( FILES kemoticons.categories DESTINATION ${KDE_INSTALL_CONFDIR} )
 
 feature_summary(WHAT ALL   FATAL_ON_MISSING_REQUIRED_PACKAGES)
 

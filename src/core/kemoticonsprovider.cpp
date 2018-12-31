@@ -23,7 +23,7 @@
 #include <QDir>
 #include <QUrl>
 #include <QPixmap>
-#include <QDebug>
+#include "kemoticons_core_debug.h"
 
 class KEmoticonsProviderPrivate
 {

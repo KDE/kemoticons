@@ -21,7 +21,7 @@
 #include <KConfigGroup>
 #include <KSharedConfig>
 #include <QDBusConnection>
-#include <QDebug>
+#include "kemoticons_core_debug.h"
 
 static const char s_dbusPath[] = "/KEmoticons";
 static const char s_dbusInterface[] = "org.kde.kf5.KEmoticons";
@@ -51,7 +51,7 @@ void KEmoticonsGlobal::setThemeName(const QString &name)
     QDBusMessage message = QDBusMessage::createSignal(QString::fromLatin1(s_dbusPath), QString::fromLatin1(s_dbusInterface), QString::fromLatin1(s_themeChangedSignal));
     message << name;
     if (!QDBusConnection::sessionBus().send(message)) {
-        qWarning() << "Error sending dbus signal" << s_themeChangedSignal;
+        qCWarning(KEMOTICONS_CORE) << "Error sending dbus signal" << s_themeChangedSignal;
     }
 }
 
@@ -67,7 +67,7 @@ void KEmoticonsGlobal::setParseMode(KEmoticonsTheme::ParseMode mode)
     QDBusMessage message = QDBusMessage::createSignal(QString::fromLatin1(s_dbusPath), QString::fromLatin1(s_dbusInterface), QString::fromLatin1(s_parseModeChangedSignal));
     message << static_cast<int>(mode);
     if (!QDBusConnection::sessionBus().send(message)) {
-        qWarning() << "Error sending dbus signal" << s_parseModeChangedSignal;
+        qCWarning(KEMOTICONS_CORE) << "Error sending dbus signal" << s_parseModeChangedSignal;
     }
 }
 

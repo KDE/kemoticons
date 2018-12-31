@@ -7,6 +7,8 @@ set(kemoticons_LIB_SRCS
     kemoticonsglobal.cpp
 )
 
+ecm_qt_declare_logging_category(kemoticons_LIB_SRCS HEADER kemoticons_core_debug.h IDENTIFIER KEMOTICONS_CORE CATEGORY_NAME kf5.kemoticons.core)
+
 add_library(KF5Emoticons ${kemoticons_LIB_SRCS})
 generate_export_header(KF5Emoticons BASE_NAME KEmoticons)
 add_library(KF5::Emoticons ALIAS KF5Emoticons)
