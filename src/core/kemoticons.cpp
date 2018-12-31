@@ -159,7 +159,7 @@ KEmoticons::KEmoticons()
     : d(new KEmoticonsPrivate(this))
 {
     d->loadServiceList();
-    connect(&d->m_fileWatcher, SIGNAL(fileChanged(QString)), this, SLOT(changeTheme(QString)));
+    connect(&d->m_fileWatcher, &QFileSystemWatcher::fileChanged, this, [this](const QString &str) {d->changeTheme(str);});
 }
 
 KEmoticons::~KEmoticons()

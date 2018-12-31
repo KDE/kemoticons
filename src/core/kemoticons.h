@@ -148,8 +148,6 @@ private:
      * Private implementation class
      */
     const QScopedPointer<KEmoticonsPrivate> d;
-
-    Q_PRIVATE_SLOT(d, void changeTheme(const QString &path))
 };
 
 #endif /* KEMOTICONS_H */
