@@ -302,7 +302,7 @@ QList<KEmoticonsTheme::Token> KEmoticonsTheme::tokenize(const QString &message, 
             if (!found) {
                 if (inHTMLEntity) {
                     // If we are in an HTML entitiy such as &gt;
-                    int htmlEnd = message.indexOf(QLatin1Char(';'), pos);
+                    const int htmlEnd = message.indexOf(QLatin1Char(';'), pos);
                     // Search for where it ends
                     if (htmlEnd == -1) {
                         // Apparently this HTML entity isn't ended, something is wrong, try skip the '&'
@@ -331,7 +331,7 @@ QList<KEmoticonsTheme::Token> KEmoticonsTheme::tokenize(const QString &message, 
     pos = 0;
     int length;
 
-    for (int i = 0; i < foundEmoticons.size(); ++i) {
+    for (int i = 0, total = foundEmoticons.size(); i < total; ++i) {
         EmoticonNode itFound = foundEmoticons.at(i);
         needle = (mode & SkipHTML) ? itFound.first.matchTextEscaped : itFound.first.matchText;
 
