@@ -22,7 +22,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QStandardPaths>
-#include <QDebug>
+#include "kemoticons_plugin_adium_debug.h"
 
 #include <kpluginfactory.h>
 
@@ -66,7 +66,7 @@ bool AdiumEmoticons::addEmoticon(const QString &emo, const QString &text, AddEmo
     if (option == Copy) {
         bool result = copyEmoticon(emo);
         if (!result) {
-            qWarning() << "There was a problem copying the emoticon";
+            qCWarning(KEMOTICONS_PLUGIN_ADIUM) << "There was a problem copying the emoticon";
             return false;
         }
     }
@@ -119,12 +119,12 @@ void AdiumEmoticons::saveTheme()
     QFile fp(themePath() + QLatin1Char('/') + fileName());
 
     if (!fp.exists()) {
-        qWarning() << fp.fileName() << "doesn't exist!";
+        qCWarning(KEMOTICONS_PLUGIN_ADIUM) << fp.fileName() << "doesn't exist!";
         return;
     }
 
     if (!fp.open(QIODevice::WriteOnly)) {
-        qWarning() << fp.fileName() << "can't open WriteOnly!";
+        qCWarning(KEMOTICONS_PLUGIN_ADIUM) << fp.fileName() << "can't open WriteOnly!";
         return;
     }
 
@@ -139,21 +139,21 @@ bool AdiumEmoticons::loadTheme(const QString &path)
     QFile file(path);
 
     if (!file.exists()) {
-        qWarning() << path << "doesn't exist!";
+        qCWarning(KEMOTICONS_PLUGIN_ADIUM) << path << "doesn't exist!";
         return false;
     }
 
     setThemePath(path);
     if (!file.open(QIODevice::ReadOnly)) {
-        qWarning() << file.fileName() << "can't be open ReadOnly!";
+        qCWarning(KEMOTICONS_PLUGIN_ADIUM) << file.fileName() << "can't be open ReadOnly!";
         return false;
     }
 
     QString error;
     int eli, eco;
     if (!m_themeXml.setContent(&file, &error, &eli, &eco)) {
-        qWarning() << file.fileName() << "can't copy to xml!";
-        qWarning() << error << "line:" << eli << "column:" << eco;
+        qCWarning(KEMOTICONS_PLUGIN_ADIUM) << file.fileName() << "can't copy to xml!";
+        qCWarning(KEMOTICONS_PLUGIN_ADIUM) << error << "line:" << eli << "column:" << eco;
         file.close();
         return false;
     }
@@ -207,7 +207,7 @@ void AdiumEmoticons::newTheme()
     QFile fp(path + QLatin1Char('/') + QStringLiteral("Emoticons.plist"));
 
     if (!fp.open(QIODevice::WriteOnly)) {
-        qWarning() << fp.fileName() << "can't open WriteOnly!";
+        qCWarning(KEMOTICONS_PLUGIN_ADIUM) << fp.fileName() << "can't open WriteOnly!";
         return;
     }
 

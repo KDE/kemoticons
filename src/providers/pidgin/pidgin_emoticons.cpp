@@ -21,7 +21,7 @@
 
 #include <QFile>
 #include <QDir>
-#include <QDebug>
+#include "kemoticons_plugin_pidgin_debug.h"
 #include <QFileInfo>
 #include <QStandardPaths>
 
@@ -86,7 +86,7 @@ bool PidginEmoticons::addEmoticon(const QString &emo, const QString &text, AddEm
     if (option == Copy) {
         bool result = copyEmoticon(emo);
         if (!result) {
-            qWarning() << "There was a problem copying the emoticon";
+            qCWarning(KEMOTICONS_PLUGIN_PIDGIN) << "There was a problem copying the emoticon";
             return false;
         }
     }
@@ -112,12 +112,12 @@ void PidginEmoticons::saveTheme()
     QFile fp(themePath() + QLatin1Char('/') + fileName());
 
     if (!fp.exists()) {
-        qWarning() << fp.fileName() << "doesn't exist!";
+        qCWarning(KEMOTICONS_PLUGIN_PIDGIN) << fp.fileName() << "doesn't exist!";
         return;
     }
 
     if (!fp.open(QIODevice::WriteOnly)) {
-        qWarning() << fp.fileName() << "can't open WriteOnly!";
+        qCWarning(KEMOTICONS_PLUGIN_PIDGIN) << fp.fileName() << "can't open WriteOnly!";
         return;
     }
 
@@ -138,13 +138,13 @@ bool PidginEmoticons::loadTheme(const QString &path)
     QFile file(path);
 
     if (!file.exists()) {
-        qWarning() << path << "doesn't exist!";
+        qCWarning(KEMOTICONS_PLUGIN_PIDGIN) << path << "doesn't exist!";
         return false;
     }
 
     setThemePath(path);
     if (!file.open(QIODevice::ReadOnly)) {
-        qWarning() << file.fileName() << "can't be open ReadOnly!";
+        qCWarning(KEMOTICONS_PLUGIN_PIDGIN) << file.fileName() << "can't be open ReadOnly!";
         return false;
     }
 
@@ -209,7 +209,7 @@ void PidginEmoticons::newTheme()
     QFile fp(path + QLatin1Char('/') + QStringLiteral("theme"));
 
     if (!fp.open(QIODevice::WriteOnly)) {
-        qWarning() << fp.fileName() << "can't open WriteOnly!";
+        qCWarning(KEMOTICONS_PLUGIN_PIDGIN) << fp.fileName() << "can't open WriteOnly!";
         return;
     }
 

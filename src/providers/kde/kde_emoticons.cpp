@@ -20,7 +20,7 @@
 
 #include <QFile>
 #include <QDir>
-#include <QDebug>
+#include "kemoticons_plugin_kde_debug.h"
 #include <QFileInfo>
 #include <QStandardPaths>
 #include <QImageReader>
@@ -62,7 +62,7 @@ bool KdeEmoticons::addEmoticon(const QString &emo, const QString &text, AddEmoti
     if (option == Copy) {
         bool result = copyEmoticon(emo);
         if (!result) {
-            qWarning() << "There was a problem copying the emoticon";
+            qCWarning(KEMOTICONS_PLUGIN_KDE) << "There was a problem copying the emoticon";
             return false;
         }
     }
@@ -95,12 +95,12 @@ void KdeEmoticons::saveTheme()
     QFile fp(themePath() + QLatin1Char('/') + fileName());
 
     if (!fp.exists()) {
-        qWarning() << fp.fileName() << "doesn't exist!";
+        qCWarning(KEMOTICONS_PLUGIN_KDE) << fp.fileName() << "doesn't exist!";
         return;
     }
 
     if (!fp.open(QIODevice::WriteOnly)) {
-        qWarning() << fp.fileName() << "can't open WriteOnly!";
+        qCWarning(KEMOTICONS_PLUGIN_KDE) << fp.fileName() << "can't open WriteOnly!";
         return;
     }
 
@@ -115,21 +115,21 @@ bool KdeEmoticons::loadTheme(const QString &path)
     QFile file(path);
 
     if (!file.exists()) {
-        qWarning() << path << "doesn't exist!";
+        qCWarning(KEMOTICONS_PLUGIN_KDE) << path << "doesn't exist!";
         return false;
     }
 
     setThemePath(path);
     if (!file.open(QIODevice::ReadOnly)) {
-        qWarning() << file.fileName() << "can't be open ReadOnly!";
+        qCWarning(KEMOTICONS_PLUGIN_KDE) << file.fileName() << "can't be open ReadOnly!";
         return false;
     }
 
     QString error;
     int eli, eco;
     if (!m_themeXml.setContent(&file, &error, &eli, &eco)) {
-        qWarning() << file.fileName() << "can't copy to xml!";
-        qWarning() << error << "line:" << eli << "column:" << eco;
+        qCWarning(KEMOTICONS_PLUGIN_KDE) << file.fileName() << "can't copy to xml!";
+        qCWarning(KEMOTICONS_PLUGIN_KDE) << error << "line:" << eli << "column:" << eco;
         file.close();
         return false;
     }
@@ -196,7 +196,7 @@ void KdeEmoticons::newTheme()
     QFile fp(path + QLatin1Char('/') + QStringLiteral("emoticons.xml"));
 
     if (!fp.open(QIODevice::WriteOnly)) {
-        qWarning() << fp.fileName() << "can't open WriteOnly!";
+        qCWarning(KEMOTICONS_PLUGIN_KDE) << fp.fileName() << "can't open WriteOnly!";
         return;
     }
 

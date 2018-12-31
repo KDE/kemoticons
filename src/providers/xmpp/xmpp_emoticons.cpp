@@ -20,7 +20,7 @@
 
 #include <QFile>
 #include <QDir>
-#include <QDebug>
+#include "kemoticons_plugin_xmpp_debug.h"
 #include <QFileInfo>
 #include <QStandardPaths>
 #include <QImageReader>
@@ -71,7 +71,7 @@ bool XmppEmoticons::addEmoticon(const QString &emo, const QString &text, AddEmot
     if (option == Copy) {
         bool result = copyEmoticon(emo);
         if (!result) {
-            qWarning() << "There was a problem copying the emoticon";
+            qCWarning(KEMOTICONS_PLUGIN_XMPP) << "There was a problem copying the emoticon";
             return false;
         }
     }
@@ -113,12 +113,12 @@ void XmppEmoticons::saveTheme()
     QFile fp(themePath() + QLatin1Char('/') + fileName());
 
     if (!fp.exists()) {
-        qWarning() << fp.fileName() << "doesn't exist!";
+        qCWarning(KEMOTICONS_PLUGIN_XMPP) << fp.fileName() << "doesn't exist!";
         return;
     }
 
     if (!fp.open(QIODevice::WriteOnly)) {
-        qWarning() << fp.fileName() << "can't open WriteOnly!";
+        qCWarning(KEMOTICONS_PLUGIN_XMPP) << fp.fileName() << "can't open WriteOnly!";
         return;
     }
 
@@ -133,21 +133,21 @@ bool XmppEmoticons::loadTheme(const QString &path)
     QFile file(path);
 
     if (!file.exists()) {
-        qWarning() << path << "doesn't exist!";
+        qCWarning(KEMOTICONS_PLUGIN_XMPP) << path << "doesn't exist!";
         return false;
     }
 
     setThemePath(path);
     if (!file.open(QIODevice::ReadOnly)) {
-        qWarning() << file.fileName() << "can't be open ReadOnly!";
+        qCWarning(KEMOTICONS_PLUGIN_XMPP) << file.fileName() << "can't be open ReadOnly!";
         return false;
     }
 
     QString error;
     int eli, eco;
     if (!m_themeXml.setContent(&file, &error, &eli, &eco)) {
-        qWarning() << file.fileName() << "can't copy to xml!";
-        qWarning() << error << "line:" << eli << "column:" << eco;
+        qCWarning(KEMOTICONS_PLUGIN_XMPP) << file.fileName() << "can't copy to xml!";
+        qCWarning(KEMOTICONS_PLUGIN_XMPP) << error << "line:" << eli << "column:" << eco;
         file.close();
         return false;
     }
@@ -206,7 +206,7 @@ void XmppEmoticons::newTheme()
     QFile fp(path + QLatin1Char('/') + QStringLiteral("icondef.xml"));
 
     if (!fp.open(QIODevice::WriteOnly)) {
-        qWarning() << fp.fileName() << "can't open WriteOnly!";
+        qCWarning(KEMOTICONS_PLUGIN_XMPP) << fp.fileName() << "can't open WriteOnly!";
         return;
     }
 

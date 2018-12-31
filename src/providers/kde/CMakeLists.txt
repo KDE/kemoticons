@@ -2,6 +2,8 @@
 ########### next target ###############
 set(kdeemoticons_SRCS kde_emoticons.cpp)
 
+ecm_qt_declare_logging_category(kdeemoticons_SRCS HEADER kemoticons_plugin_kde_debug.h IDENTIFIER KEMOTICONS_PLUGIN_KDE CATEGORY_NAME kf5.kemoticons.plugin_kde)
+
 kcoreaddons_add_plugin(emoticonstheme_kde INSTALL_NAMESPACE kf5/emoticonsthemes JSON emoticonstheme_kde.json SOURCES ${kdeemoticons_SRCS})
 
 find_package(Qt5Xml REQUIRED)
