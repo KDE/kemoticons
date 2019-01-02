@@ -88,8 +88,8 @@ private Q_SLOTS:
         QVERIFY(!basePath.isEmpty());
         QDir testCasesDir(basePath);
 
-        QStringList inputFileNames = testCasesDir.entryList(QStringList(QStringLiteral("*.input")));
-        Q_FOREACH (const QString &fileName, inputFileNames) {
+        const QStringList inputFileNames = testCasesDir.entryList(QStringList(QStringLiteral("*.input")));
+        for (const QString &fileName : inputFileNames) {
             QString outputFileName = fileName;
             outputFileName.replace(QStringLiteral("input"), QStringLiteral("output"));
             const QString baseName = fileName.section(QLatin1Char('-'), 0, 0);
@@ -144,8 +144,8 @@ private Q_SLOTS:
         QVERIFY(!basePath.isEmpty());
         QDir testCasesDir(basePath);
 
-        QStringList inputFileNames = testCasesDir.entryList(QStringList(QStringLiteral("*.input")));
-        Q_FOREACH (const QString &fileName, inputFileNames) {
+        const QStringList inputFileNames = testCasesDir.entryList(QStringList(QStringLiteral("*.input")));
+        for (const QString &fileName : inputFileNames) {
             QString outputFileName = fileName;
             outputFileName.replace(QStringLiteral("input"), QStringLiteral("output"));
             const QString baseName = fileName.section(QLatin1Char('-'), 0, 0);
