@@ -53,7 +53,6 @@ private Q_SLOTS:
         QString dataPath = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
         QString destThemePath = dataPath + QLatin1String("/emoticons/");
         QVERIFY(QDir().mkpath(destThemePath));
-        const QString destPath = destThemePath + QString::fromLatin1(default_theme);
         QDir themeDir(destThemePath);
         QVERIFY(copyTheme(QFINDTESTDATA("default-testtheme"), themeDir, QString::fromLatin1(default_theme)));
 

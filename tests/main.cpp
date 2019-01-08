@@ -72,7 +72,7 @@ KEmoTest::KEmoTest()
     layout->addWidget(label);
     setLayout(layout);
 
-    connect(lineEdit, SIGNAL(textChanged(QString)), this, SLOT(updateEmoticons()));
+    connect(lineEdit, &QLineEdit::textChanged, this, &KEmoTest::updateEmoticons);
     connect(comboBox, SIGNAL(activated(QString)), this, SLOT(changeTheme(QString)));
 }
 
