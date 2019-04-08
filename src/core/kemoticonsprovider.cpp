@@ -171,7 +171,7 @@ void KEmoticonsProvider::removeEmoticonIndex(const QString &path, const QStringL
 
 void KEmoticonsProvider::removeIndexItem(const QString &path, const QStringList &emoList)
 {
-    foreach (const QString &s, emoList) {
+    for (const QString &s : emoList) {
         QString escaped = s.toHtmlEscaped();
 
         if (s.isEmpty() || escaped.isEmpty()) {

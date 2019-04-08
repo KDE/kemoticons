@@ -34,7 +34,8 @@ static bool copyTheme(const QString &dir, const QDir &baseThemeDir, const QStrin
     themeDir.removeRecursively();
     themeDir.mkpath(QStringLiteral("."));
 
-    foreach (const QString &fileName, sourceThemeDir.entryList(QDir::Files)) {
+    const auto files = sourceThemeDir.entryList(QDir::Files);
+    for (const QString &fileName : files) {
         if (!QFile::copy(sourceThemeDir.filePath(fileName),
                          themeDir.filePath(fileName))) {
             qWarning() << "couldn't copy" << dir << "/" << fileName;
