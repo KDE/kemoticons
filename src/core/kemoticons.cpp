@@ -238,8 +238,8 @@ KEmoticonsTheme KEmoticons::newTheme(const QString &name, const KService::Ptr &s
 QStringList KEmoticons::installTheme(const QString &archiveName)
 {
     QStringList foundThemes;
-    KArchiveEntry *currentEntry = nullptr;
-    KArchiveDirectory *currentDir = nullptr;
+    const KArchiveEntry *currentEntry = nullptr;
+    const KArchiveDirectory *currentDir = nullptr;
     KArchive *archive = nullptr;
 
     const QString localThemesDir(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/emoticons"));
@@ -285,7 +285,7 @@ QStringList KEmoticons::installTheme(const QString &archiveName)
         currentEntry = const_cast<KArchiveEntry *>(rootDir->entry(*it));
 
         if (currentEntry->isDirectory()) {
-            currentDir = dynamic_cast<KArchiveDirectory *>(currentEntry);
+            currentDir = dynamic_cast<const KArchiveDirectory *>(currentEntry);
 
             for (const KPluginMetaData &plugin : qAsConst(d->m_plugins)) {
                 const QString fName = plugin.rawData().value(QStringLiteral("X-KDE-EmoticonsFileName")).toString();
@@ -319,7 +319,7 @@ QStringList KEmoticons::installTheme(const QString &archiveName)
         }
 
         if (currentEntry->isDirectory()) {
-            currentDir = dynamic_cast<KArchiveDirectory *>(currentEntry);
+            currentDir = dynamic_cast<const KArchiveDirectory *>(currentEntry);
 
             if (currentDir == nullptr) {
                 // qCDebug(KEMOTICONS_CORE) << "couldn't cast archive entry to KArchiveDirectory";
