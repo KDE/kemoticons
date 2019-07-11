@@ -23,7 +23,6 @@
 #include <kemoticons.h>
 #include <kemoticonstheme.h>
 
-#include <QGlobalStatic>
 
 Q_GLOBAL_STATIC(KEmoticons, sEmoticons)
 

@@ -21,7 +21,6 @@
 
 #include <QFileInfo>
 #include <QDir>
-#include <QUrl>
 #include <QPixmap>
 #include "kemoticons_core_debug.h"
 

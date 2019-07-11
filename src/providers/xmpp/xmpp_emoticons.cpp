@@ -23,7 +23,6 @@
 #include "kemoticons_plugin_xmpp_debug.h"
 #include <QFileInfo>
 #include <QStandardPaths>
-#include <QImageReader>
 #include <QMimeDatabase>
 
 #include <kpluginfactory.h>

@@ -23,8 +23,6 @@
 #include <QDir>
 #include <QFile>
 #include <QStandardPaths>
-#include <QTextStream>
-#include <QDebug>
 
 #include <kemoticons.h>
 

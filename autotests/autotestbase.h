@@ -22,7 +22,6 @@
 
 #include <QDebug>
 #include <QDir>
-#include <QObject>
 
 static bool copyTheme(const QString &dir, const QDir &baseThemeDir, const QString &themeName)
 {

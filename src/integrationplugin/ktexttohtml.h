@@ -20,7 +20,6 @@
 #ifndef KTEXTTOHTML_INTEGRATION_H
 #define KTEXTTOHTML_INTEGRATION_H
 
-#include <QObject>
 
 #include <ktexttohtmlemoticonsinterface.h>
 
