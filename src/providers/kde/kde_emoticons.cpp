@@ -161,13 +161,13 @@ bool KdeEmoticons::loadTheme(const QString &path)
                 }
             }
 
-            QString emo = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("emoticons/") + themeName() + QLatin1Char('/') + de.attribute(QStringLiteral("file")));
+            QString emo = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("emoticons/") + themeName() + QLatin1Char('/') + de.attribute(QLatin1String("file")));
 
             if (emo.isEmpty()) {
                 QList<QByteArray> ext = QImageReader::supportedImageFormats();
 
                 for (int j = 0; j < ext.size(); ++j) {
-                    emo = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("emoticons/") +
+                    emo = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("emoticons/") +
                                                  themeName() + QLatin1Char('/') + de.attribute(QStringLiteral("file"))
                                                  + QLatin1Char('.') + QString::fromLatin1(ext.at(j)));
                     if (!emo.isEmpty()) {
@@ -190,7 +190,7 @@ bool KdeEmoticons::loadTheme(const QString &path)
 
 void KdeEmoticons::newTheme()
 {
-    const QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/emoticons/") + themeName();
+    const QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1String("/emoticons/") + themeName();
     QDir().mkpath(path);
 
     QFile fp(path + QLatin1Char('/') + QStringLiteral("emoticons.xml"));

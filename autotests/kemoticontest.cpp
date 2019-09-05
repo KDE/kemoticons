@@ -120,7 +120,7 @@ private Q_SLOTS:
 
             QString result = emo.parseEmoticons(inputData,
                     KEmoticonsTheme::RelaxedParse | KEmoticonsTheme::SkipHTML);
-            result.replace(QStringLiteral("file://") + themePath + themeName + QLatin1Char('/'), QString());
+            result.remove(QStringLiteral("file://") + themePath + themeName + QLatin1Char('/'));
 
             if (xfail) {
                 QEXPECT_FAIL("", "Checking known-broken testcase", Continue);
@@ -161,8 +161,8 @@ private Q_SLOTS:
 
         const QString parsed = theme.parseEmoticons(QStringLiteral(":)"));
 
-        QVERIFY(parsed.contains(QStringLiteral("width=\"99\"")));
-        QVERIFY(parsed.contains(QStringLiteral("height=\"77\"")));
+        QVERIFY(parsed.contains(QLatin1String("width=\"99\"")));
+        QVERIFY(parsed.contains(QLatin1String("height=\"77\"")));
     }
 
 private:

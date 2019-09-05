@@ -183,7 +183,7 @@ bool XmppEmoticons::loadTheme(const QString &path)
                 }
             }
 
-            emo = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("emoticons/") + themeName() + QLatin1Char('/') + emo);
+            emo = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("emoticons/") + themeName() + QLatin1Char('/') + emo);
 
             if (emo.isEmpty()) {
                 continue;
@@ -199,7 +199,7 @@ bool XmppEmoticons::loadTheme(const QString &path)
 
 void XmppEmoticons::newTheme()
 {
-    const QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/emoticons/") + themeName();
+    const QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1String("/emoticons/") + themeName();
     QDir().mkpath(path);
 
     QFile fp(path + QLatin1Char('/') + QStringLiteral("icondef.xml"));

@@ -131,7 +131,7 @@ KEmoticonsTheme KEmoticonsPrivate::loadTheme(const QString &name)
 
     for (const KPluginMetaData &plugin : qAsConst(m_plugins)) {
         const QString fName = plugin.rawData().value(QStringLiteral("X-KDE-EmoticonsFileName")).toString();
-        const QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("emoticons/") + name + QLatin1Char('/') + fName);
+        const QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("emoticons/") + name + QLatin1Char('/') + fName);
 
         if (QFile::exists(path)) {
             KEmoticonsProvider *provider = loadProvider(plugin);
@@ -143,7 +143,7 @@ KEmoticonsTheme KEmoticonsPrivate::loadTheme(const QString &name)
     // KF6: remove support for old plugins
     for (const KService::Ptr &service : qAsConst(m_oldStylePlugins)) {
         const QString fName = service->property(QStringLiteral("X-KDE-EmoticonsFileName")).toString();
-        const QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("emoticons/") + name + QLatin1Char('/') + fName);
+        const QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("emoticons/") + name + QLatin1Char('/') + fName);
 
         if (QFile::exists(path)) {
             KEmoticonsProvider *provider = loadProvider(service);

@@ -174,7 +174,7 @@ bool AdiumEmoticons::loadTheme(const QString &path)
         QDomElement de = nl.item(i).toElement();
 
         if (!de.isNull() && de.tagName() == QLatin1String("key")) {
-            name = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("emoticons/") + themeName() + QLatin1Char('/') + de.text());
+            name = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("emoticons/") + themeName() + QLatin1Char('/') + de.text());
             continue;
         } else if (!de.isNull() && de.tagName() == QLatin1String("dict")) {
             QDomElement arr = de.firstChildElement(QStringLiteral("array"));
@@ -201,7 +201,7 @@ bool AdiumEmoticons::loadTheme(const QString &path)
 
 void AdiumEmoticons::newTheme()
 {
-    QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/emoticons/") + themeName();
+    QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1String("/emoticons/") + themeName();
     QDir().mkpath(path);
 
     QFile fp(path + QLatin1Char('/') + QStringLiteral("Emoticons.plist"));

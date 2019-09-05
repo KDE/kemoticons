@@ -65,7 +65,7 @@ bool PidginEmoticons::removeEmoticon(const QString &emo)
         const QStringList splitted = line.split(QLatin1Char(' '));
         QString emoName;
 
-        if (splitted.at(0) == QLatin1String("!")) {
+        if (splitted.at(0) == QLatin1Char('!')) {
             emoName = splitted.at(1);
         } else {
             emoName = splitted.at(0);
@@ -129,7 +129,7 @@ void PidginEmoticons::saveTheme()
         m_text.insert(i + 1, QStringLiteral("Icon=") + file);
     }
 
-    emoStream << m_text.join(QStringLiteral("\n"));
+    emoStream << m_text.join(QLatin1Char('\n'));
     fp.close();
 }
 
@@ -177,13 +177,13 @@ bool PidginEmoticons::loadTheme(const QString &path)
         QStringList splitted = line.split(QRegExp(QStringLiteral("\\s+")));
         QString emo;
         int i = 1;
-        if (splitted.at(0) == QLatin1String("!")) {
+        if (splitted.at(0) == QLatin1Char('!')) {
             i = 2;
             emo = splitted.at(1);
         } else {
             emo = splitted.at(0);
         }
-        emo = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("emoticons/") + themeName() + QLatin1Char('/') + emo);
+        emo = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("emoticons/") + themeName() + QLatin1Char('/') + emo);
 
         QStringList sl;
         for (; i < splitted.size(); ++i) {
@@ -203,7 +203,7 @@ bool PidginEmoticons::loadTheme(const QString &path)
 
 void PidginEmoticons::newTheme()
 {
-    QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/emoticons/") + themeName();
+    QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1String("/emoticons/") + themeName();
     QDir().mkpath(path);
 
     QFile fp(path + QLatin1Char('/') + QStringLiteral("theme"));
