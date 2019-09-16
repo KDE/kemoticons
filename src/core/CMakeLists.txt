@@ -64,6 +64,8 @@ if(BUILD_QCH)
         LINK_QCHS
             Qt5Gui_QCH
             KF5Service_QCH
+        INCLUDE_DIRS
+            ${CMAKE_CURRENT_BINARY_DIR}
         BLANK_MACROS
             KEMOTICONS_EXPORT
             KEMOTICONS_DEPRECATED
