@@ -132,6 +132,7 @@ public:
      */
     QList<Token> tokenize(const QString &message, ParseMode mode = DefaultParse) const;
 
+#if KEMOTICONS_ENABLE_DEPRECATED_SINCE(5, 0)
     /**
      * Loads the emoticon theme inside the directory @p path
      * @param path path to the directory
@@ -139,10 +140,11 @@ public:
      *
      * @deprecated since 5.0, subclass KEmoticonsProvider instead
      */
-#ifndef KEMOTICONS_NO_DEPRECATED
-    KEMOTICONS_DEPRECATED bool loadTheme(const QString &path);
+    KEMOTICONS_DEPRECATED_VERSION(5, 0, "Subclass KEmoticonsProvider")
+    bool loadTheme(const QString &path);
 #endif
 
+#if KEMOTICONS_ENABLE_DEPRECATED_SINCE(5, 0)
     /**
      * Removes the emoticon @p emo. This doesn't delete the image file.
      * @code
@@ -154,10 +156,11 @@ public:
      *
      * @deprecated since 5.0, subclass KEmoticonsProvider instead
      */
-#ifndef KEMOTICONS_NO_DEPRECATED
-    KEMOTICONS_DEPRECATED bool removeEmoticon(const QString &emo);
+    KEMOTICONS_DEPRECATED_VERSION(5, 0, "Subclass KEmoticonsProvider")
+    bool removeEmoticon(const QString &emo);
 #endif
 
+#if KEMOTICONS_ENABLE_DEPRECATED_SINCE(5, 0)
     /**
      * Adds the emoticon @p emo with text @p text
      * @code
@@ -172,18 +175,20 @@ public:
      *
      * @deprecated since 5.0, subclass KEmoticonsProvider instead
      */
-#ifndef KEMOTICONS_NO_DEPRECATED
-    KEMOTICONS_DEPRECATED bool addEmoticon(const QString &emo,
-                                           const QString &text,
-                                           KEmoticonsProvider::AddEmoticonOption option = KEmoticonsProvider::DoNotCopy);
+    KEMOTICONS_DEPRECATED_VERSION(5, 0, "Subclass KEmoticonsProvider")
+    bool addEmoticon(const QString &emo,
+                     const QString &text,
+                     KEmoticonsProvider::AddEmoticonOption option = KEmoticonsProvider::DoNotCopy);
 #endif
+
+#if KEMOTICONS_ENABLE_DEPRECATED_SINCE(5, 0)
     /**
      * Saves the emoticon theme
      *
      * @deprecated since 5.0, subclass KEmoticonsProvider instead
      */
-#ifndef KEMOTICONS_NO_DEPRECATED
-    KEMOTICONS_DEPRECATED void save();
+    KEMOTICONS_DEPRECATED_VERSION(5, 0, "Subclass KEmoticonsProvider")
+    void save();
 #endif
 
     /**
@@ -212,13 +217,14 @@ public:
      */
     QHash<QString, QStringList> emoticonsMap() const;
 
+#if KEMOTICONS_ENABLE_DEPRECATED_SINCE(5, 0)
     /**
      * Creates a new theme
      *
      * @deprecated since 5.0, subclass KEmoticonsProvider instead
      */
-#ifndef KEMOTICONS_NO_DEPRECATED
-    KEMOTICONS_DEPRECATED void createNew();
+    KEMOTICONS_DEPRECATED_VERSION(5, 0, "Subclass KEmoticonsProvider")
+    void createNew();
 #endif
 
     /**

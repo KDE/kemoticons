@@ -49,10 +49,12 @@ KEmoticonsProvider::~KEmoticonsProvider()
 {
 }
 
+#if KEMOTICONS_BUILD_DEPRECATED_SINCE(5, 0)
 void KEmoticonsProvider::save()
 {
     saveTheme();
 }
+#endif
 
 QString KEmoticonsProvider::themeName() const
 {
@@ -79,10 +81,12 @@ void KEmoticonsProvider::clearEmoticonsMap()
     d->m_emoticonsMap.clear();
 }
 
+#if KEMOTICONS_BUILD_DEPRECATED_SINCE(5, 0)
 void KEmoticonsProvider::addEmoticonsMap(QString key, QStringList value)
 {
     addMapItem(key, value);
 }
+#endif
 
 void KEmoticonsProvider::addMapItem(QString key, QStringList value)
 {
@@ -91,10 +95,12 @@ void KEmoticonsProvider::addMapItem(QString key, QStringList value)
     }
 }
 
+#if KEMOTICONS_BUILD_DEPRECATED_SINCE(5, 0)
 void KEmoticonsProvider::removeEmoticonsMap(QString key)
 {
     removeMapItem(key);
 }
+#endif
 
 void KEmoticonsProvider::removeMapItem(QString key)
 {
@@ -111,10 +117,12 @@ QHash<QChar, QList<KEmoticonsProvider::Emoticon> > KEmoticonsProvider::emoticons
     return d->m_emoticonsIndex;
 }
 
+#if KEMOTICONS_BUILD_DEPRECATED_SINCE(5, 0)
 void KEmoticonsProvider::createNew()
 {
     newTheme();
 }
+#endif
 
 void KEmoticonsProvider::setThemePath(const QString &path)
 {
@@ -132,10 +140,12 @@ bool KEmoticonsProvider::copyEmoticon(const QString &emo)
     return file.copy(newPath);
 }
 
+#if KEMOTICONS_BUILD_DEPRECATED_SINCE(5, 0)
 void KEmoticonsProvider::addEmoticonIndex(const QString &path, const QStringList &emoList)
 {
     addIndexItem(path, emoList);
 }
+#endif
 
 void KEmoticonsProvider::addIndexItem(const QString &path, const QStringList &emoList)
 {
@@ -163,10 +173,12 @@ void KEmoticonsProvider::addIndexItem(const QString &path, const QStringList &em
     }
 }
 
+#if KEMOTICONS_BUILD_DEPRECATED_SINCE(5, 0)
 void KEmoticonsProvider::removeEmoticonIndex(const QString &path, const QStringList &emoList)
 {
     removeIndexItem(path, emoList);
 }
+#endif
 
 void KEmoticonsProvider::removeIndexItem(const QString &path, const QStringList &emoList)
 {

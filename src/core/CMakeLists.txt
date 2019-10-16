@@ -10,8 +10,15 @@ set(kemoticons_LIB_SRCS
 ecm_qt_declare_logging_category(kemoticons_LIB_SRCS HEADER kemoticons_core_debug.h IDENTIFIER KEMOTICONS_CORE CATEGORY_NAME kf5.kemoticons.core)
 
 add_library(KF5Emoticons ${kemoticons_LIB_SRCS})
-generate_export_header(KF5Emoticons BASE_NAME KEmoticons)
 add_library(KF5::Emoticons ALIAS KF5Emoticons)
+ecm_generate_export_header(KF5Emoticons
+    BASE_NAME KEmoticons
+    # GROUP_BASE_NAME KF <- enable once all of KF modules use ecm_generate_export_header
+    VERSION ${KF5_VERSION}
+    DEPRECATED_BASE_VERSION 0
+    DEPRECATION_VERSIONS 5.0
+    EXCLUDE_DEPRECATED_BEFORE_AND_AT ${EXCLUDE_DEPRECATED_BEFORE_AND_AT}
+)
 
 target_include_directories(KF5Emoticons INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF5}/KEmoticons>")
 

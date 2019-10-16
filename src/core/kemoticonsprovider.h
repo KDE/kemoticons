@@ -89,13 +89,14 @@ public:
      */
     virtual bool addEmoticon(const QString &emo, const QString &text, AddEmoticonOption option = DoNotCopy) = 0;
 
+#if KEMOTICONS_ENABLE_DEPRECATED_SINCE(5, 0)
     /**
      * Saves the emoticon theme
      *
      * @deprecated since 5.0, use saveTheme() instead
      */
-#ifndef KEMOTICONS_NO_DEPRECATED
-    KEMOTICONS_DEPRECATED void save();
+    KEMOTICONS_DEPRECATED_VERSION(5, 0, "Use KEmoticonsProvider::saveTheme()")
+    void save();
 #endif
 
     /**
@@ -135,13 +136,14 @@ public:
      */
     QHash<QChar, QList<Emoticon> > emoticonsIndex() const;
 
+#if KEMOTICONS_ENABLE_DEPRECATED_SINCE(5, 0)
     /**
      * Creates a new theme
      *
      * @deprecated since 5.0, use newTheme() instead
      */
-#ifndef KEMOTICONS_NO_DEPRECATED
-    KEMOTICONS_DEPRECATED void createNew();
+    KEMOTICONS_DEPRECATED_VERSION(5, 0, "Use KEmoticonsProvider::newTheme()")
+    void createNew();
 #endif
 
     /**
@@ -190,13 +192,14 @@ protected:
      */
     void clearEmoticonsMap();
 
+#if KEMOTICONS_ENABLE_DEPRECATED_SINCE(5, 0)
     /**
      * Inserts a new item in the emoticon map
      *
      * @deprecated since 5.0, use addMapItem() instead
      */
-#ifndef KEMOTICONS_NO_DEPRECATED
-    KEMOTICONS_DEPRECATED void addEmoticonsMap(QString key, QStringList value);
+    KEMOTICONS_DEPRECATED_VERSION(5, 0, "Use KEmoticonsProvider::addMapItem(QString, QStringList)")
+    void addEmoticonsMap(QString key, QStringList value);
 #endif
 
     /**
@@ -207,13 +210,14 @@ protected:
     //FIXME kf6: use const'ref here
     void addMapItem(QString key, QStringList value);
 
+#if KEMOTICONS_ENABLE_DEPRECATED_SINCE(5, 0)
     /**
      * Removes an item from the emoticon map
      *
      * @deprecated since 5.0, use removeMapItem() instead
      */
-#ifndef KEMOTICONS_NO_DEPRECATED
-    KEMOTICONS_DEPRECATED void removeEmoticonsMap(QString key);
+    KEMOTICONS_DEPRECATED_VERSION(5, 0, "Use KEmoticonsProvider::removeMapItem(QString)")
+    void removeEmoticonsMap(QString key);
 #endif
     /**
      * Removes an item from the emoticon map
@@ -222,6 +226,7 @@ protected:
      */
     void removeMapItem(QString key);
 
+#if KEMOTICONS_ENABLE_DEPRECATED_SINCE(5, 0)
     /**
      * Adds an emoticon to the index
      * @param path path to the emoticon
@@ -229,8 +234,8 @@ protected:
      *
      * @deprecated since 5.0, use addIndexItem() instead
      */
-#ifndef KEMOTICONS_NO_DEPRECATED
-    KEMOTICONS_DEPRECATED void addEmoticonIndex(const QString &path, const QStringList &emoList);
+    KEMOTICONS_DEPRECATED_VERSION(5, 0, "Use KEmoticonsProvider::addIndexItem(const QString &, const QStringList &)")
+    void addEmoticonIndex(const QString &path, const QStringList &emoList);
 #endif
     /**
      * Adds an emoticon to the index
@@ -241,6 +246,7 @@ protected:
      */
     void addIndexItem(const QString &path, const QStringList &emoList);
 
+#if KEMOTICONS_ENABLE_DEPRECATED_SINCE(5, 0)
     /**
      * Removes an emoticon from the index
      * @param path path to the emoticon
@@ -248,8 +254,8 @@ protected:
      *
      * @deprecated since 5.0, use removeIndexItem() instead
      */
-#ifndef KEMOTICONS_NO_DEPRECATED
-    KEMOTICONS_DEPRECATED void removeEmoticonIndex(const QString &path, const QStringList &emoList);
+    KEMOTICONS_DEPRECATED_VERSION(5, 0, "Use KEmoticonsProvider::removeIndexItem(const QString &, const QStringList &)")
+    void removeEmoticonIndex(const QString &path, const QStringList &emoList);
 #endif
     /**
      * Removes an emoticon from the index

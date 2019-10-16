@@ -61,6 +61,7 @@ KEmoticonsTheme::~KEmoticonsTheme()
 {
 }
 
+#if KEMOTICONS_BUILD_DEPRECATED_SINCE(5, 0)
 bool KEmoticonsTheme::loadTheme(const QString &path)
 {
     if (!d->provider) {
@@ -69,7 +70,9 @@ bool KEmoticonsTheme::loadTheme(const QString &path)
 
     return d->provider->loadTheme(path);
 }
+#endif
 
+#if KEMOTICONS_BUILD_DEPRECATED_SINCE(5, 0)
 bool KEmoticonsTheme::removeEmoticon(const QString &emo)
 {
     if (!d->provider) {
@@ -78,7 +81,9 @@ bool KEmoticonsTheme::removeEmoticon(const QString &emo)
 
     return d->provider->removeEmoticon(emo);
 }
+#endif
 
+#if KEMOTICONS_BUILD_DEPRECATED_SINCE(5, 0)
 bool KEmoticonsTheme::addEmoticon(const QString &emo, const QString &text, KEmoticonsProvider::AddEmoticonOption option)
 {
     if (!d->provider) {
@@ -87,7 +92,9 @@ bool KEmoticonsTheme::addEmoticon(const QString &emo, const QString &text, KEmot
 
     return d->provider->addEmoticon(emo, text, option);
 }
+#endif
 
+#if KEMOTICONS_BUILD_DEPRECATED_SINCE(5, 0)
 void KEmoticonsTheme::save()
 {
     if (!d->provider) {
@@ -96,6 +103,7 @@ void KEmoticonsTheme::save()
 
     d->provider->saveTheme();
 }
+#endif
 
 QString KEmoticonsTheme::themeName() const
 {
@@ -142,6 +150,7 @@ QHash<QString, QStringList> KEmoticonsTheme::emoticonsMap() const
     return d->provider->emoticonsMap();
 }
 
+#if KEMOTICONS_BUILD_DEPRECATED_SINCE(5, 0)
 void KEmoticonsTheme::createNew()
 {
     if (!d->provider) {
@@ -150,6 +159,7 @@ void KEmoticonsTheme::createNew()
 
     d->provider->newTheme();
 }
+#endif
 
 QString KEmoticonsTheme::parseEmoticons(const QString &text, ParseMode mode, const QStringList &exclude) const
 {
