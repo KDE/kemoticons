@@ -216,11 +216,11 @@ void PidginEmoticons::newTheme()
     QTextStream out(&fp);
     out.setCodec("UTF-8");
 
-    out << QStringLiteral("Name=") + themeName() << endl;
-    out << QStringLiteral("Description=") + themeName() << endl;
-    out << "Author=" << endl;
-    out << endl;
-    out << "[default]" << endl;
+    out << QStringLiteral("Name=") + themeName() << "\n";
+    out << QStringLiteral("Description=") + themeName() << "\n";
+    out << "Author=\n";
+    out << "\n";
+    out << "[default]\n";
 
     fp.close();
 }
