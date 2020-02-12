@@ -2,7 +2,13 @@
 ########### next target ###############
 set(adiumemoticons_SRCS adium_emoticons.cpp)
 
-ecm_qt_declare_logging_category(adiumemoticons_SRCS HEADER kemoticons_plugin_adium_debug.h IDENTIFIER KEMOTICONS_PLUGIN_ADIUM CATEGORY_NAME kf5.kemoticons.plugin_adium)
+ecm_qt_declare_logging_category(adiumemoticons_SRCS
+    HEADER kemoticons_plugin_adium_debug.h
+    IDENTIFIER KEMOTICONS_PLUGIN_ADIUM
+    CATEGORY_NAME kf5.kemoticons.plugin_adium
+    DESCRIPTION "kemoticons (plugin adium)"
+    EXPORT KEMOTICONS
+)
 
 kcoreaddons_add_plugin(emoticonstheme_adium INSTALL_NAMESPACE kf5/emoticonsthemes JSON emoticonstheme_adium.json SOURCES ${adiumemoticons_SRCS})
 

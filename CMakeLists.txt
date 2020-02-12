@@ -83,7 +83,5 @@ install(FILES "${CMAKE_CURRENT_BINARY_DIR}/KF5EmoticonsConfig.cmake"
         COMPONENT Devel
        )
 
-install(FILES kemoticons.categories  DESTINATION  ${KDE_INSTALL_LOGGINGCATEGORIESDIR})
-
 feature_summary(WHAT ALL   FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
