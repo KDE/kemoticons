@@ -28,11 +28,11 @@
 #include "kemoticons_core_debug.h"
 #include <QFileSystemWatcher>
 
-#include <kpluginloader.h>
-#include <kpluginmetadata.h>
-#include <kconfiggroup.h>
-#include <ksharedconfig.h>
-#include <ktar.h>
+#include <KPluginLoader>
+#include <KPluginMetaData>
+#include <KConfigGroup>
+#include <KSharedConfig>
+#include <KTar>
 #include <kzip.h>
 
 Q_GLOBAL_STATIC(KEmoticonsGlobal, s_global)

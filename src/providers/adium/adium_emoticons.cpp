@@ -24,7 +24,7 @@
 #include <QStandardPaths>
 #include "kemoticons_plugin_adium_debug.h"
 
-#include <kpluginfactory.h>
+#include <KPluginFactory>
 
 K_PLUGIN_CLASS_WITH_JSON(AdiumEmoticons, "emoticonstheme_adium.json")
 

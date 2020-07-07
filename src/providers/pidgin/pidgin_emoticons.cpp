@@ -25,7 +25,7 @@
 #include <QFileInfo>
 #include <QStandardPaths>
 
-#include <kpluginfactory.h>
+#include <KPluginFactory>
 
 K_PLUGIN_CLASS_WITH_JSON(PidginEmoticons, "emoticonstheme_pidgin.json")
 

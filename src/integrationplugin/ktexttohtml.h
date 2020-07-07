@@ -21,7 +21,7 @@
 #define KTEXTTOHTML_INTEGRATION_H
 
 
-#include <ktexttohtmlemoticonsinterface.h>
+#include <KTextToHTMLEmoticonsInterface>
 
 class KTextToHTMLEmoticons : public KTextToHTMLEmoticonsInterface
 {

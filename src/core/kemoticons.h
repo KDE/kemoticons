@@ -24,7 +24,7 @@
 
 #include <QObject>
 
-#include <kservicetypetrader.h>
+#include <KServiceTypeTrader>
 
 class KEmoticonsPrivate;
 
