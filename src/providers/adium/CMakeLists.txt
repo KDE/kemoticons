@@ -5,7 +5,8 @@ set(adiumemoticons_SRCS adium_emoticons.cpp)
 ecm_qt_declare_logging_category(adiumemoticons_SRCS
     HEADER kemoticons_plugin_adium_debug.h
     IDENTIFIER KEMOTICONS_PLUGIN_ADIUM
-    CATEGORY_NAME kf5.kemoticons.plugin_adium
+    CATEGORY_NAME kf.emoticons.adium
+    OLD_CATEGORY_NAMES kf5.kemoticons.plugin_adium
     DESCRIPTION "kemoticons (plugin adium)"
     EXPORT KEMOTICONS
 )

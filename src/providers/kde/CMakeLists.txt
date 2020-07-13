@@ -5,7 +5,8 @@ set(kdeemoticons_SRCS kde_emoticons.cpp)
 ecm_qt_declare_logging_category(kdeemoticons_SRCS
     HEADER kemoticons_plugin_kde_debug.h
     IDENTIFIER KEMOTICONS_PLUGIN_KDE
-    CATEGORY_NAME kf5.kemoticons.plugin_kde
+    CATEGORY_NAME kf.emoticons.kde
+    OLD_CATEGORY_NAMES kf5.kemoticons.plugin_kde
     DESCRIPTION "kemoticons (plugin kde)"
     EXPORT KEMOTICONS
 )

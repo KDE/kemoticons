@@ -10,7 +10,8 @@ set(kemoticons_LIB_SRCS
 ecm_qt_declare_logging_category(kemoticons_LIB_SRCS
     HEADER kemoticons_core_debug.h
     IDENTIFIER KEMOTICONS_CORE
-    CATEGORY_NAME kf5.kemoticons.core
+    CATEGORY_NAME kf.emoticons
+    OLD_CATEGORY_NAMES kf5.kemoticons.core
     DESCRIPTION "kemoticons core"
     EXPORT KEMOTICONS
 )

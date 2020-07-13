@@ -5,7 +5,8 @@ set(pidginemoticons_SRCS pidgin_emoticons.cpp)
 ecm_qt_declare_logging_category(pidginemoticons_SRCS
     HEADER kemoticons_plugin_pidgin_debug.h
     IDENTIFIER KEMOTICONS_PLUGIN_PIDGIN
-    CATEGORY_NAME kf5.kemoticons.plugin_pidgin
+    CATEGORY_NAME kf.emoticons.pidgin
+    OLD_CATEGORY_NAMES kf5.kemoticons.plugin_pidgin
     DESCRIPTION "kemoticons (plugin pidgin)"
     EXPORT KEMOTICONS
 )

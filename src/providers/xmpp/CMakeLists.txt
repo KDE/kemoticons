@@ -5,7 +5,8 @@ set(xmppemoticons_SRCS xmpp_emoticons.cpp)
 ecm_qt_declare_logging_category(xmppemoticons_SRCS
     HEADER kemoticons_plugin_xmpp_debug.h
     IDENTIFIER KEMOTICONS_PLUGIN_XMPP
-    CATEGORY_NAME kf5.kemoticons.plugin_xmpp
+    CATEGORY_NAME kf.emoticons.xmpp
+    OLD_CATEGORY_NAMES kf5.kemoticons.plugin_xmpp
     DESCRIPTION "kemoticons (plugin xmpp)"
     EXPORT KEMOTICONS
 )
