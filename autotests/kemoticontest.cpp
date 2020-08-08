@@ -1,20 +1,12 @@
 /*
     Tests for Kopete::Message::parseEmoticons
 
-    Copyright (c) 2004      by Richard Smith          <kde@metafoo.co.uk>
-    Copyright (c) 2005      by Duncan Mac-Vicar       <duncan@kde.org>
-    Copyright (c) 2014      by Alex Merry             <alex.merry@kde.org>
+    SPDX-FileCopyrightText: 2002-2005 The Kopete developers <kopete-devel@kde.org>
+    SPDX-FileCopyrightText: 2004 Richard Smith <kde@metafoo.co.uk>
+    SPDX-FileCopyrightText: 2005 Duncan Mac-Vicar <duncan@kde.org>
+    SPDX-FileCopyrightText: 2014 Alex Merry <alex.merry@kde.org>
 
-    Kopete    (c) 2002-2005 by the Kopete developers  <kopete-devel@kde.org>
-
-    *************************************************************************
-    *                                                                       *
-    * This program is free software; you can redistribute it and/or modify  *
-    * it under the terms of the GNU General Public License as published by  *
-    * the Free Software Foundation; either version 2 of the License, or     *
-    * (at your option) any later version.                                   *
-    *                                                                       *
-    *************************************************************************
+    SPDX-License-Identifier: GPL-2.0-or-later
 */
 
 #include "autotestbase.h"
