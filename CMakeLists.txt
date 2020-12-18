@@ -12,7 +12,7 @@ feature_summary(WHAT REQUIRED_PACKAGES_NOT_FOUND FATAL_ON_MISSING_REQUIRED_PACKA
 
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
-set(REQUIRED_QT_VERSION 5.13.0)
+set(REQUIRED_QT_VERSION 5.14.0)
 find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Gui DBus)
 
 include(KDEInstallDirs)
@@ -47,7 +47,7 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kemoticons_version.h
 
 # the strings throughout this library are used to search ressources
 # so they don't need translations
-add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050d00)
+add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050e00)
 add_definitions(-DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x054B00)
 add_definitions(-DQT_NO_FOREACH)
 add_subdirectory(src)
