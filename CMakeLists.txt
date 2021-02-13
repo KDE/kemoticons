@@ -48,7 +48,7 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kemoticons_version.h
 # the strings throughout this library are used to search ressources
 # so they don't need translations
 add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050e00)
-add_definitions(-DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x054B00)
+add_definitions(-DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x054F00)
 add_definitions(-DQT_NO_FOREACH)
 add_subdirectory(src)
 add_subdirectory(themes)
