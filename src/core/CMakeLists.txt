@@ -39,7 +39,7 @@ PRIVATE
 )
 
 set_target_properties(KF5Emoticons PROPERTIES
-                      VERSION ${KEMOTICONS_VERSION_STRING}
+                      VERSION ${KEMOTICONS_VERSION}
                       SOVERSION ${KEMOTICONS_SOVERSION}
                       EXPORT_NAME Emoticons
 )
