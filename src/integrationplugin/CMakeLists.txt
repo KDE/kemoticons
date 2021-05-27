@@ -1,9 +1,9 @@
-set(KEmoticonsIntegrationPlugin_SRCS
+add_library(KEmoticonsIntegrationPlugin MODULE)
+
+target_sources(KEmoticonsIntegrationPlugin PRIVATE
     kemoticonsintegrationplugin.cpp
     ktexttohtml.cpp
 )
-
-add_library(KEmoticonsIntegrationPlugin MODULE ${KEmoticonsIntegrationPlugin_SRCS})
 
 target_link_libraries(KEmoticonsIntegrationPlugin
     PRIVATE

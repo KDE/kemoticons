@@ -1,13 +1,14 @@
-############# kemoticons library ###################
+add_library(KF5Emoticons)
+add_library(KF5::Emoticons ALIAS KF5Emoticons)
 
-set(kemoticons_LIB_SRCS
+target_sources(KF5Emoticons PRIVATE
     kemoticons.cpp
     kemoticonstheme.cpp
     kemoticonsprovider.cpp
     kemoticonsglobal.cpp
 )
 
-ecm_qt_declare_logging_category(kemoticons_LIB_SRCS
+ecm_qt_declare_logging_category(KF5Emoticons
     HEADER kemoticons_core_debug.h
     IDENTIFIER KEMOTICONS_CORE
     CATEGORY_NAME kf.emoticons
@@ -16,8 +17,6 @@ ecm_qt_declare_logging_category(kemoticons_LIB_SRCS
     EXPORT KEMOTICONS
 )
 
-add_library(KF5Emoticons ${kemoticons_LIB_SRCS})
-add_library(KF5::Emoticons ALIAS KF5Emoticons)
 ecm_generate_export_header(KF5Emoticons
     BASE_NAME KEmoticons
     GROUP_BASE_NAME KF

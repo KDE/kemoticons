@@ -1,8 +1,11 @@
+kcoreaddons_add_plugin(emoticonstheme_kde
+    INSTALL_NAMESPACE kf5/emoticonsthemes
+    JSON emoticonstheme_kde.json
+)
 
-########### next target ###############
-set(kdeemoticons_SRCS kde_emoticons.cpp)
+target_sources(emoticonstheme_kde PRIVATE kde_emoticons.cpp)
 
-ecm_qt_declare_logging_category(kdeemoticons_SRCS
+ecm_qt_declare_logging_category(emoticonstheme_kde
     HEADER kemoticons_plugin_kde_debug.h
     IDENTIFIER KEMOTICONS_PLUGIN_KDE
     CATEGORY_NAME kf.emoticons.kde
@@ -10,8 +13,6 @@ ecm_qt_declare_logging_category(kdeemoticons_SRCS
     DESCRIPTION "kemoticons (plugin kde)"
     EXPORT KEMOTICONS
 )
-
-kcoreaddons_add_plugin(emoticonstheme_kde INSTALL_NAMESPACE kf5/emoticonsthemes JSON emoticonstheme_kde.json SOURCES ${kdeemoticons_SRCS})
 
 find_package(Qt5Xml REQUIRED)
 target_link_libraries(emoticonstheme_kde

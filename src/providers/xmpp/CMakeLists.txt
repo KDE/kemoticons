@@ -1,8 +1,11 @@
+kcoreaddons_add_plugin(emoticonstheme_xmpp
+    INSTALL_NAMESPACE kf5/emoticonsthemes
+    JSON emoticonstheme_xmpp.json
+)
 
-########### next target ###############
-set(xmppemoticons_SRCS xmpp_emoticons.cpp)
+target_sources(emoticonstheme_xmpp PRIVATE xmpp_emoticons.cpp)
 
-ecm_qt_declare_logging_category(xmppemoticons_SRCS
+ecm_qt_declare_logging_category(emoticonstheme_xmpp
     HEADER kemoticons_plugin_xmpp_debug.h
     IDENTIFIER KEMOTICONS_PLUGIN_XMPP
     CATEGORY_NAME kf.emoticons.xmpp
@@ -11,7 +14,6 @@ ecm_qt_declare_logging_category(xmppemoticons_SRCS
     EXPORT KEMOTICONS
 )
 
-kcoreaddons_add_plugin(emoticonstheme_xmpp INSTALL_NAMESPACE kf5/emoticonsthemes JSON emoticonstheme_xmpp.json SOURCES ${xmppemoticons_SRCS})
 
 find_package(Qt5Xml REQUIRED)
 target_link_libraries(emoticonstheme_xmpp

@@ -1,8 +1,11 @@
+kcoreaddons_add_plugin(emoticonstheme_pidgin
+    INSTALL_NAMESPACE kf5/emoticonsthemes
+    JSON emoticonstheme_pidgin.json
+)
 
-########### next target ###############
-set(pidginemoticons_SRCS pidgin_emoticons.cpp)
+target_sources(emoticonstheme_pidgin PRIVATE pidgin_emoticons.cpp)
 
-ecm_qt_declare_logging_category(pidginemoticons_SRCS
+ecm_qt_declare_logging_category(emoticonstheme_pidgin
     HEADER kemoticons_plugin_pidgin_debug.h
     IDENTIFIER KEMOTICONS_PLUGIN_PIDGIN
     CATEGORY_NAME kf.emoticons.pidgin
@@ -10,8 +13,6 @@ ecm_qt_declare_logging_category(pidginemoticons_SRCS
     DESCRIPTION "kemoticons (plugin pidgin)"
     EXPORT KEMOTICONS
 )
-
-kcoreaddons_add_plugin(emoticonstheme_pidgin INSTALL_NAMESPACE kf5/emoticonsthemes JSON emoticonstheme_pidgin.json SOURCES ${pidginemoticons_SRCS})
 
 target_link_libraries(emoticonstheme_pidgin PRIVATE KF5::Emoticons)
 
