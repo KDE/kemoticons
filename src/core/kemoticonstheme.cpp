@@ -236,7 +236,7 @@ QList<KEmoticonsTheme::Token> KEmoticonsTheme::tokenize(const QString &message, 
                     if (p == QLatin1Char('a')) {
                         inHTMLLink = false;
                     }
-                } else if (c == QLatin1Char('a') && p == QLatin1Char('<')) { // check if we just entered an achor tag
+                } else if (c == QLatin1Char('a') && p == QLatin1Char('<')) { // check if we just entered an anchor tag
                     inHTMLLink = true; // don't put smileys in urls
                 }
                 p = c;
@@ -299,7 +299,7 @@ QList<KEmoticonsTheme::Token> KEmoticonsTheme::tokenize(const QString &message, 
 
             if (!found) {
                 if (inHTMLEntity) {
-                    // If we are in an HTML entitiy such as &gt;
+                    // If we are in an HTML entity such as &gt;
                     const int htmlEnd = message.indexOf(QLatin1Char(';'), pos);
                     // Search for where it ends
                     if (htmlEnd == -1) {

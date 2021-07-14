@@ -102,7 +102,7 @@ private Q_SLOTS:
         QFile inputFile(inputFileName);
         QFile expectedFile(outputFileName);
         if (! expectedFile.exists()) {
-            QSKIP("Warning! expected output for testcase not found. Skiping testcase");
+            QSKIP("Warning! expected output for testcase not found. Skipping testcase");
         } else if (inputFile.open(QIODevice::ReadOnly) && expectedFile.open(QIODevice::ReadOnly)) {
             const QString inputData = QString::fromLatin1(inputFile.readAll().constData());
             const QString expectedData = QString::fromLatin1(expectedFile.readAll().constData());
@@ -121,7 +121,7 @@ private Q_SLOTS:
                 QCOMPARE(result, expectedData);
             }
         } else {
-            QSKIP("Warning! can't open testcase files. Skiping testcase");
+            QSKIP("Warning! can't open testcase files. Skipping testcase");
         }
     }
 
