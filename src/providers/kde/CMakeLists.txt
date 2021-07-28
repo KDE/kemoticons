@@ -1,6 +1,5 @@
 kcoreaddons_add_plugin(emoticonstheme_kde
     INSTALL_NAMESPACE kf5/emoticonsthemes
-    JSON emoticonstheme_kde.json
 )
 
 target_sources(emoticonstheme_kde PRIVATE kde_emoticons.cpp)

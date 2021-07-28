@@ -1,6 +1,5 @@
 kcoreaddons_add_plugin(emoticonstheme_xmpp
     INSTALL_NAMESPACE kf5/emoticonsthemes
-    JSON emoticonstheme_xmpp.json
 )
 
 target_sources(emoticonstheme_xmpp PRIVATE xmpp_emoticons.cpp)

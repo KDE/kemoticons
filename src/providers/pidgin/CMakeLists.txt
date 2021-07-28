@@ -1,6 +1,5 @@
 kcoreaddons_add_plugin(emoticonstheme_pidgin
     INSTALL_NAMESPACE kf5/emoticonsthemes
-    JSON emoticonstheme_pidgin.json
 )
 
 target_sources(emoticonstheme_pidgin PRIVATE pidgin_emoticons.cpp)

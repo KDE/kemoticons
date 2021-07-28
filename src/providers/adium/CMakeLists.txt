@@ -1,6 +1,5 @@
 kcoreaddons_add_plugin(emoticonstheme_adium
     INSTALL_NAMESPACE kf5/emoticonsthemes
-    JSON emoticonstheme_adium.json
 )
 
 target_sources(emoticonstheme_adium PRIVATE adium_emoticons.cpp)
