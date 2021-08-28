@@ -117,7 +117,7 @@ KEmoticonsTheme KEmoticonsPrivate::loadTheme(const QString &name)
         return theme;
     };
 
-    for (const KPluginMetaData &plugin : qAsConst(m_plugins)) {
+    for (const KPluginMetaData &plugin : std::as_const(m_plugins)) {
         const QString fName = plugin.rawData().value(QStringLiteral("X-KDE-EmoticonsFileName")).toString();
         const QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("emoticons/") + name + QLatin1Char('/') + fName);
 
@@ -129,7 +129,7 @@ KEmoticonsTheme KEmoticonsPrivate::loadTheme(const QString &name)
         }
     }
     // KF6: remove support for old plugins
-    for (const KService::Ptr &service : qAsConst(m_oldStylePlugins)) {
+    for (const KService::Ptr &service : std::as_const(m_oldStylePlugins)) {
         const QString fName = service->property(QStringLiteral("X-KDE-EmoticonsFileName")).toString();
         const QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("emoticons/") + name + QLatin1Char('/') + fName);
 
@@ -275,13 +275,13 @@ QStringList KEmoticons::installTheme(const QString &archiveName)
         if (currentEntry->isDirectory()) {
             currentDir = dynamic_cast<const KArchiveDirectory *>(currentEntry);
 
-            for (const KPluginMetaData &plugin : qAsConst(d->m_plugins)) {
+            for (const KPluginMetaData &plugin : std::as_const(d->m_plugins)) {
                 const QString fName = plugin.rawData().value(QStringLiteral("X-KDE-EmoticonsFileName")).toString();
                 if (currentDir && currentDir->entry(fName) != nullptr) {
                     foundThemes.append(currentDir->name());
                 }
             }
-            for (const KService::Ptr &service : qAsConst(d->m_oldStylePlugins)) {
+            for (const KService::Ptr &service : std::as_const(d->m_oldStylePlugins)) {
                 const QString fName = service->property(QStringLiteral("X-KDE-EmoticonsFileName")).toString();
                 if (currentDir && currentDir->entry(fName) != nullptr) {
                     foundThemes.append(currentDir->name());
