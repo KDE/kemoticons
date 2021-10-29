@@ -51,7 +51,7 @@ public:
     /**
      * Destructor
      */
-    virtual ~KEmoticonsProvider();
+    ~KEmoticonsProvider() override;
 
     /**
      * Loads the emoticon theme inside the directory @p path

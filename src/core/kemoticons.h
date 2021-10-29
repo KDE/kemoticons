@@ -41,7 +41,7 @@ public:
     /**
      * Destructor
      */
-    ~KEmoticons();
+    ~KEmoticons() override;
 
     /**
      * Retrieves the current emoticon theme
