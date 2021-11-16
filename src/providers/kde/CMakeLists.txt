@@ -2,7 +2,7 @@ kcoreaddons_add_plugin(emoticonstheme_kde
     INSTALL_NAMESPACE kf5/emoticonsthemes
 )
 
-target_sources(emoticonstheme_kde PRIVATE kde_emoticons.cpp)
+target_sources(emoticonstheme_kde PRIVATE kde_emoticons.cpp kde_emoticons.h)
 
 ecm_qt_declare_logging_category(emoticonstheme_kde
     HEADER kemoticons_plugin_kde_debug.h

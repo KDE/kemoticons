@@ -3,9 +3,13 @@ add_library(KF5::Emoticons ALIAS KF5Emoticons)
 
 target_sources(KF5Emoticons PRIVATE
     kemoticons.cpp
-    kemoticonstheme.cpp
-    kemoticonsprovider.cpp
     kemoticonsglobal.cpp
+    kemoticonsglobal_p.h
+    kemoticons.h
+    kemoticonsprovider.cpp
+    kemoticonsprovider.h
+    kemoticonstheme.cpp
+    kemoticonstheme.h
 )
 
 ecm_qt_declare_logging_category(KF5Emoticons

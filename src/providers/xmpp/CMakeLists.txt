@@ -2,7 +2,7 @@ kcoreaddons_add_plugin(emoticonstheme_xmpp
     INSTALL_NAMESPACE kf5/emoticonsthemes
 )
 
-target_sources(emoticonstheme_xmpp PRIVATE xmpp_emoticons.cpp)
+target_sources(emoticonstheme_xmpp PRIVATE xmpp_emoticons.cpp xmpp_emoticons.h)
 
 ecm_qt_declare_logging_category(emoticonstheme_xmpp
     HEADER kemoticons_plugin_xmpp_debug.h

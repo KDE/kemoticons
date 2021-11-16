@@ -2,7 +2,7 @@ kcoreaddons_add_plugin(emoticonstheme_adium
     INSTALL_NAMESPACE kf5/emoticonsthemes
 )
 
-target_sources(emoticonstheme_adium PRIVATE adium_emoticons.cpp)
+target_sources(emoticonstheme_adium PRIVATE adium_emoticons.cpp adium_emoticons.h)
 
 ecm_qt_declare_logging_category(emoticonstheme_adium
     HEADER kemoticons_plugin_adium_debug.h

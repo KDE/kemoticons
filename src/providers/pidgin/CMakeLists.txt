@@ -2,7 +2,7 @@ kcoreaddons_add_plugin(emoticonstheme_pidgin
     INSTALL_NAMESPACE kf5/emoticonsthemes
 )
 
-target_sources(emoticonstheme_pidgin PRIVATE pidgin_emoticons.cpp)
+target_sources(emoticonstheme_pidgin PRIVATE pidgin_emoticons.cpp pidgin_emoticons.h)
 
 ecm_qt_declare_logging_category(emoticonstheme_pidgin
     HEADER kemoticons_plugin_pidgin_debug.h

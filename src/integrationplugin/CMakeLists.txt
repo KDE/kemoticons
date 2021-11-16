@@ -2,7 +2,9 @@ add_library(KEmoticonsIntegrationPlugin MODULE)
 
 target_sources(KEmoticonsIntegrationPlugin PRIVATE
     kemoticonsintegrationplugin.cpp
+    kemoticonsintegrationplugin.h
     ktexttohtml.cpp
+    ktexttohtml.h
 )
 
 target_link_libraries(KEmoticonsIntegrationPlugin
