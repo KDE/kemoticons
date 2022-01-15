@@ -42,7 +42,7 @@ find_package(KF5Service ${KF_DEP_VERSION} REQUIRED)
 find_package(KF5CoreAddons ${KF_DEP_VERSION} REQUIRED)
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kemoticons_version.h
-        DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5} COMPONENT Devel )
+        DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/KEmoticons COMPONENT Devel )
 
 
 # the strings throughout this library are used to search resources
