@@ -25,6 +25,7 @@ include(ECMGenerateHeaders)
 include(ECMAddQch)
 include(CMakePackageConfigHelpers)
 include(ECMQtDeclareLoggingCategory)
+include(ECMDeprecationSettings)
 
 set(EXCLUDE_DEPRECATED_BEFORE_AND_AT 0 CACHE STRING "Control the range of deprecated API excluded from the build [default=0].")
 
@@ -47,8 +48,13 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kemoticons_version.h
 
 # the strings throughout this library are used to search resources
 # so they don't need translations
-add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050f02)
-add_definitions(-DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x055100)
+ecm_set_disabled_deprecation_versions(
+    QT 5.15.2
+    KF 5.95
+    KCOREADDONS 5.85 # KPluginLoader, KPluginMetaData::instantiate
+    KSERVICE 5.89 # KServiceTypeTrader
+)
+
 add_subdirectory(src)
 add_subdirectory(themes)
 if (BUILD_TESTING)
