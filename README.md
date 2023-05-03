@@ -2,9 +2,4 @@
 
 Convert text emoticons to graphical emoticons
 
-## Introduction
-
-KEmoticons converts emoticons from text to a graphical representation with
-images in HTML. It supports setting different themes for emoticons coming
-from different providers.
-
+Removed for KF6, the 'kf5' branch contains the last maintained state.

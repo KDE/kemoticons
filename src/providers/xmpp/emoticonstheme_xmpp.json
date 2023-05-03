@@ -1,8 +1,0 @@
-{
-    "KPlugin": {
-        "ServiceTypes": [ "KEmoticons" ]
-    },
-    "X-KDE-Priority": 9,
-    "X-KDE-EmoticonsFileName": "icondef.xml"
-}
-
