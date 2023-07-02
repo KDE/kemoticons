@@ -199,4 +199,4 @@ void KdeEmoticons::newTheme()
 }
 
 #include "kde_emoticons.moc"
-
+#include "moc_kde_emoticons.cpp"

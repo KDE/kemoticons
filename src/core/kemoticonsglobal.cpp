@@ -68,3 +68,5 @@ void KEmoticonsGlobal::slotEmoticonsParseModeChanged(int mode)
 {
     m_parseMode = static_cast<KEmoticonsTheme::ParseMode>(mode);
 }
+
+#include "moc_kemoticonsglobal_p.cpp"

@@ -207,5 +207,5 @@ void XmppEmoticons::newTheme()
     fp.close();
 }
 
+#include "moc_xmpp_emoticons.cpp"
 #include "xmpp_emoticons.moc"
-

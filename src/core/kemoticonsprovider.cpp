@@ -204,3 +204,5 @@ QSize KEmoticonsProvider::preferredEmoticonSize() const
 {
     return d->m_preferredSize;
 }
+
+#include "moc_kemoticonsprovider.cpp"

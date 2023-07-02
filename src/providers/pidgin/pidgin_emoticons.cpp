@@ -213,5 +213,5 @@ void PidginEmoticons::newTheme()
     fp.close();
 }
 
+#include "moc_pidgin_emoticons.cpp"
 #include "pidgin_emoticons.moc"
-

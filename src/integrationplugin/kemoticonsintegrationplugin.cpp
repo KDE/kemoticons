@@ -14,3 +14,4 @@ KEmoticonsIntegrationPlugin::KEmoticonsIntegrationPlugin()
     setProperty(KTEXTTOHTMLEMOTICONS_PROPERTY, QVariant::fromValue<KTextToHTMLEmoticonsInterface *>(&mTextToHTMLEmoticons));
 }
 
+#include "moc_kemoticonsintegrationplugin.cpp"

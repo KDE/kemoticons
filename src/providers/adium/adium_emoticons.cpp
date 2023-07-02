@@ -231,4 +231,4 @@ void AdiumEmoticons::newTheme()
 }
 
 #include "adium_emoticons.moc"
-
+#include "moc_adium_emoticons.cpp"
